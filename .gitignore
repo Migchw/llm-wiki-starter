@@ -1,0 +1,14 @@
+# Obsidian — personal workspace state, regenerated on first open
+.obsidian/
+
+# Claude Code — machine-specific, never shared
+.claude/settings.local.json
+
+# Python
+__pycache__/
+*.pyc
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini

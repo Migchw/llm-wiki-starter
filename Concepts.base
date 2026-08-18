@@ -1,0 +1,11 @@
+views:
+  - type: table
+    name: Table
+    filters:
+      and:
+        - file.folder == "02-Wiki/Concepts"
+    order:
+      - file.name
+      - author
+      - file.tags
+      - file.folder

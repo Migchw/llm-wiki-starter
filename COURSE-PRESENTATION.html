@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Setup LLM Wiki สำหรับมือใหม่สายลงทุน</title>
+<style>
+:root{--ink:#eef4ff;--muted:#adc0da;--bg:#0b1020;--card:#141d33;--accent:#7ce1c3;--line:#2c3d5e}*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#091120,#121b34);color:var(--ink);font:clamp(18px,2vw,27px)/1.48 system-ui,-apple-system,"Segoe UI",sans-serif}.slide{min-height:100vh;padding:8vh 10vw;display:none;flex-direction:column;justify-content:center}.slide.active{display:flex}h1{font-size:clamp(42px,6vw,88px);line-height:1.08;margin:0 0 .5em}h2{font-size:clamp(30px,4vw,56px);line-height:1.15;margin:0 0 .6em;color:var(--accent)}p,li{max-width:1100px}ul,ol{padding-left:1.2em}li{margin:.35em 0}.kicker{color:var(--accent);letter-spacing:.09em;text-transform:uppercase;font-size:.65em}.muted{color:var(--muted)}pre{background:#07101f;border:1px solid var(--line);border-radius:12px;padding:.8em;font-size:.68em;white-space:pre-wrap}table{border-collapse:collapse;width:100%;font-size:.72em}td,th{border:1px solid var(--line);padding:.55em;text-align:left;vertical-align:top}th{color:var(--accent)}.flow{display:flex;gap:.45em;align-items:center;flex-wrap:wrap}.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:.75em;text-align:center}.arrow{color:var(--accent)}.nav{position:fixed;right:24px;bottom:22px;display:flex;gap:10px;align-items:center;color:var(--muted);font-size:15px}.nav button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:8px 12px;cursor:pointer}@media print{.slide{display:flex!important;page-break-after:always}.nav{display:none}}
+</style>
+</head>
+<body>
+<section class="slide active"><div class="kicker">Course presentation</div><h1>Setup LLM Wiki<br>สำหรับมือใหม่สายลงทุน</h1><p class="muted">สร้าง Second Brain ที่คนและ AI ใช้ร่วมกันได้ — มีหลักฐาน, ตรวจย้อนกลับได้, และเติบโตทีละ source</p></section>
+<section class="slide"><h2>Second Brain ไม่ใช่ที่เก็บโน้ต</h2><p>มันคือระบบภายนอกที่ช่วยเก็บหลักฐาน, เชื่อมการคิดข้ามเวลา, และส่ง context ที่ไว้ใจได้ให้ AI ช่วยทำงานต่อ</p><ul><li>จำว่าเรารู้อะไร และรู้มาจากไหน</li><li>ทบทวน thesis เมื่อหลักฐานใหม่เข้ามา</li><li>ลดการเริ่ม research จากศูนย์ทุกครั้ง</li></ul></section>
+<section class="slide"><h2>คำพื้นฐาน 5 คำ</h2><table><tr><th>คำ</th><th>ความหมาย</th></tr><tr><td>Markdown</td><td>plain text มีหัวข้อ/รายการ/ลิงก์ ที่คนและ AI อ่านได้</td></tr><tr><td>Source</td><td>หลักฐานต้นทาง ไม่ใช่คำตอบของ AI</td></tr><tr><td>Schema</td><td>กติกากลาง: ข้อมูลชนิดใดอยู่ไหนและต้องมีอะไร</td></tr><tr><td>Wikilink</td><td>ลิงก์ภายใน <code>[[ชื่อโน้ต]]</code></td></tr><tr><td>Agent</td><td>บทบาท+คำสั่งเฉพาะ ไม่ใช่ฐานความรู้</td></tr></table></section>
+<section class="slide"><h2>สถาปัตยกรรมจริงของโปรเจค</h2><div class="flow"><div class="box">Internet / PDF / Video</div><span class="arrow">→</span><div class="box">01-Raw<br><small>evidence</small></div><span class="arrow">→</span><div class="box">Source note<br><small>claim table</small></div><span class="arrow">→</span><div class="box">Quality gates</div><span class="arrow">→</span><div class="box">Concept / Thesis</div><span class="arrow">→</span><div class="box">Index / Retrieval</div></div><p class="muted">Schema คุมทุกชั้น · Logs เก็บร่องรอย · Scripts ตรวจสิ่งที่ถูก/ผิดชัดเจน</p></section>
+<section class="slide"><h2>Folder structure ที่ใช้งานจริง</h2><pre>01-Raw/       article · video · filing · book · dataset · inbox
+02-Wiki/      Sources · Concepts · Entities · Theses · Synthesis
+03-Logs/      activity trail / decisions
+04-Schema/    templates · workflow · agent contract
+05-Index/     Home และ topic maps
+06-Assets/    รูปและไฟล์แนบ
+Scripts/      lint · catalog · conversion (เพิ่มเมื่อจำเป็น)
+AGENTS.md     สัญญาการทำงานของ AI</pre></section>
+<section class="slide"><h2>YAML Frontmatter = ป้ายข้อมูลของโน้ต</h2><pre>---
+type: source-note
+status: draft
+sources: ["[[raw-20260813-earnings-call]]"]
+confidence: medium
+verification: pending
+tags: [thai-stock, earnings]
+---</pre><p>Schema ไม่ทำให้ AI ฉลาดขึ้นเอง แต่ลดการเดา: รู้ว่าโน้ตเป็นอะไร, อยู่ขั้นไหน, อ้างอะไร และยังต้องทำอะไร</p></section>
+<section class="slide"><h2>Links, backlinks และ Knowledge Graph</h2><pre>[[source-company-call]] → [[operating-leverage]] → [[thesis-company-a]]</pre><p>Graph คือภาพของ notes และ wikilinks. มันมีค่าเมื่อ link ระบุความสัมพันธ์จริง เช่น source สนับสนุน concept—not when every note links to everything.</p><p class="muted">Backlink ช่วยย้อนถามว่า “ใครใช้ข้อมูลนี้อยู่?”</p></section>
+<section class="slide"><h2>Workflow 1 source</h2><ol><li>Ingest: Raw + URL/date/conversion method</li><li>Distill: Source note แยก fact / interpretation / question</li><li>Verify: ตัวเลขหรือ quote ที่เปลี่ยน thesis → primary source</li><li>Synthesize: concept/entity/thesis ที่ใช้ซ้ำได้</li><li>Link, update Index และ append Log</li></ol></section>
+<section class="slide"><h2>Sub-agents จาก vault เดิม: อะไรควรใช้ก่อน</h2><table><tr><th>Agent</th><th>เวลาเริ่ม</th><th>หน้าที่</th></tr><tr><td>René</td><td>มี video เป็น source</td><td>transcript + metadata ลง Raw</td></tr><tr><td>Feynman</td><td>Week 2</td><td>ตรวจตัวเลข/quote กับ primary sources</td></tr><tr><td>Aristotle</td><td>เริ่มมี thesis</td><td>ตรวจ logic, bear case, narrative</td></tr><tr><td>Darwin</td><td>15–20 source notes</td><td>สกัด concepts ที่ใช้ซ้ำได้</td></tr><tr><td>Munger</td><td>Advanced</td><td>paper portfolio แยกจากเงินจริง</td></tr></table></section>
+<section class="slide"><h2>Scripts และ Python libraries</h2><table><tr><th>สิ่งที่ทำ</th><th>ใช้ library</th><th>เมื่อใด</th></tr><tr><td>lint links/frontmatter + catalog</td><td>pathlib, re, json</td><td>links มากกว่า ~30</td></tr><tr><td>convert documents</td><td>markitdown</td><td>PDF/DOCX/PPTX/XLSX</td></tr><tr><td>video transcript</td><td>youtube-transcript-api</td><td>video workflow</td></tr><tr><td>properties validation</td><td>PyYAML / python-frontmatter</td><td>schema หลาย note types</td></tr><tr><td>SET/data MCP</td><td>FastMCP, httpx, pandas, bs4</td><td>มี data connector ของตนเอง</td></tr></table></section>
+<section class="slide"><h2>MarkItDown ใช้เมื่อไหร่?</h2><p>ใช้แปลง PDF/DOCX/PPTX/XLSX/HTML เป็น Markdown เพื่อค้นและให้ LLM อ่าน</p><p><strong>ไม่ใช่ fact-checker:</strong> PDF scan, ตาราง, multi-column และ footnote อาจเพี้ยน ต้องเก็บต้นฉบับและตรวจตัวเลขสำคัญเสมอ</p></section>
+<section class="slide"><h2>คุยกับ AI ให้ช่วยได้ดีขึ้น</h2><p>Prompt ทุกงานควรบอก: <strong>Context + Role + Scope + Evidence policy + Output</strong></p><pre>อ่าน AGENTS.md, Home และ [[source-x]]
+Role: Feynman fact auditor
+Scope: ตรวจตัวเลขใน [[thesis-company-a]] เท่านั้น
+Evidence: primary source; ตรวจไม่ได้ให้ flag pending ห้ามเดา
+Output: claim | source/location | verdict | correction needed
+ห้ามแก้ Raw หรือ thesis ต้นฉบับ</pre></section>
+<section class="slide"><h2>แผนติดตั้งที่แนะนำ</h2><ol><li>Week 1: ทำ 5 sources ด้วยมือ + templates</li><li>Week 2: René (ถ้าจำเป็น) + Feynman</li><li>Week 3–4: Aristotle + Librarian + lint/catalog</li><li>หลังมี 15–20 source notes: Darwin</li><li>หลังมีระบบ paper portfolio แยกชัด: Munger</li></ol><p class="muted">ระบบที่ดีไม่ใช่ระบบที่มี agent มากที่สุด แต่เป็นระบบที่ทุกข้อสรุปย้อนกลับหา evidence ได้</p></section>
+<div class="nav"><button onclick="go(-1)">←</button><span id="count"></span><button onclick="go(1)">→</button></div>
+<script>const s=[...document.querySelectorAll('.slide')];let i=0;function render(){s.forEach((x,n)=>x.classList.toggle('active',n===i));document.getElementById('count').textContent=`${i+1} / ${s.length}`}function go(n){i=(i+n+s.length)%s.length;render()}addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key))go(1);if(['ArrowLeft','PageUp'].includes(e.key))go(-1)});render();</script>
+</body>
+</html>
