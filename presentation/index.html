@@ -315,14 +315,17 @@ tags: [thai-stock, earnings]
   <h2>ใครทำอะไรในทีม AI ของ vault นี้</h2>
   <table class="cmp">
     <tr><th>Agent</th><th>หน้าที่</th><th>ผลลัพธ์</th></tr>
-    <tr><td>René (Ingestor)</td><td>นำเข้า/แปลง/ใส่ metadata ห้ามสรุปหรือแต่งเติม</td><td>ไฟล์ใน 01-Raw</td></tr>
+    <tr><td>Munger (orchestrator)</td><td>คุม session หลัก แจกงานให้ agent ที่ถูกต้อง ไม่ทำงานเฉพาะทางเอง</td><td>checklist ความคืบหน้า</td></tr>
+    <tr><td>Peter Lynch</td><td>หา + verify source จริงของ ticker เปิดลิงก์เองทุกอัน</td><td>01-Raw/inbox, Ingest Queue</td></tr>
+    <tr><td>Ingest Runner</td><td>รัน pipeline ingest ให้ครบ 1 source ต่อครั้ง</td><td>สั่งงาน agent ด้านล่างต่อ</td></tr>
+    <tr><td>René</td><td>นำเข้า/แปลง transcript วิดีโอ ห้ามสรุปหรือแต่งเติม</td><td>01-Raw/video</td></tr>
     <tr><td>Researcher</td><td>เขียน source note + claim table</td><td>02-Wiki/Sources</td></tr>
-    <tr><td>Feynman (Auditor)</td><td>ตรวจตัวเลข/วันที่กับ primary source</td><td>สถานะ verified/pending</td></tr>
-    <tr><td>Reviewer (Critic)</td><td>หาช่องโหว่ตรรกะและ bear case</td><td>ข้อโต้แย้ง/ความเสี่ยง</td></tr>
-    <tr><td>Darwin (Synthesizer)</td><td>กลั่นเป็น mental model ที่ผ่านเกณฑ์ 3 ข้อ</td><td>02-Wiki/Concepts</td></tr>
-    <tr><td>Librarian</td><td>ดูแลลิงก์ ดัชนี ไม่ให้มี broken link</td><td>05-Index, Log.md</td></tr>
+    <tr><td>Feynman</td><td>ตรวจตัวเลข/วันที่กับ primary source เปิดลิงก์ซ้ำเอง</td><td>สถานะ verified/pending</td></tr>
+    <tr><td>Reviewer</td><td>หาช่องโหว่ตรรกะ, bear case, moat/คู่แข่ง</td><td>ข้อโต้แย้ง/ความเสี่ยง</td></tr>
+    <tr><td>Darwin</td><td>กลั่นเป็น mental model ที่ผ่านเกณฑ์ 3 ข้อ</td><td>02-Wiki/Concepts</td></tr>
+    <tr><td>Leopold</td><td>เขียน/อัปเดต thesis จากหลักฐานที่ผ่าน review แล้วเท่านั้น</td><td>02-Wiki/Theses</td></tr>
   </table>
-  <aside class="notes">ย้ำว่าไม่ต้องเริ่มด้วยทีมเต็ม — เริ่ม agent เดียว (เช่น /ingest) แล้วค่อยแตกบทบาทเมื่อรู้สึกว่างานเริ่มซ้อนกันจนสับสน</aside>
+  <aside class="notes">ย้ำว่าไม่ต้องเริ่มด้วยทีมเต็ม — เริ่ม agent เดียว (เช่น /ingest) แล้วค่อยแตกบทบาทเมื่อรู้สึกว่างานเริ่มซ้อนกันจนสับสน รายละเอียดเต็ม: PROJECT-WORKFLOW.md</aside>
 </section>
 
 <!-- 16 -->
@@ -352,7 +355,7 @@ tags: [thai-stock, earnings]
   <div class="step"><div class="n">1</div><div class="t">เปิด Obsidian → <strong>Open folder as vault</strong> → เลือกโฟลเดอร์โปรเจกต์นี้</div></div>
   <div class="step"><div class="n">2</div><div class="t">กด <code>Ctrl+O</code> (Mac: <code>Cmd+O</code>) เพื่อค้นหาไฟล์อะไรก็ได้แบบเร็ว</div></div>
   <div class="step"><div class="n">3</div><div class="t">เปิด <strong>Graph view</strong> เพื่อดูโครงข่ายลิงก์ระหว่าง Sources / Concepts / Entities</div></div>
-  <div class="step"><div class="n">4</div><div class="t">เริ่มอ่านจาก <code>00-Start-Here.md</code> แล้วตามไป <code>05-Index/Home.md</code></div></div>
+  <div class="step"><div class="n">4</div><div class="t">เริ่มอ่านจาก <code>README.md</code> แล้วตามไป <code>05-Index/Home.md</code></div></div>
   <aside class="notes">ช่วงนี้สลับไปหน้าจอจริง เปิด Obsidian บนเครื่องประกอบ อย่าอธิบายลอยๆ ให้คลิกให้ดูจริง</aside>
 </section>
 
@@ -363,7 +366,7 @@ tags: [thai-stock, earnings]
   <div class="grid2">
     <div class="card"><h4>Ingest</h4><p>"อ่าน AGENTS.md จัดไฟล์นี้เข้า Raw ที่ถูกต้อง เติม frontmatter ตาม template ยังไม่ตีความเนื้อหา"</p></div>
     <div class="card"><h4>Research</h4><p>"จาก [[raw-x]] สร้าง source note ตาม template ทุก fact ระบุตำแหน่งหลักฐาน แยก interpretation/question"</p></div>
-    <div class="card"><h4>Critic</h4><p>"ตรวจ [[thesis-x]]: หา 3 ข้อโต้แย้ง หลักฐานที่หายไป และอะไรจะล้ม thesis อย่าเขียนทับ thesis"</p></div>
+    <div class="card"><h4>Reviewer</h4><p>"ตรวจ [[thesis-x]]: หา 3 ข้อโต้แย้ง หลักฐานที่หายไป และอะไรจะล้ม thesis อย่าเขียนทับ thesis"</p></div>
     <div class="card"><h4>Retrieve</h4><p>"ใช้เฉพาะโน้ตที่ link จาก [[topic-index]] สรุปพร้อม source links และบอกความไม่แน่นอน"</p></div>
   </div>
   <p style="margin-top:.6em">สูตร: ให้ AI มี <strong>บทบาท + ขอบเขต + หลักฐาน + รูปแบบ output</strong> — อย่าถามลอยๆ ว่า "สรุปให้หน่อย"</p>
@@ -402,8 +405,8 @@ tags: [thai-stock, earnings]
   <span class="kicker">อ่านต่อ</span>
   <h2>แหล่งอ้างอิงในโปรเจกต์นี้</h2>
   <ul>
-    <li>ภาพรวมระบบฉบับเต็ม: <code>ONBOARDING.md</code></li>
-    <li>จุดเริ่มต้นสำหรับมือใหม่: <code>00-Start-Here.md</code></li>
+    <li>ภาพรวมระบบฉบับเต็ม: <code>PROJECT-BLUEPRINT.md</code></li>
+    <li>แผนที่คำสั่งและ agent ปัจจุบัน: <code>PROJECT-WORKFLOW.md</code></li>
     <li>Frontmatter / Graph / พื้นฐาน Obsidian: <code>04-Schema/Obsidian Fundamentals.md</code></li>
     <li>Workflow แบบละเอียด: <code>04-Schema/Workflow.md</code></li>
     <li>เกณฑ์คุณภาพ Concept: <code>04-Schema/Concept Checklist.md</code></li>

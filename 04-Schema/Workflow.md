@@ -27,6 +27,6 @@ flowchart LR
 
 | ระดับงาน | สิ่งที่ต้องมี | เครื่องมือ / Agent |
 |---|---|---|
-| **เก็บบันทึกทั่วไป** | Raw + Source Note + ลิงก์พื้นฐาน | Ingestor / Researcher |
+| **เก็บบันทึกทั่วไป** | Raw + Source Note + ลิงก์พื้นฐาน | Ingest Runner / Researcher |
 | **สร้าง Mental Model** | Source Note + Concept Checklist (4 Archetypes + Leading Indicators) | Darwin |
-| **วิทยานิพนธ์การลงทุน (Investment Thesis)** | Primary Sources + Fact Audit + Bear Case Review + Review Date | Feynman + Reviewer |
+| **วิทยานิพนธ์การลงทุน (Investment Thesis)** | Primary Sources + Fact Audit + Bear Case Review + Review Date | Leopold, gated by Feynman + Reviewer |

@@ -68,17 +68,26 @@ flowchart LR
 ```text
 llm-wiki-investing-course/
 │
-├── AGENTS.md                    # entry point สำหรับ agent ที่ค้นจาก root
-├── .agents/                     # การกำกับ AI และ automation ของโปรเจค
-│   ├── AGENTS.md                # rules, routing, definition of done
-│   ├── agents/                  # บทบาทเฉพาะทาง
+├── AGENTS.md                    # thin stub — many coding agents look for this at root
+├── .agents/
+│   └── AGENTS.md                # canonical rules + routing table (source of truth)
+├── .claude/                     # where Claude Code actually reads agents/skills from
+│   ├── CLAUDE.md                # imports .agents/AGENTS.md at session start
+│   ├── agents/                  # 9 sub-agents — Munger (orchestrator) + 8 specialists
+│   │   ├── peter-lynch.md       # find & verify primary sources
+│   │   ├── ingest-runner.md     # execute the ingest pipeline for one source
 │   │   ├── rene.md              # video/transcript ingestion
+│   │   ├── researcher.md        # source note + claim table
 │   │   ├── feynman.md           # fact and number audit
-│   │   ├── reviewer.md          # logic, thesis, bear-case review
-│   │   └── darwin.md            # durable concept extraction
-│   ├── skills/llm-wiki/
-│   │   └── SKILL.md             # reusable end-to-end workflow
-│   └── scripts/                 # deterministic tools (เพิ่มเมื่อจำเป็น)
+│   │   ├── reviewer.md          # logic, thesis, bear-case, moat/competitor review
+│   │   ├── darwin.md            # durable concept extraction
+│   │   └── leopold.md           # thesis drafting/updates
+│   └── skills/                  # reusable end-to-end procedures
+│       ├── ingest/SKILL.md
+│       ├── research/SKILL.md
+│       ├── wiki-health-check/SKILL.md
+│       └── onboarding/SKILL.md  # first-run interactive walkthrough
+├── scripts/wiki_tool.py         # deterministic lint/catalog tool
 │
 ├── 01-Raw/                      # evidence snapshots: do not rewrite
 │   ├── inbox/                   # receive first, triage later
@@ -270,29 +279,21 @@ Template ลดภาระการจำและทำให้ agent output 
 
 ## Agent, Skill และ Script
 
-```mermaid
-flowchart TB
-    U[User request] --> O[Main agent / orchestrator]
-    O --> SK[Skill: reusable workflow]
-    SK --> R[René: ingest transcript]
-    SK --> F[Feynman: facts]
-    SK --> V[Reviewer: logic]
-    F --> D[Darwin: durable concepts]
-    V --> D
-    O --> L[Librarian tasks: links/index/log]
-    L --> T[Deterministic scripts]
-```
+Full command-by-command diagrams (ใครส่งงานให้ใคร, output ลงโฟลเดอร์ไหน) อยู่ใน [[PROJECT-WORKFLOW]] — ที่นี่สรุปแค่หลักการแบ่งหน้าที่.
 
 ### Agent responsibilities
 
 | Agent | ทำอะไร | ไม่ทำอะไร |
 |---|---|---|
-| Main agent | route work, integrate results, ask for needed authority | ไม่เชื่อ output sub-agent โดยไม่ตรวจ |
+| Munger (orchestrator) | route work, delegate, verify each step ก่อนไปต่อ, โพสต์ checklist ความคืบหน้า | ไม่ทำงานเฉพาะทางของ sub-agent เอง |
+| Peter Lynch | หา + verify primary source ของ ticker, stage เข้า inbox | ไม่เขียน source note/concept/thesis |
+| Ingest Runner | รัน ingest pipeline ให้ครบ 1 source ต่อครั้ง | ไม่ทำงานของ delegate เอง แค่เรียงลำดับ |
 | René | transcript/metadata เข้า Raw | ไม่สรุป thesis |
-| Feynman | fact, number, period, quote audit | ไม่ตัดสิน narrative ดี/ไม่ดี |
-| Reviewer | logic, causal chain, bear case | ไม่ตรวจเลขแทน Feynman |
+| Researcher | distill source note + claim table | ไม่ตรวจตัวเลข/ตัดสิน logic |
+| Feynman | fact, number, period, quote audit; เปิดลิงก์ตรวจซ้ำเอง | ไม่ตัดสิน narrative ดี/ไม่ดี |
+| Reviewer | logic, causal chain, bear case, moat/คู่แข่ง | ไม่ตรวจเลขแทน Feynman |
 | Darwin | concepts จาก reviewed source notes | ไม่สร้าง concept จาก raw ตรง ๆ |
-| Librarian | metadata, links, index, duplicates | ไม่เปลี่ยนสาระ research |
+| Leopold | ร่าง/อัปเดต thesis จากหลักฐานที่ผ่าน review แล้ว | ไม่คิด fact ใหม่, ไม่ตรวจงานตัวเอง |
 
 ### Skill vs agent
 

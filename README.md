@@ -5,7 +5,7 @@ Obsidian vault สำหรับสอนผู้เริ่มต้นส�
 ## เริ่มใน 10 นาที
 
 1. เปิด Obsidian → **Open folder as vault** → เลือกโฟลเดอร์นี้
-2. อ่าน [[ONBOARDING]] (คู่มือระบบฉบับสมบูรณ์สำหรับ AI & นักลงทุน) หรือ [[00-Start-Here]]
+2. อ่าน [[PROJECT-BLUEPRINT]] (คู่มือระบบฉบับสมบูรณ์) หรือพิมพ์ `/onboarding` ให้ AI พาทัวร์แบบถาม-ตอบ
 3. นำ source เข้า `01-Raw/` ตามชนิดสื่อ หรือใช้คำสั่ง `/ingest <URL>`
 4. สร้าง source note ใน `02-Wiki/Sources/` แล้วใช้ `[[wikilink]]` เชื่อมกลับ raw
 5. สร้าง concept เฉพาะความรู้ที่ใช้ซ้ำได้ตามเกณฑ์ 4 Archetypes ของ Darwin ใน [[04-Schema/Concept Checklist]]

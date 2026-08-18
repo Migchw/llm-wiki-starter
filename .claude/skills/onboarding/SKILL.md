@@ -1,11 +1,11 @@
 ---
 name: onboarding
-description: Interactive first-run walkthrough for someone who just cloned this vault. Asks who they are and what they're researching, then walks them through opening the vault in Obsidian, capturing one real source, and creating their first Source Note and Concept — pointing to README.md/00-Start-Here.md for the full reference instead of repeating it. Use when the user runs /onboarding, or says this is their first time in the vault.
+description: Interactive first-run walkthrough for someone who just cloned this vault. Asks who they are and what they're researching, then walks them through opening the vault in Obsidian, capturing one real source, and creating their first Source Note and Concept — pointing to README.md/PROJECT-BLUEPRINT.md for the full reference instead of repeating it. Use when the user runs /onboarding, or says this is their first time in the vault.
 ---
 
 # Onboarding — first 10 minutes in this vault
 
-Read `.agents/AGENTS.md` before this. This skill's job is to get a brand-new user to one real, working example — not to explain the whole system (that's `README.md`, `00-Start-Here.md`, `ONBOARDING.md`).
+Read `.agents/AGENTS.md` before this. This skill's job is to get a brand-new user to one real, working example — not to explain the whole system (that's `README.md` and `PROJECT-BLUEPRINT.md`).
 
 ## Step 1: Ask who they are — don't assume
 
