@@ -12,8 +12,9 @@
 6. [[#Wiki Knowledge Graph]]
 7. [[#Schema Frontmatter และ Templates]]
 8. [[#Agent Skill และ Script]]
-9. [[#ลำดับการอ่านและการทำงานของ AI]]
-10. [[#การเริ่มใช้ทีละระยะ]]
+9. [[#ภาษาและโทนการเขียน]]
+10. [[#ลำดับการอ่านและการทำงานของ AI]]
+11. [[#การเริ่มใช้ทีละระยะ]]
 
 ---
 
@@ -314,6 +315,14 @@ Full command-by-command diagrams (ใครส่งงานให้ใคร,
 | financial data connector | `FastMCP`, `httpx`, `pandas`, `beautifulsoup4` | มี API/SET workflow ที่เสถียร |
 
 `pandas` มีไว้จัด time series/CSV/XLSX—not สำหรับจัด Markdown notes. MarkItDown แปลงเอกสารให้อ่านได้ แต่ไม่รับรองความถูกต้องของ PDF scan, ตารางหลายคอลัมน์ หรือ footnotes; Feynman ยังต้องตรวจตัวเลขกับต้นฉบับ.
+
+---
+
+## ภาษาและโทนการเขียน
+
+ทุก sub-agent ที่ผลิตข้อความในวอลต์ (source note, concept, entity, thesis, synthesis, log entry) และสรุปงานที่ Munger ตอบผู้ใช้ เขียนเป็น**ภาษาไทยเป็นหลัก** ศัพท์เทคนิคการเงิน/บัญชี/ธุรกิจที่นักลงทุนไทยพูดเป็นอังกฤษจริงในชีวิตประจำวัน (moat, EBITDA, backlog, guidance, DCF, drawdown, TAM) คงเป็นอังกฤษไว้ ส่วนคำอังกฤษทั่วไปที่มีคำไทยตรงอยู่แล้วต้องแปล ศัพท์วงในที่โผล่ครั้งแรกในโน้ตต้อง gloss สั้น 1 วรรค
+
+กติกาฉบับเต็ม — รายการคำ/โครงประโยคต้องห้าม (AI-slop scan), กฎสำนวนแปลตอนสรุปจาก source อังกฤษ, กฎหัวข้อย่อย, ground-truth check เทียบ raw source, ข้อห้าม meta-narration และ disclaimer ปิดท้าย — อยู่ใน [[.agents/AGENTS.md#ภาษาและโทนการเขียน]] เท่านั้น เอกสารนี้ไม่ก๊อปรายละเอียดมาซ้ำเพื่อไม่ให้กติกาสองที่ตกซิงก์กัน
 
 ---
 

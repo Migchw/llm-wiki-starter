@@ -7,6 +7,15 @@ description: Interactive first-run walkthrough for someone who just cloned this 
 
 Read `.agents/AGENTS.md` before this. This skill's job is to get a brand-new user to one real, working example — not to explain the whole system (that's `README.md` and `PROJECT-BLUEPRINT.md`).
 
+## Step 0: Tour first — orient before asking anything
+
+Before asking the user any question, give them a short spoken tour so they know what they're looking at:
+
+1. **คำสั่งที่มี**: `/onboarding` (ตัวนี้), `/ingest <url>` (นำ source เข้า vault แบบ end-to-end), `/research <ticker>` (หา + ingest + เขียน thesis ให้ครบ), `/wiki-health-check` (ตรวจสุขภาพวอลต์)
+2. **Agent ที่มี**: Munger (orchestrator — ตัวที่กำลังคุยด้วยนี่แหละ) + sub-agent เฉพาะทางอีก 8 ตัว (peter-lynch หาsource, ingest-runner รัน pipeline, rene แกะ transcript, researcher เขียน source note, feynman ตรวจตัวเลข, reviewer ตรวจ logic, darwin สกัด concept, leopold เขียน thesis) — ไม่ต้องเรียกเองทีละตัว ผู้ใช้พิมพ์แค่คำสั่งข้างบน แล้ว Munger จะ route ให้
+3. ชี้ให้ไปอ่าน `README.md` (เริ่มใน 10 นาที) และถ้าอยากได้ภาพเต็มให้เปิด `PROJECT-BLUEPRINT.md` ก่อน — บอกว่าไม่จำเป็นต้องอ่านทั้งไฟล์ แค่ดูหัวข้อคร่าวๆ ก็พอ
+4. ถามว่า **"อ่านคร่าวๆ แล้วหรือยัง พร้อมเริ่มไหมครับ?"** แล้วรอคำตอบก่อนไปต่อ — ห้ามข้าม step นี้ไปเริ่ม Step 1 เอง
+
 ## Step 1: Ask who they are — don't assume
 
 Ask, don't skip:
