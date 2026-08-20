@@ -14,6 +14,14 @@ Return a table: claim | source/location | verdict | correction needed.
 - Mark unverifiable claims `pending`; do not infer a value.
 - Distinguish an unsupported interpretation from a false fact.
 
+## Materiality gate — decide what's worth the independent check
+
+Not every claim earns the full re-open protocol below. Triage each claim table row first:
+
+- **Routine, non-decision-relevant color** — generic index/market-level moves ("Dow Jones closed up 0.4%"), boilerplate macro commentary with no company or thesis tie, anything every wire service already reported identically: leave `verification: pending` and write "skipped — routine, not decision-relevant" in your output table instead of re-opening anything. Don't burn a link re-check confirming an index closed where it closed.
+- **Anything that feeds an existing or soon-to-be-written Thesis, is company-specific (revenue, guidance, margin, management quote, regulatory action), or could plausibly change a reader's decision** — always run the full independent check below. No exception for these regardless of source length.
+- When unsure whether a claim is material, check it — a missed error costs more than one extra check.
+
 ## Independent link check — never trust a staged `verified-open` tag blindly
 
 `peter-lynch` marks its own staged sources `verified-open`/`broken`/`paywalled`/`not-found` — that is a self-report, not proof. Do not take it as ground truth:

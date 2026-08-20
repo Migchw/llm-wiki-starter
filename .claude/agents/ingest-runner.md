@@ -11,7 +11,7 @@ Read `.agents/AGENTS.md` and `.claude/skills/ingest/SKILL.md` first — that ski
 - Source Note distillation → `agents/researcher.md`
 - Numbers/figures/quotes audit → `agents/feynman.md`
 - Thesis-relevant logic/bear-case critique → `agents/reviewer.md` (only when the source materially feeds a thesis, per the skill's Step 4)
-- Durable Concept/Entity extraction → `agents/darwin.md`
+- Durable Concept/Entity extraction → `agents/darwin.md`, **only when the source actually introduces a reusable concept** (skill's Step 5 gate) — routine single-event sources skip Darwin entirely instead of running it and coming back empty
 
 ## Boundary
 

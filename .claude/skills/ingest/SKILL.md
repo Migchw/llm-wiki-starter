@@ -153,8 +153,11 @@ For a YouTube/webinar/earnings-call video where slides are shown on screen — i
 1. Audit material numbers, figures, and quotes against primary sources (`verification: verified` vs `verification: pending`).
 2. Identify counter-arguments, bear cases, and key dependencies.
 
-### Step 5: Extract Durable Concepts & Entities (Darwin)
-Do not leave concept links empty. For any core mental model or reusable thesis:
+### Step 5: Extract Durable Concepts & Entities (Darwin) — only when something is actually reusable
+
+Skip this step for routine, single-event sources that introduce no mental model usable beyond this one event — standard daily market moves, in-line earnings with nothing structurally new, generic macro commentary already covered by an existing Concept note. Note in the Log why Darwin was skipped ("no new durable concept — routine market update") instead of running it and coming back empty.
+
+Run Darwin when the Researcher/Feynman pass surfaces a pattern, framework, or company/institution fact worth a permanent note — vault already has a growing concept library, so the bar is "genuinely new or meaningfully extends an existing concept," not "mentions a familiar topic." For any core mental model or reusable thesis:
 1. Create/update concept notes in `02-Wiki/Concepts/<Concept Name>.md` using `04-Schema/Templates/Concept.md`:
    - **Definition**: Clear, non-tautological explanation.
    - **Investor implication**: How this concept alters risk, return, or capital allocation.
