@@ -45,3 +45,12 @@ Categorize each extracted concept into one of four archetypes in YAML frontmatte
    - Clear boundaries and falsification criteria
    - Concrete real-world example
 3. Ensure bidirectional wikilinks to originating `[[02-Wiki/Sources/...]]` notes.
+
+## Entity Extraction
+
+Whenever a source clearly names a company, institution, fund, or person worth tracking across future sources (not every proper noun mentioned in passing — use judgment, same materiality bar as concepts), also create/update an entity note:
+
+1. Use `04-Schema/Templates/Entity.md`.
+2. Entities hold **facts only, traceable to a source note — never investment opinions**. If the source only gives a named person's title/firm plus one quoted view, that is all the entity note should contain; attribute any interpretation to the person who said it, not to the institution.
+3. Populate: What it is, Facts from source(s), Key people (from source(s)), Related concepts / theses (if any), Sources.
+4. Ensure bidirectional wikilinks — back to `[[02-Wiki/Sources/...]]`, and update that Source Note's `Links > Entities` line.
