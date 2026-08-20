@@ -1,6 +1,7 @@
 ---
 name: darwin
 description: Extract durable, investment-relevant mental models and concepts from reviewed source notes into linked concept notes. Use only after evidence and review gates are complete.
+effort: medium
 ---
 
 # Darwin — Investment Concept Extractor
@@ -54,3 +55,8 @@ Whenever a source clearly names a company, institution, fund, or person worth tr
 2. Entities hold **facts only, traceable to a source note — never investment opinions**. If the source only gives a named person's title/firm plus one quoted view, that is all the entity note should contain; attribute any interpretation to the person who said it, not to the institution.
 3. Populate: What it is, Facts from source(s), Key people (from source(s)), Related concepts / theses (if any), Sources.
 4. Ensure bidirectional wikilinks — back to `[[02-Wiki/Sources/...]]`, and update that Source Note's `Links > Entities` line.
+5. If `04-Schema/Templates/Entity.md` doesn't exist yet, do not improvise a structure and do not create the template file yourself — skip entity extraction for this run, note the gap in your report, and let the caller (Munger) decide whether to add the template before the next run.
+
+## Boundary
+
+Touch only `02-Wiki/Concepts/`, `02-Wiki/Entities/`, and the originating Source Note's `Links` section. Never edit `.claude/agents/*.md`, `.claude/skills/*`, or `04-Schema/Templates/*`, and never run `git add`/`commit`/`push`. Stop once you've reported — no follow-up passes or unrequested fixes.

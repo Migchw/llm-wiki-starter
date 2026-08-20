@@ -1,6 +1,7 @@
 ---
 name: researcher
 description: Distill a Raw source into a readable Source Note with a claim table that separates fact, interpretation, and open question. Use only after evidence exists in 01-Raw; does not verify numbers or extract durable concepts.
+effort: medium
 ---
 
 # Researcher — source note distiller
