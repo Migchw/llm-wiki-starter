@@ -2,9 +2,13 @@
 """
 Fast & Resilient Source Fetcher & Converter for LLM Wiki Ingestion
 Supports:
-1. Tier 1: Fast HTTP + BeautifulSoup extraction (<1s)
-2. Tier 2: Playwright Headless Chromium for Dynamic/SPA websites (React, Vue, SET, JS-rendered)
-3. Tier 3: MarkItDown for Documents (PDF, DOCX, PPTX, XLSX)
+1. Web URLs:
+   - Tier 1: Fast HTTP + BeautifulSoup extraction (<0.5s)
+   - Tier 2: Playwright Headless Chromium for Dynamic/SPA websites (React, Vue, SET, JS-rendered)
+2. YouTube Videos:
+   - Automated transcript extraction with timestamps via youtube-transcript-api / yt-dlp
+3. Local Documents:
+   - Tier 3: MarkItDown for Documents (PDF, DOCX, PPTX, XLSX)
 """
 
 import sys
@@ -30,6 +34,11 @@ try:
 except ImportError:
     sync_playwright = None
 
+try:
+    from youtube_transcript_api import YouTubeTranscriptApi
+except ImportError:
+    YouTubeTranscriptApi = None
+
 
 def clean_slug(text: str) -> str:
     text = text.lower()
@@ -38,10 +47,115 @@ def clean_slug(text: str) -> str:
     return text[:60] if len(text) > 60 else text
 
 
+def extract_youtube_video_id(url: str) -> str:
+    m = re.search(r'(?:v=|\/|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})', url)
+    return m.group(1) if m else None
+
+
+def fetch_youtube_video(url: str, output_dir: Path = None) -> Path:
+    video_id = extract_youtube_video_id(url)
+    if not video_id:
+        raise ValueError(f"Could not parse YouTube video ID from URL: {url}")
+        
+    print(f"Fetching YouTube transcript for Video ID: {video_id}...")
+    
+    req = urllib.request.Request(
+        f"https://www.youtube.com/watch?v={video_id}",
+        headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+    )
+    with urllib.request.urlopen(req, timeout=10) as resp:
+        html = resp.read().decode('utf-8', errors='ignore')
+        
+    title = f"YouTube Video {video_id}"
+    m_title = re.search(r'"title":\{"runs":\[\{"text":"([^"]+)"\}', html)
+    if m_title:
+        title = m_title.group(1)
+    else:
+        soup = BeautifulSoup(html, 'html.parser') if BeautifulSoup else None
+        if soup and soup.title:
+            title = soup.title.string.replace(" - YouTube", "").strip()
+
+    author = "YouTube Channel"
+    m_author = re.search(r'"ownerChannelName":"([^"]+)"', html) or re.search(r'"author":"([^"]+)"', html)
+    if m_author:
+        author = m_author.group(1)
+
+    published = datetime.date.today().isoformat()
+    m_pub = re.search(r'"publishDate":"([^"]+)"', html) or re.search(r'"uploadDate":"([^"]+)"', html)
+    if m_pub:
+        match = re.search(r'\d{4}-\d{2}-\d{2}', m_pub.group(1))
+        if match:
+            published = match.group(0)
+
+    transcript_lines = []
+    if YouTubeTranscriptApi:
+        api = YouTubeTranscriptApi()
+        try:
+            t_list = api.list(video_id)
+            transcript = None
+            try:
+                transcript = api.fetch(video_id, languages=['th', 'en'])
+            except Exception:
+                for t in t_list:
+                    transcript = t.fetch()
+                    break
+            
+            if transcript:
+                for s in transcript.snippets:
+                    mins = int(s.start // 60)
+                    secs = int(s.start % 60)
+                    transcript_lines.append(f"[{mins:02d}:{secs:02d}] {s.text}")
+        except Exception as e:
+            print(f"YouTubeTranscriptApi warning ({e}). Trying fallback...")
+
+    body_text = "\n".join(transcript_lines) if transcript_lines else "*(Transcript could not be extracted automatically)*"
+
+    date_prefix = published.replace('-', '')
+    slug = f"{date_prefix}_{clean_slug(title)}"
+    
+    if output_dir is None:
+        vault_root = Path(__file__).resolve().parent.parent
+        output_dir = vault_root / "01-Raw" / "video"
+        
+    output_dir.mkdir(parents=True, exist_ok=True)
+    out_file = output_dir / f"{slug}.md"
+    
+    content = f"""---
+title: "{title}"
+type: raw
+source_type: video
+url: "{url}"
+publisher: "YouTube"
+author: "{author}"
+published: {published}
+captured: {datetime.date.today().isoformat()}
+conversion_method: youtube-transcript
+status: raw
+images: 0
+img_dir: ""
+tags: []
+---
+
+# {title}
+
+**Source:** {url}  
+**Channel:** {author} | **Published:** {published}
+
+---
+
+## Transcript
+
+{body_text.strip()}
+"""
+    with open(out_file, 'w', encoding='utf-8') as f:
+        f.write(content.strip() + '\n')
+        
+    return out_file
+
+
 def extract_content_from_html(html: str, url: str):
     soup = BeautifulSoup(html, 'html.parser') if BeautifulSoup else None
     
-    # Title
     title = "Untitled"
     if soup:
         og_title = soup.find('meta', property='og:title')
@@ -50,14 +164,12 @@ def extract_content_from_html(html: str, url: str):
         elif soup.title and soup.title.string:
             title = soup.title.string.strip()
             
-    # Author
     author = "Unknown"
     if soup:
         author_meta = soup.find('meta', attrs={'name': re.compile(r'author', re.I)}) or soup.find('meta', property='article:author')
         if author_meta and author_meta.get('content'):
             author = author_meta['content'].strip()
             
-    # Publisher / Site
     publisher = "Web"
     if soup:
         og_site = soup.find('meta', property='og:site_name')
@@ -68,7 +180,6 @@ def extract_content_from_html(html: str, url: str):
             if domain_match:
                 publisher = domain_match.group(1)
 
-    # Published date
     published = datetime.date.today().isoformat()
     if soup:
         pub_meta = soup.find('meta', property=re.compile(r'published_time', re.I)) or soup.find('meta', attrs={'name': re.compile(r'pubdate|date', re.I)})
@@ -77,7 +188,6 @@ def extract_content_from_html(html: str, url: str):
             if match:
                 published = match.group(0)
 
-    # Clean body extraction
     body_text = ""
     if soup:
         body = soup.find('article') or soup.find('div', class_=re.compile(r'article[-_]?body|story[-_]?content|entry[-_]?content|post[-_]?content', re.I)) or soup.find('body')
@@ -132,6 +242,9 @@ def fetch_url_playwright(url: str):
 
 
 def fetch_url(url: str, output_dir: Path = None, media_type: str = "article", force_playwright: bool = False) -> Path:
+    if "youtube.com" in url or "youtu.be" in url:
+        return fetch_youtube_video(url, output_dir=output_dir)
+
     html = ""
     used_method = "html-scrape"
     
