@@ -77,9 +77,12 @@ flowchart TD
    - คงโครงสร้าง: Definition, Relevance to Macro/Investment Themes, Sources & Related Notes
 
 2. **Concepts (`02-Wiki/Concepts/` — Selective & Concise):**
-   - **ไม่ฝืนสกัด Concept ทุกครั้ง** หากเป็นข่าวสั้นประจำวันทั่วไป
-   - สกัดเฉพาะกรณีที่เป็น **Durable Mental Model** หรือ **Structural Shift** ที่น่าสนใจและนำไปใช้ซ้ำได้จริง
-   - เขียนแบบ **กระชับ ตรงประเด็น ไม่มีน้ำ**
+   - **ไม่ฝืนสกัด Concept พร่ำเพรื่อ** หากเป็นข่าวสั้นหรือตัวเลขประจำไตรมาสทั่วไป
+   - **สกัดทันทีเมื่อพบ Durable Mental Model หรือการตัดสินใจเชิงโครงสร้าง:** เช่น
+     - **การจัดสรรเงินทุน (Capital Allocation / Capital Cycle):** การตัดขายธุรกิจผลตอบแทนต่ำเพื่อนำทุนไปเร่งธุรกิจหลัก (Strategic Divestment / Portfolio Rationalization)
+     - **ความได้เปรียบเชิงการแข่งขัน (Moat / Unit Economics):** Pricing Power, Cost Leadership, Network Effects, Switching Costs
+     - **การเปลี่ยนผ่านเชิงโครงสร้าง (Structural Shifts):** S-Curves, Paradigm Shifts, Regulatory Shifts
+   - เขียนแบบ **กระชับ ตรงประเด็น ไม่มีน้ำ** ตามเทมเพลต `04-Schema/Templates/Concept.md`
 
 ---
 

@@ -53,7 +53,7 @@ Read this file before working in the vault. Read `../05-Index/Home.md`, `../05-I
    - ใช้ Sub-agents เฉพาะกรณีงานวิจัยชุดใหญ่ที่มีหลายขั้นตอนซับซ้อน (`/research <ticker>`, 10-K ขนาดยักษ์, Bear-case pass)
 3. **Selective & Concise Concepts:**
    - **Entity (`02-Wiki/Entities/`):** สร้าง/อัปเดตเสมอสำหรับบริษัท สถาบันการเงิน หรือบุคคลสำคัญ
-   - **Concept (`02-Wiki/Concepts/`):** สกัดเฉพาะเมื่อมี **Durable Mental Model** หรือ **Structural Shift** ที่น่าสนใจและนำไปใช้ซ้ำได้จริง หากเป็นข่าวสั้นทั่วไปไม่ต้องฝืนสกัด Concept และเขียน Concept ให้กระชับ ตรงประเด็น ไม่มีน้ำ
+   - **Concept (`02-Wiki/Concepts/`):** สกัดเฉพาะเมื่อมี **Durable Mental Model** หรือ **Structural Shift** ที่น่าสนใจและนำไปใช้ซ้ำได้จริง หากเป็นข่าวสั้นทั่วไปไม่ต้องฝืนสกัด แต่หากพบการตัดสินใจเชิงโครงสร้าง เช่น **การจัดสรรเงินทุน (Capital Allocation), การตัดขายธุรกิจผลตอบแทนต่ำเพื่อมุ่งเน้นธุรกิจหลัก (Strategic Divestment / Portfolio Rationalization), การขยายตัวของมาร์จิ้นเชิงโครงสร้าง, หรือการเปลี่ยนแปลงของ Capital Cycle / Moat** ให้สกัดเป็น Concept ทันที และเขียนแบบกระชับ ตรงประเด็น ไม่มีน้ำ
 4. **Concise Activity Logging:**
    - บันทึกใน `03-Logs/Log.md` สั้นกระชับ 1–2 ประโยค ระบุแหล่งที่มา สาระสำคัญ และไฟล์ที่สร้าง/แก้ไข ไม่เขียนเป็นย่อหน้ายาว
 

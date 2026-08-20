@@ -19,6 +19,9 @@ import urllib.request
 import argparse
 from pathlib import Path
 
+# Ensure UTF-8 output on Windows
+sys.stdout.reconfigure(encoding='utf-8')
+
 try:
     from bs4 import BeautifulSoup
 except ImportError:
@@ -244,10 +247,133 @@ def fetch_url_playwright(url: str):
     return html
 
 
+def fetch_document_url(url: str, output_dir: Path = None, media_type: str = "filing") -> Path:
+    print(f"Fetching Document / PDF URL: {url}")
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    }
+    req = urllib.request.Request(url, headers=headers)
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        data = resp.read()
+
+    vault_root = Path(__file__).resolve().parent.parent
+    if output_dir is None:
+        output_dir = vault_root / "01-Raw" / media_type
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    url_clean = url.split('?')[0]
+    filename = url_clean.split('/')[-1] if '/' in url_clean else "document.pdf"
+    if not any(filename.endswith(ext) for ext in ['.pdf', '.docx', '.pptx', '.xlsx']):
+        filename += ".pdf"
+
+    temp_doc_path = output_dir / filename
+    with open(temp_doc_path, 'wb') as f:
+        f.write(data)
+
+    body_text = ""
+    if MarkItDown:
+        try:
+            md = MarkItDown()
+            res = md.convert(str(temp_doc_path))
+            body_text = res.text_content
+        except Exception as e:
+            print(f"MarkItDown failed ({e}), falling back...")
+    
+    if not body_text:
+        try:
+            import pypdf
+            reader = pypdf.PdfReader(str(temp_doc_path))
+            body_text = "\n\n".join([p.extract_text() for p in reader.pages if p.extract_text()])
+        except Exception as e:
+            print(f"PyPDF failed ({e})")
+
+    title = filename.rsplit('.', 1)[0]
+    published = datetime.date.today().isoformat()
+    publisher = "SET" if "set.or.th" in url else "Company Filing"
+    author = "Management"
+
+    lines = [l.strip() for l in body_text.splitlines() if l.strip()]
+    if lines:
+        first_few = " ".join(lines[:15])
+        m_comp = re.search(r'บริษัท\s+([^\(\n]+?)\s*จำกัด\s*\(มหาชน\)', first_few) or re.search(r'บริษัท\s+([^\(\n]+?)\s*จํากัด\s*\(มหาชน\)', first_few)
+        m_ticker = re.search(r'\b([A-Z0-9]{2,10})\s+IR\b', first_few)
+        
+        thai_months = {
+            'มกราคม': '01', 'กุมภาพันธ์': '02', 'มีนาคม': '03', 'เมษายน': '04',
+            'พฤษภาคม': '05', 'มิถุนายน': '06', 'กรกฎาคม': '07', 'สิงหาคม': '08',
+            'กันยายน': '09', 'ตุลาคม': '10', 'พฤศจิกายน': '11', 'ธันวาคม': '12'
+        }
+        for m_name, m_num in thai_months.items():
+            m_date = re.search(rf'(\d{{1,2}})\s+{m_name}\s+(\d{{4}})', first_few)
+            if m_date:
+                day = int(m_date.group(1))
+                year = int(m_date.group(2))
+                if year > 2400:
+                    year -= 543
+                published = f"{year:04d}-{m_num}-{day:02d}"
+                break
+
+        comp_name = m_comp.group(1).strip() if m_comp else ""
+        ticker = m_ticker.group(1).strip() if m_ticker else ""
+        
+        if ticker and ("คําอธิบาย" in first_few or "คำอธิบาย" in first_few):
+            period = "2Q26" if ("30 มิถุนายน" in first_few or "30 มถิ ุนายน" in first_few or "2569" in first_few) else "MD&A"
+            title = f"{ticker} MD&A {period}"
+        elif comp_name:
+            title = f"{comp_name} - Filing"
+
+    date_prefix = published.replace('-', '')
+    slug = f"{date_prefix}_{clean_slug(title)}"
+    out_file = output_dir / f"{slug}.md"
+    
+    final_raw_pdf = output_dir / f"{slug}.pdf"
+    if temp_doc_path.exists():
+        if temp_doc_path != final_raw_pdf:
+            if final_raw_pdf.exists():
+                final_raw_pdf.unlink()
+            temp_doc_path.rename(final_raw_pdf)
+
+    content = f"""---
+title: "{title}"
+type: raw
+source_type: {media_type}
+url: "{url}"
+publisher: "{publisher}"
+author: "{author}"
+published: {published}
+captured: {datetime.date.today().isoformat()}
+conversion_method: markitdown
+status: raw
+raw_file: "{final_raw_pdf.as_posix()}"
+images: 0
+img_dir: ""
+tags: []
+---
+
+# {title}
+
+**Source:** {url}  
+**Publisher:** {publisher} | **Author:** {author} | **Published:** {published}
+
+---
+
+{body_text.strip()}
+"""
+    with open(out_file, 'w', encoding='utf-8') as f:
+        f.write(content.strip() + '\n')
+
+    return out_file
+
+
 def fetch_url(url: str, output_dir: Path = None, media_type: str = "article", force_playwright: bool = False) -> Path:
     # Check if YouTube URL
     if "youtube.com" in url or "youtu.be" in url:
         return fetch_youtube_video(url, output_dir=output_dir)
+
+    # Check if Direct Document URL (PDF, DOCX, PPTX, XLSX)
+    url_clean = url.lower().split('?')[0]
+    if url_clean.endswith(('.pdf', '.docx', '.pptx', '.xlsx')) or (media_type in ['filing', 'book'] and '.pdf' in url_clean):
+        return fetch_document_url(url, output_dir=output_dir, media_type=media_type)
 
     html = ""
     used_method = "html-scrape"

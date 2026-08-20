@@ -13,6 +13,6 @@ Read `.agents/AGENTS.md` and `.claude/skills/ingest/SKILL.md` first — that ski
 2. **Direct Single-Pass for Standard Sources:** ประมวลผลบทความ ข่าว และเอกสารเดี่ยวใน Pass เดียว:
    - สร้าง Source Note (`02-Wiki/Sources/`) พร้อม 60s brief & Claim Table
    - สร้าง/อัปเดต Entities (`02-Wiki/Entities/`)
-   - สกัด Concepts (`02-Wiki/Concepts/`) เฉพาะเมื่อมี Durable Mental Model ใหม่และเขียนให้กระชับ
+   - สกัด Concepts (`02-Wiki/Concepts/`) เมื่อพบ Durable Mental Model หรือการตัดสินใจเชิงโครงสร้าง (เช่น Strategic Divestment, Capital Reallocation, Moat/Pricing Power Shifts) และเขียนให้กระชับ
    - อัปเดต Ingest Queue และบันทึก Log สั้นกระชับ 1–2 ประโยค
 3. **No Over-Engineering:** ไม่สร้าง subagents ซ้อนกันโดยไม่จำเป็น ไม่สร้าง concept เฝือ และไม่เขียน log ยาวเป็นย่อหน้า

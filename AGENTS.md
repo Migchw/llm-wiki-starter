@@ -16,6 +16,6 @@
    - บทความ ข่าว หรือเอกสารเดี่ยว (ขนาด S/M) ให้รันแบบ Direct Single-Pass จบใน Session เดียว (<30-45 วินาที) ไม่ต้อง Spawn Sub-agents ซ้ำซ้อน
 3. **Selective & Concise Concepts:**
    - **Entity (`02-Wiki/Entities/`):** สร้าง/อัปเดตเสมอสำหรับบริษัท สถาบันการเงิน หรือบุคคลสำคัญ
-   - **Concept (`02-Wiki/Concepts/`):** สกัดเฉพาะเมื่อมี **Durable Mental Model** หรือ **Structural Shift** ที่น่าสนใจและนำไปใช้ซ้ำได้จริง
+   - **Concept (`02-Wiki/Concepts/`):** สกัดเฉพาะเมื่อมี **Durable Mental Model** หรือ **Structural Shift** ที่น่าสนใจและนำไปใช้ซ้ำได้จริง โดยเฉพาะการตัดสินใจเชิงโครงสร้าง เช่น **การจัดสรรเงินทุน (Capital Allocation), การตัดขายธุรกิจผลตอบแทนต่ำเพื่อมุ่งเน้นธุรกิจหลัก (Strategic Divestment / Portfolio Rationalization), การขยายตัวของมาร์จิ้นเชิงโครงสร้าง, หรือการเปลี่ยนแปลงของ Capital Cycle / Moat** และเขียน Concept ให้กระชับ ตรงประเด็น ไม่มีน้ำ
 4. **Concise Activity Logging:**
    - บันทึกใน `03-Logs/Log.md` สั้นกระชับ 1–2 ประโยค ระบุแหล่งที่มา สาระสำคัญ และไฟล์ที่สร้าง/แก้ไข

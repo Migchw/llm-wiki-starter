@@ -28,10 +28,10 @@ Create or update a concept ONLY if it passes all three tests:
 
 Categorize each extracted concept into one of four archetypes in YAML frontmatter (`archetype`):
 
-1. `capital-cycle`: Supply/demand lag, CapEx booms, capacity cannibalization, commoditization.
-2. `moat-unit-economics`: Cost per unit/bit advantages, network effects, packaging bottlenecks as moats, switching costs.
-3. `structural-shift`: S-curves, architectural bottlenecks (e.g., Memory Wall, KV-Cache scaling), new computing paradigms.
-4. `valuation-trap`: Peak-earnings multiple compression, reflexivity, terminal value assumptions.
+1. `capital-cycle`: Supply/demand lag, CapEx booms, capacity cannibalization, commoditization, **Strategic Divestment & Capital Reallocation** (divesting low-ROIC assets to fund high-ROIC core growth).
+2. `moat-unit-economics`: Cost per unit/bit advantages, network effects, packaging bottlenecks as moats, switching costs, pricing power.
+3. `structural-shift`: S-curves, architectural bottlenecks (e.g., Memory Wall, KV-Cache scaling), new business models/computing paradigms.
+4. `valuation-trap`: Peak-earnings multiple compression, reflexivity, terminal value assumptions, conglomerate discount vs. core focus.
 
 ---
 
