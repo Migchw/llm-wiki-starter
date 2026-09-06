@@ -10,6 +10,24 @@ Obsidian vault สำหรับสอนผู้เริ่มต้นส�
 4. สร้าง source note ใน `02-Wiki/Sources/` แล้วใช้ `[[wikilink]]` เชื่อมกลับ raw
 5. สร้าง concept เฉพาะความรู้ที่ใช้ซ้ำได้ตามเกณฑ์ 4 Archetypes ของ Darwin ใน [[04-Schema/Concept Checklist]]
 
+## ใช้กับ Kiro CLI
+
+วอลต์นี้ตั้งค่าให้ทำงานกับ **Kiro CLI** ได้ทันทีผ่านโฟลเดอร์ `.kiro/`:
+
+- `.kiro/steering/00-operating-manual.md` — กติกา always-on (boundaries, กฎภาษา/โทน, lean ingestion, routing) โหลดอัตโนมัติทุก session
+- `.kiro/skills/` — slash commands: `/onboarding`, `/ingest <url>`, `/research <ticker>`, `/wiki-health-check` (+ skill อ้างอิง `llm-wiki`)
+- `.kiro/personas/` — เอกสารบทบาทเฉพาะทาง 8 ตัว (peter-lynch, ingest-runner, rene, researcher, feynman, reviewer, darwin, leopold) ที่ orchestrator อ่านแล้วสวมบทบาทตามงาน
+- `.kiro/agents/munger.json` — agent orchestrator "Munger" ที่เดินสาย pipeline ทั้งหมด
+
+เริ่มใช้:
+
+1. ติดตั้ง Kiro CLI แล้วเปิดเทอร์มินัลที่โฟลเดอร์นี้
+2. รัน `kiro-cli chat` — default agent จะโหลด steering + skills + `AGENTS.md`/`README.md` อัตโนมัติ ทำหน้าที่ Munger ได้เลย
+   หรือรันเจาะจงด้วย `kiro-cli chat --agent munger` เพื่อใช้ค่า tool/permission ที่กำหนดไว้ใน `.kiro/agents/munger.json`
+3. พิมพ์ `/onboarding` ให้ Munger พาทัวร์แบบถาม-ตอบ, `/ingest <url>` เพื่อนำ source เข้า, หรือ `/research <ticker>` เพื่อวิจัยหุ้นแบบครบวงจร (หา → ingest → เขียน thesis)
+
+> การตั้งค่าเดิมสำหรับ Claude Code (`.claude/`) และ layout กลาง (`.agents/`) ยังอยู่ครบ — `.kiro/` เป็นชั้นเพิ่มเติม ไม่ได้แทนที่ของเดิม.
+
 ## หลักการ
 
 - **Raw** = หลักฐานดิบ, ไม่แก้เนื้อหาเดิม
