@@ -1,7 +1,7 @@
 ---
 type: index
 status: active
-updated: 2026-08-16
+updated: 2026-09-07
 ---
 
 # LLM Wiki Home
@@ -11,6 +11,7 @@ updated: 2026-08-16
 - [[03-Logs/Log]]
 - [[05-Index/Ingest Queue|Ingest Queue]] — select 1–3 `next` sources per session
 - `01-Raw/inbox/` — capture zone; triage weekly, do not ingest everything
+- Active thesis draft: [[02-Wiki/Theses/BDMS]] (SET:BDMS — Watch; pending Feynman+Reviewer)
 
 ## Browse knowledge
 
