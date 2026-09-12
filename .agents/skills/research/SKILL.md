@@ -10,8 +10,11 @@ Read `.agents/AGENTS.md`, `04-Schema/Source Lifecycle.md`, `04-Schema/Workflow.m
 ```mermaid
 flowchart LR
   subgraph Phase1["Phase 1 — peter-lynch (find & stage only)"]
-    T[Ticker + venue + any user-supplied sources] --> F[Find remaining candidate sources]
-    F --> V[Open & verify each link, incl. user-supplied]
+    T[Ticker + venue + any user-supplied sources] --> D{Discovery method?<br/>ถาม user ก่อน}
+    D -->|A. Manual / agentic search| F[Find remaining candidate sources]
+    D -->|B. NotebookLM Deep Research| NB[POST /research/start หรือ /discover<br/>→ candidate URLs]
+    NB --> F
+    F --> V[Open & verify each link, incl. user-supplied + NotebookLM candidates]
     V --> R[Stage into 01-Raw/inbox]
     R --> Q[Add to Ingest Queue w/ priority]
   end
@@ -37,6 +40,26 @@ Before searching anything, ask — do not assume either way: "มี source อ�
 - **User supplies source(s)** (link, file, pasted text, screenshot): note each as `user-supplied` and stage them in Step 4 like any other verified source — a supplied link still gets opened and verified per Step 3, a supplied file still goes through `skills/ingest/SKILL.md` Step 2 rule 4 (keep the original). Do **not** stop here — still run Steps 1–3 to find whatever the user's sources don't cover. A user handing you one earnings deck doesn't mean the 10-K or the SET filing shouldn't also be found.
 - **User has nothing**: say so explicitly ("ยังไม่มีเลยใช่มั้ยครับ เดี๋ยวไปหาให้") and proceed straight to Step 1 with the venue checklist below.
 - Pass whatever the user supplied into the `peter-lynch` sub-agent's brief when delegating Phase 1 — it stages those alongside anything it finds itself, it does not re-search for something already in hand.
+
+## Step 0.5: เลือกวิธีค้นหาแหล่งข้อมูล (ถาม user ก่อนเริ่มค้น — optional NotebookLM)
+
+หลังรู้ว่ามี source เดิมหรือยัง ให้ **ถาม user ก่อนเสมอ** ว่าจะให้ค้นด้วยวิธีไหน — อย่าเลือกเอง:
+
+> "จะให้หา source แบบไหนดีครับ?
+> **A) ค้นเองตาม checklist** (EDGAR / SET / IR — ค่าเริ่มต้น, เร็ว, คุมแหล่งได้แน่นอน)
+> **B) ใช้ NotebookLM Deep Research** ช่วยกวาดหา candidate ให้กว้างขึ้น (ต้องมี service รันที่ localhost:8000, ใช้เวลาหลายนาที)
+> หรือ **A+B** ก็ได้ — ค้น checklist หลัก แล้วเสริมด้วย NotebookLM"
+
+- **ถ้า user ไม่ตอบ / ไม่ระบุ → default = A** (พฤติกรรมเดิมทุกประการ ไม่มีอะไรเปลี่ยน)
+- **ถ้าเลือก B หรือ A+B:** ทำตาม `NotebookLM-Integration-Flow.md` (ที่ root ของ vault) — เรียก
+  `POST /v1/notebooks/{id}/research/start {mode:"deep"}` หรือ `/research/discover` เพื่อได้ **candidate URLs + report**
+  - Service ต้องพร้อม: `GET http://localhost:8000/health` = `{"ok":true}` — ถ้าไม่พร้อม แจ้ง user แล้ว fallback ไป A
+  - `sources[]` ที่ NotebookLM คืนมาคือ **candidate ที่ยัง unverified** — ห้าม stage ตรงๆ
+  - **ทุก candidate ต้องผ่าน Step 3 (เปิด verify จริง) เหมือนกันทุกแหล่ง** ก่อนดึงด้วย `scripts/fetch_source.py`
+  - report ของ Deep Research (ถ้ามี) = generated content ห้ามอ้างเป็น fact จนกว่าจะ ingest + ผ่าน Feynman/Reviewer
+
+ไม่ว่าเลือกวิธีไหน Step 1–5 (venue → checklist → verify → stage → triage) ยังบังคับเหมือนเดิม — NotebookLM
+เป็นแค่ตัวช่วยหา candidate เพิ่ม ไม่ได้แทนที่การ verify หรือ quality gate ใดๆ
 
 ## Step 1: Identify listing venue
 

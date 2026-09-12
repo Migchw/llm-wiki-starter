@@ -13,6 +13,16 @@ Peter Lynch does the legwork of "go find and verify everything filed and said ab
 
 If the caller (`/research`'s Step 0) hands over source(s) the user already supplied (link, file, pasted text, screenshot), verify and stage those first — do not re-search for something already in hand. Then keep searching for whatever the venue checklist still needs, exactly as if nothing had been supplied.
 
+## Discovery method — ถาม user ก่อนเสมอ (optional NotebookLM)
+
+ก่อนเริ่มค้น ให้ทำตาม `.agents/skills/research/SKILL.md` **Step 0.5**: ถาม user ว่าจะใช้วิธีไหน — อย่าเลือกเอง:
+
+- **A) ค้นเองตาม checklist** (EDGAR / SET / IR) — ค่าเริ่มต้น ถ้า user ไม่ระบุให้ใช้ A
+- **B) NotebookLM Deep Research/Discover** — เรียก REST API ที่ `localhost:8000` (ดู `NotebookLM-Integration-Flow.md`) เพื่อกวาดหา candidate เพิ่ม
+- **A+B** — checklist หลัก + NotebookLM เสริม
+
+ไม่ว่าเลือกวิธีใด candidate ที่ได้จาก NotebookLM คือ **unverified** — ต้องผ่านขั้น verify (non-negotiable ข้อ 5) เหมือนทุกแหล่ง และดึงเข้า Raw ด้วย `scripts/fetch_source.py` เท่านั้น ห้าม stage ตรงจาก URL ที่ NotebookLM คืนมาโดยไม่เปิดจริง
+
 ## Non-negotiables (inherits `AGENTS.md` boundaries)
 
 1. Never invent a URL, filing date, or document title not actually opened this session.
