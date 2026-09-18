@@ -2,9 +2,11 @@
 
 เปลี่ยนบทความ งบการเงิน และ transcript ให้เป็นคลังความรู้การลงทุนที่ย้อนกลับไปดูหลักฐานได้
 
+![ภาพประกอบโต๊ะวิจัย มีเอกสารต้นทาง สมุดบันทึก และแว่นขยาย](docs/assets/research-desk.png)
+
 ใช้ **Obsidian** อ่านและเชื่อมโยงโน้ต ใช้ **Claude Code** ช่วยเก็บแหล่งข้อมูล เขียน Source Note และร่าง Investment Thesis ส่วนโน้ตเก็บเป็นไฟล์ Markdown ในเครื่อง คุณจึงเปิดอ่าน แก้ไข และย้ายไปใช้กับเครื่องมืออื่นได้
 
-[เริ่มใช้งาน](#เริ่มใช้งาน) · [คำสั่งที่ใช้บ่อย](#คำสั่งที่ใช้บ่อย) · [โครงสร้างไฟล์](#โครงสร้างไฟล์) · [คู่มือเพิ่มเติม](#คู่มือเพิ่มเติม)
+[เริ่มใช้งาน](#เริ่มใช้งาน) · [ดูขั้นตอน](#จากแหล่งข้อมูลถึง-thesis) · [คำสั่งที่ใช้บ่อย](#คำสั่งที่ใช้บ่อย) · [โครงสร้างไฟล์](#โครงสร้างไฟล์) · [คู่มือเพิ่มเติม](#คู่มือเพิ่มเติม)
 
 ## ปัญหาที่โปรเจกต์นี้ช่วยแก้
 
@@ -19,6 +21,28 @@ Wiki นี้แยก **หลักฐานที่เก็บมา** อ
 - **Entity และ Concept** — โน้ตบริษัทหรือบุคคลที่เกี่ยวข้อง และแนวคิดที่ใช้ซ้ำได้ เช่น capital cycle หรือ pricing power เมื่อแหล่งข้อมูลมีเนื้อหารองรับ
 
 เมื่อมีหลักฐานจากหลายแหล่งที่ผ่านการทบทวนเพียงพอ ใช้ `/research <ticker>` ช่วยร่าง **Investment Thesis** พร้อม base case, bear case และเงื่อนไขที่จะทำให้เปลี่ยนใจ ดูรูปแบบผลลัพธ์ได้ที่ [Source Note template](04-Schema/Templates/Source%20Note.md) และ [Thesis template](04-Schema/Templates/Thesis.md)
+
+## จากแหล่งข้อมูลถึง Thesis
+
+ช่วงแรกเก็บหลักฐานและเขียนโน้ตที่เชื่อมกัน ส่วนการร่าง Thesis ใช้หลักฐานหลายแหล่งที่ผ่านการทบทวนแล้ว:
+
+[![ผังงานจาก Sources ผ่าน Python capture ไปยัง Raw และ Source Note เชื่อม Entity กับ Concept จากนั้นทบทวนหลักฐานก่อนตัดสินใจร่าง Thesis หรือคงงานไว้เป็น pending](docs/assets/research-workflow.svg)](docs/assets/research-workflow.svg)
+
+ผังนี้แสดงขั้นตอนและเงื่อนไขของ workflow การนำเข้าไม่ได้หมายความว่าทุก claim ผ่าน review แล้ว และ Draft Thesis ยังต้องผ่าน Feynman กับ Reviewer ก่อนเปลี่ยนเป็น `reviewed`
+
+<details>
+<summary>อ่านขั้นตอนเป็นข้อความสำหรับหน้าจอเล็ก</summary>
+
+1. **Sources → Capture → Raw:** ใช้ Python ดึงหรือแปลงบทความ เอกสาร หรือ transcript เก็บเนื้อหาและข้อมูลที่มาของแหล่งข้อมูล
+2. **Raw → Source Note:** เขียนสรุป แยก fact, interpretation และ open question โดยเชื่อมกลับไปหา Raw
+3. **เชื่อมความรู้:** สร้างหรืออัปเดต Entity ที่เกี่ยวข้อง และสร้าง Concept เฉพาะเมื่อมีแนวคิดที่ใช้ซ้ำได้
+4. **Review evidence:** ทบทวนตัวเลข เหตุผล และ bear case ของ Source Notes กับความรู้ที่เชื่อมอยู่
+5. **พร้อมร่างหรือยัง:** ขั้นร่างใน `/research` ต้องมี Source Notes, Entity และอย่างน้อยหนึ่ง Concept ที่ผ่านการทบทวน หากยังไม่พอ ให้คงสถานะ pending แล้วตรวจหรือหาแหล่งข้อมูลเพิ่ม
+6. **Draft Thesis:** ร่าง base case, bear case และเงื่อนไขที่จะทำให้เปลี่ยนใจ จากนั้นส่งให้ Feynman กับ Reviewer ทบทวนก่อนใช้สถานะ `reviewed`
+
+</details>
+
+[ดูผังขนาดเต็ม](docs/assets/research-workflow.svg) · [เปิดแก้ไขใน Excalidraw](https://excalidraw.com/#json=DnhuJkqM6YF_7cglT4gGo,F_F2qdu4xW-aQudwaognBw) · [ไฟล์ต้นฉบับ](docs/assets/research-workflow.excalidraw) · [ที่มาของภาพ](docs/assets/README.md)
 
 ## เริ่มใช้งาน
 

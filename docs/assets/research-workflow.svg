@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1260" viewBox="0 0 1240 1260" role="img" aria-labelledby="svg-title desc">
+<title id="svg-title">Investment research workflow</title>
+<desc id="desc">Sources pass through Python capture to Raw and Source Notes. Source Notes connect to Entities and selective Concepts. Review the evidence. Sufficient reviewed Source Notes, an Entity and at least one Concept allow a draft thesis; otherwise keep research pending. A draft still needs Feynman and Reviewer.</desc>
+<defs>
+<marker id="arrowb8b8b8" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#b8b8b8" stroke-width="1.5"/></marker>
+<marker id="arrowbb86fc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#bb86fc" stroke-width="1.5"/></marker>
+<marker id="arrow03dac6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#03dac6" stroke-width="1.5"/></marker>
+</defs>
+<rect width="1240" height="1260" rx="18" fill="#121212"/>
+<text id="title" fill="#eeeeee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="40" text-anchor="start"><tspan x="40" y="80.0">From source to investment thesis</tspan></text>
+<text id="subtitle" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="40" y="122.0">Keep evidence traceable. Review it before drafting a thesis.</tspan></text>
+<text id="capture-lane" fill="#bb86fc" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="40" y="184.0">01  CAPTURE &amp; CONNECT</tspan></text>
+<rect id="sources" x="40" y="210" width="240" height="120" rx="12" fill="#232323" stroke="#666666" stroke-width="2"/>
+<text id="sources-title" fill="#eeeeee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="60" y="260.0">Sources</tspan></text>
+<text id="sources-detail" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="60" y="299.0">Files / URLs / video</tspan></text>
+<rect id="capture" x="330" y="210" width="220" height="120" rx="12" fill="#232323" stroke="#666666" stroke-width="2"/>
+<text id="capture-title" fill="#eeeeee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="350" y="260.0">Capture</tspan></text>
+<text id="capture-detail" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="350" y="299.0">Python fetcher</tspan></text>
+<rect id="raw" x="600" y="210" width="240" height="120" rx="12" fill="#232323" stroke="#666666" stroke-width="2"/>
+<text id="raw-title" fill="#eeeeee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="620" y="260.0">Raw</tspan></text>
+<text id="raw-detail" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="620" y="299.0">Text + provenance</tspan></text>
+<rect id="source-note" x="890" y="210" width="270" height="150" rx="12" fill="#232323" stroke="#bb86fc" stroke-width="2"/>
+<text id="source-note-title" fill="#eeeeee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="910" y="260.0">Source Note</tspan></text>
+<text id="source-note-detail" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="910" y="299.0">Fact / interpretation</tspan><tspan x="910" y="326.5">Open question</tspan></text>
+<polyline id="sources-to-capture" points="280.0,270.0 324.0,270.0" fill="none" stroke="#b8b8b8" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrowb8b8b8)"/>
+<polyline id="capture-to-raw" points="550.0,270.0 594.0,270.0" fill="none" stroke="#b8b8b8" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrowb8b8b8)"/>
+<polyline id="raw-to-source-note" points="840.0,270.0 884.0,270.0" fill="none" stroke="#bb86fc" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrowbb86fc)"/>
+<text id="knowledge-title" fill="#eeeeee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="28" text-anchor="start"><tspan x="40" y="462.0">Build linked knowledge</tspan></text>
+<text id="knowledge-detail" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="40" y="502.0">Keep links back to Source Notes.</tspan></text>
+<rect id="entities" x="530" y="425" width="280" height="120" rx="12" fill="#232323" stroke="#bb86fc" stroke-width="2"/>
+<text id="entities-title" fill="#eeeeee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="550" y="475.0">Entities</tspan></text>
+<text id="entities-detail" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="550" y="514.0">Companies / people</tspan></text>
+<rect id="concepts" x="860" y="425" width="300" height="120" rx="12" fill="#232323" stroke="#bb86fc" stroke-width="2"/>
+<text id="concepts-title" fill="#eeeeee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="880" y="475.0">Concepts</tspan></text>
+<text id="concepts-detail" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="880" y="514.0">Only if reusable</tspan></text>
+<polyline id="source-note-to-entities" points="970.0,360.0 970.0,383.0 670.0,383.0 670.0,419.0" fill="none" stroke="#bb86fc" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrowbb86fc)"/>
+<polyline id="source-note-to-concepts" points="1050.0,360.0 1050.0,396.0 1010.0,396.0 1010.0,419.0" fill="none" stroke="#bb86fc" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrowbb86fc)"/>
+<polyline id="evidence-to-review" points="1160.0,290.0 1200.0,290.0 1200.0,606.0 20.0,606.0 20.0,780.0 34.0,780.0" fill="none" stroke="#b8b8b8" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrowb8b8b8)"/>
+<text id="review-input" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="390" y="594.0">Review source notes and linked knowledge</tspan></text>
+<text id="review-lane" fill="#03dac6" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="40" y="682.0">02  REVIEW &amp; DRAFT</tspan></text>
+<rect id="review" x="40" y="720" width="340" height="120" rx="12" fill="#232323" stroke="#666666" stroke-width="2"/>
+<text id="review-title" fill="#eeeeee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="60" y="770.0">Review evidence</tspan></text>
+<text id="review-detail" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="60" y="809.0">Numbers / logic / bear case</tspan></text>
+<polygon id="evidence-gate" points="630.0,680 775,780.0 630.0,880 485,780.0" fill="#232323" stroke="#03dac6" stroke-width="2"/>
+<text id="gate-text" fill="#eeeeee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="29" text-anchor="middle"><tspan x="630.0" y="770.0">Ready to</tspan><tspan x="630.0" y="806.25">draft?</tspan></text>
+<rect id="thesis" x="920" y="720" width="280" height="120" rx="12" fill="#232323" stroke="#03dac6" stroke-width="2"/>
+<text id="thesis-title" fill="#eeeeee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="940" y="770.0">Draft Thesis</tspan></text>
+<text id="thesis-detail" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="940" y="809.0">Base case / bear case</tspan></text>
+<polyline id="review-to-gate" points="380.0,780.0 479.0,780.0" fill="none" stroke="#b8b8b8" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrowb8b8b8)"/>
+<polyline id="gate-to-thesis" points="775.0,780.0 914.0,780.0" fill="none" stroke="#03dac6" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow03dac6)"/>
+<text id="yes-label" fill="#03dac6" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="23" text-anchor="start"><tspan x="824" y="763.0">Yes</tspan></text>
+<rect id="pending" x="480" y="1030" width="300" height="120" rx="12" fill="#232323" stroke="#666666" stroke-width="2"/>
+<text id="pending-title" fill="#eeeeee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="500" y="1080.0">Keep pending</tspan></text>
+<text id="pending-detail" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="500" y="1119.0">Review / gather more</tspan></text>
+<polyline id="gate-to-pending" points="630.0,880.0 630.0,1024.0" fill="none" stroke="#b8b8b8" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrowb8b8b8)"/>
+<text id="no-label" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="23" text-anchor="start"><tspan x="648" y="957.0">Not yet</tspan></text>
+<text id="gate-rule-title" fill="#eeeeee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="25" text-anchor="start"><tspan x="40" y="950.0">Before drafting</tspan></text>
+<text id="gate-rule" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="40" y="991.0">Reviewed Source Notes</tspan><tspan x="40" y="1018.5">+ Entity + at least one Concept</tspan></text>
+<text id="thesis-caveat-title" fill="#eeeeee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="25" text-anchor="start"><tspan x="870" y="950.0">A draft still needs review</tspan></text>
+<text id="thesis-caveat" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="870" y="991.0">Feynman + Reviewer</tspan><tspan x="870" y="1018.5">before marking it reviewed.</tspan></text>
+<text id="footer" fill="#b8b8b8" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="40" y="1212.0">Workflow requirements are not a guarantee that every claim has been verified.</tspan></text>
+</svg>
