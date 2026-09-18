@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="1030" viewBox="0 0 1260 1030" role="img" aria-labelledby="svg-title svg-desc">
+<title id="svg-title">Knowledge ingestion &amp; synthesis</title>
+<desc id="svg-desc">A research source is triaged, prioritized, captured into Raw, and distilled into a Source Note. Research reviews material claims before linking Entities and selective Concepts; unresolved claims stay pending for revision. Standard single-source ingest has a separate lean route, including items chosen from the queue. Index provides retrieval while Logs and Schema support the workflow.</desc>
+<defs>
+<marker id="arrow60646c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#60646c" stroke-width="1.5"/></marker>
+<marker id="arrow6200ee" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#6200ee" stroke-width="1.5"/></marker>
+<marker id="arrow007f75" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#007f75" stroke-width="1.5"/></marker>
+<marker id="arrowb00020" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#b00020" stroke-width="1.5"/></marker>
+</defs>
+<rect x="1" y="1" width="1258" height="1028" rx="16" fill="#ffffff" stroke="#e4e5e7"/>
+<text id="headline" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="42" text-anchor="start"><tspan x="40" y="78.0">Knowledge ingestion &amp; synthesis</tspan></text>
+<text id="subtitle" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="40" y="122.0">The review path for research; /ingest also supports a lean direct route.</tspan></text>
+<rect id="sources" x="40" y="230" width="230" height="130" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="sources-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="60" y="278.0">Sources</tspan></text>
+<text id="sources-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="60" y="317.0">Files / URLs / video</tspan></text>
+<polygon id="triage" points="440.0,205 550,295.0 440.0,385 330,295.0" fill="#ffffff" stroke="#6200ee" stroke-width="2"/>
+<text id="triage-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="27" text-anchor="middle"><tspan x="440.0" y="305.0">Triage</tspan></text>
+<rect id="priority" x="630" y="230" width="230" height="130" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="priority-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="650" y="278.0">Prioritize</tspan></text>
+<text id="priority-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="650" y="317.0">P0 / P1 / P2</tspan></text>
+<rect id="raw" x="940" y="230" width="280" height="130" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="raw-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="960" y="278.0">Capture + Raw</tspan></text>
+<text id="raw-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="960" y="317.0">Python / 01-Raw/</tspan></text>
+<polyline id="source-triage" points="270.0,295.0 324.0,295.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<polyline id="triage-priority" points="550.0,295.0 624.0,295.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<polyline id="priority-raw" points="860.0,295.0 934.0,295.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<text id="accept" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="557" y="279.0">ready</tspan></text>
+<text id="research-scope" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="40" y="188.0">RESEARCH SOURCES</tspan></text>
+<rect id="deferred" x="330" y="430" width="280" height="115" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="deferred-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="350" y="478.0">Deferred / waiting</tspan></text>
+<text id="deferred-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="350" y="517.0">Queue + reason</tspan></text>
+<polyline id="defer" points="440.0,385.0 440.0,424.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<text id="defer-label" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="455" y="411.0">not ready</tspan></text>
+<rect id="source-note" x="940" y="600" width="280" height="155" rx="10" fill="#f8f8f8" stroke="#6200ee" stroke-width="2"/>
+<text id="source-note-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="960" y="648.0">Source Note</tspan></text>
+<text id="source-note-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="960" y="687.0">Fact / interpretation</tspan><tspan x="960" y="714.5">Open question</tspan></text>
+<polyline id="raw-note" points="1080.0,360.0 1080.0,594.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<rect id="review" x="620" y="600" width="270" height="155" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="review-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="640" y="648.0">Review evidence</tspan></text>
+<text id="review-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="640" y="687.0">Feynman / Reviewer</tspan></text>
+<polyline id="note-review" points="940.0,678.0 896.0,678.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<polygon id="claim-gate" points="445.0,580 560,677.5 445.0,775 330,677.5" fill="#ffffff" stroke="#6200ee" stroke-width="2"/>
+<text id="claim-gate-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="27" text-anchor="middle"><tspan x="445.0" y="670.5">Claims</tspan><tspan x="445.0" y="704.25">ready?</tspan></text>
+<polyline id="review-gate" points="620.0,678.0 566.0,678.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<rect id="knowledge" x="40" y="600" width="250" height="155" rx="10" fill="#f8f8f8" stroke="#007f75" stroke-width="2"/>
+<text id="knowledge-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="60" y="648.0">Linked Wiki</tspan></text>
+<text id="knowledge-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="60" y="687.0">Entity / Concept*</tspan></text>
+<polyline id="gate-wiki" points="330.0,678.0 296.0,678.0" fill="none" stroke="#007f75" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow007f75)"/>
+<text id="gate-yes" fill="#007f75" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="300" y="664.0">yes</tspan></text>
+<rect id="pending" x="330" y="845" width="290" height="130" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="pending-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="28" text-anchor="start"><tspan x="350" y="891.0">Revise Source Note</tspan></text>
+<text id="pending-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="350" y="932.0">Verification: pending</tspan></text>
+<polyline id="gate-pending" points="445.0,775.0 445.0,839.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<text id="gate-no" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="465" y="819.0">not yet</tspan></text>
+<rect id="index" x="40" y="845" width="250" height="130" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="index-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="60" y="893.0">05-Index</tspan></text>
+<text id="index-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="60" y="932.0">Find linked notes</tspan></text>
+<polyline id="wiki-index" points="165.0,755.0 165.0,839.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<text id="support-heading" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="28" text-anchor="start"><tspan x="690" y="852.0">Supporting layers</tspan></text>
+<text id="support-text" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="690" y="896.0">03-Logs: record changes</tspan><tspan x="690" y="926.0">04-Schema + .agents: note rules</tspan></text>
+<text id="scope" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="40" y="1014.0">Independent review shown for research. *Concept extraction is selective.</tspan></text>
+</svg>
