@@ -18,6 +18,9 @@ import datetime
 import urllib.request
 import argparse
 from pathlib import Path
+import tempfile
+
+from raw_capture import write_capture
 
 # Ensure UTF-8 output on Windows
 sys.stdout.reconfigure(encoding='utf-8')
@@ -124,7 +127,6 @@ def fetch_youtube_video(url: str, output_dir: Path = None) -> Path:
         output_dir = vault_root / "01-Raw" / "video"
         
     output_dir.mkdir(parents=True, exist_ok=True)
-    out_file = output_dir / f"{slug}.md"
     
     content = f"""---
 title: "{title}"
@@ -153,10 +155,7 @@ tags: []
 
 {body_text.strip()}
 """
-    with open(out_file, 'w', encoding='utf-8') as f:
-        f.write(content.strip() + '\n')
-        
-    return out_file
+    return write_capture(output_dir, slug, url, (content.strip() + "\n").encode("utf-8"))
 
 
 def extract_content_from_html(html: str, url: str):
@@ -266,26 +265,27 @@ def fetch_document_url(url: str, output_dir: Path = None, media_type: str = "fil
     if not any(filename.endswith(ext) for ext in ['.pdf', '.docx', '.pptx', '.xlsx']):
         filename += ".pdf"
 
-    temp_doc_path = output_dir / filename
-    with open(temp_doc_path, 'wb') as f:
-        f.write(data)
+    # Conversion must not stage downloads over files already in 01-Raw.
+    with tempfile.TemporaryDirectory(prefix="wiki-document-") as temporary:
+        temp_doc_path = Path(temporary) / filename
+        temp_doc_path.write_bytes(data)
 
-    body_text = ""
-    if MarkItDown:
-        try:
-            md = MarkItDown()
-            res = md.convert(str(temp_doc_path))
-            body_text = res.text_content
-        except Exception as e:
-            print(f"MarkItDown failed ({e}), falling back...")
-    
-    if not body_text:
-        try:
-            import pypdf
-            reader = pypdf.PdfReader(str(temp_doc_path))
-            body_text = "\n\n".join([p.extract_text() for p in reader.pages if p.extract_text()])
-        except Exception as e:
-            print(f"PyPDF failed ({e})")
+        body_text = ""
+        if MarkItDown:
+            try:
+                md = MarkItDown()
+                res = md.convert(str(temp_doc_path))
+                body_text = res.text_content
+            except Exception as e:
+                print(f"MarkItDown failed ({e}), falling back...")
+
+        if not body_text:
+            try:
+                import pypdf
+                reader = pypdf.PdfReader(str(temp_doc_path))
+                body_text = "\n\n".join([p.extract_text() for p in reader.pages if p.extract_text()])
+            except Exception as e:
+                print(f"PyPDF failed ({e})")
 
     title = filename.rsplit('.', 1)[0]
     published = datetime.date.today().isoformat()
@@ -324,14 +324,10 @@ def fetch_document_url(url: str, output_dir: Path = None, media_type: str = "fil
 
     date_prefix = published.replace('-', '')
     slug = f"{date_prefix}_{clean_slug(title)}"
-    out_file = output_dir / f"{slug}.md"
     
-    final_raw_pdf = output_dir / f"{slug}.pdf"
-    if temp_doc_path.exists():
-        if temp_doc_path != final_raw_pdf:
-            if final_raw_pdf.exists():
-                final_raw_pdf.unlink()
-            temp_doc_path.rename(final_raw_pdf)
+    raw_document = write_capture(
+        output_dir, slug, url, data, suffix=Path(filename).suffix
+    )
 
     content = f"""---
 title: "{title}"
@@ -344,7 +340,7 @@ published: {published}
 captured: {datetime.date.today().isoformat()}
 conversion_method: markitdown
 status: raw
-raw_file: "{final_raw_pdf.as_posix()}"
+raw_file: "{raw_document.as_posix()}"
 images: 0
 img_dir: ""
 tags: []
@@ -359,10 +355,7 @@ tags: []
 
 {body_text.strip()}
 """
-    with open(out_file, 'w', encoding='utf-8') as f:
-        f.write(content.strip() + '\n')
-
-    return out_file
+    return write_capture(output_dir, slug, url, (content.strip() + "\n").encode("utf-8"))
 
 
 def fetch_url(url: str, output_dir: Path = None, media_type: str = "article", force_playwright: bool = False) -> Path:
@@ -410,7 +403,6 @@ def fetch_url(url: str, output_dir: Path = None, media_type: str = "article", fo
         output_dir = vault_root / "01-Raw" / media_type
         
     output_dir.mkdir(parents=True, exist_ok=True)
-    out_file = output_dir / f"{slug}.md"
     
     content = f"""---
 title: "{title}"
@@ -438,10 +430,7 @@ tags: []
 {body_text.strip()}
 """
     
-    with open(out_file, 'w', encoding='utf-8') as f:
-        f.write(content.strip() + '\n')
-        
-    return out_file
+    return write_capture(output_dir, slug, url, (content.strip() + "\n").encode("utf-8"))
 
 
 def convert_local_file(file_path: str, media_type: str = "book") -> Path:
@@ -455,7 +444,6 @@ def convert_local_file(file_path: str, media_type: str = "book") -> Path:
     
     date_prefix = datetime.date.today().strftime('%Y%m%d')
     slug = f"{date_prefix}_{clean_slug(src.stem)}"
-    out_file = output_dir / f"{slug}.md"
     
     body_text = ""
     if MarkItDown:
@@ -487,10 +475,7 @@ tags: []
 
 {body_text.strip()}
 """
-    with open(out_file, 'w', encoding='utf-8') as f:
-        f.write(content.strip() + '\n')
-        
-    return out_file
+    return write_capture(output_dir, slug, src.as_uri(), (content.strip() + "\n").encode("utf-8"))
 
 
 def main():

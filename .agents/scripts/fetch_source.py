@@ -19,6 +19,10 @@ import urllib.request
 import argparse
 from pathlib import Path
 
+# Share the immutable writer with the public fetcher.
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
+from raw_capture import write_capture
+
 try:
     from bs4 import BeautifulSoup
 except ImportError:
@@ -118,7 +122,6 @@ def fetch_youtube_video(url: str, output_dir: Path = None) -> Path:
         output_dir = vault_root / "01-Raw" / "video"
         
     output_dir.mkdir(parents=True, exist_ok=True)
-    out_file = output_dir / f"{slug}.md"
     
     content = f"""---
 title: "{title}"
@@ -147,10 +150,7 @@ tags: []
 
 {body_text.strip()}
 """
-    with open(out_file, 'w', encoding='utf-8') as f:
-        f.write(content.strip() + '\n')
-        
-    return out_file
+    return write_capture(output_dir, slug, url, (content.strip() + "\n").encode("utf-8"))
 
 
 def extract_content_from_html(html: str, url: str):
@@ -280,7 +280,6 @@ def fetch_url(url: str, output_dir: Path = None, media_type: str = "article", fo
         output_dir = vault_root / "01-Raw" / media_type
         
     output_dir.mkdir(parents=True, exist_ok=True)
-    out_file = output_dir / f"{slug}.md"
     
     content = f"""---
 title: "{title}"
@@ -308,10 +307,7 @@ tags: []
 {body_text.strip()}
 """
     
-    with open(out_file, 'w', encoding='utf-8') as f:
-        f.write(content.strip() + '\n')
-        
-    return out_file
+    return write_capture(output_dir, slug, url, (content.strip() + "\n").encode("utf-8"))
 
 
 def convert_local_file(file_path: str, media_type: str = "book") -> Path:
@@ -325,7 +321,6 @@ def convert_local_file(file_path: str, media_type: str = "book") -> Path:
     
     date_prefix = datetime.date.today().strftime('%Y%m%d')
     slug = f"{date_prefix}_{clean_slug(src.stem)}"
-    out_file = output_dir / f"{slug}.md"
     
     body_text = ""
     if MarkItDown:
@@ -357,10 +352,7 @@ tags: []
 
 {body_text.strip()}
 """
-    with open(out_file, 'w', encoding='utf-8') as f:
-        f.write(content.strip() + '\n')
-        
-    return out_file
+    return write_capture(output_dir, slug, src.as_uri(), (content.strip() + "\n").encode("utf-8"))
 
 
 def main():
