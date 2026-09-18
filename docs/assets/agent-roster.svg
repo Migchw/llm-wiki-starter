@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="930" viewBox="0 0 1260 930" role="img" aria-labelledby="svg-title svg-desc">
+<title id="svg-title">Munger + 8 specialist agents</title>
+<desc id="svg-desc">Munger is the main session and coordinates eight specialist agent files. Peter Lynch finds and stages; René prepares transcripts; Ingest Runner processes one source; Researcher writes Source Notes; Feynman audits facts; Reviewer tests reasoning; Darwin develops relevant Entities and selective Concepts; Leopold drafts from reviewed evidence.</desc>
+<defs>
+<marker id="arrow60646c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#60646c" stroke-width="1.5"/></marker>
+<marker id="arrow6200ee" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#6200ee" stroke-width="1.5"/></marker>
+<marker id="arrow007f75" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#007f75" stroke-width="1.5"/></marker>
+<marker id="arrowb00020" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#b00020" stroke-width="1.5"/></marker>
+</defs>
+<rect x="1" y="1" width="1258" height="928" rx="16" fill="#ffffff" stroke="#e4e5e7"/>
+<text id="headline" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="42" text-anchor="start"><tspan x="40" y="78.0">Munger + 8 specialist agents</tspan></text>
+<text id="subtitle" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="40" y="122.0">Nine roles in total; standard ingestion can stay in the main session.</tspan></text>
+<rect id="munger" x="40" y="167" width="1180" height="135" rx="10" fill="#f8f8f8" stroke="#6200ee" stroke-width="2"/>
+<text id="munger-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="34" text-anchor="start"><tspan x="60" y="219.0">Munger  /  main session</tspan></text>
+<text id="munger-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="60" y="254.0">Plan research, perform direct ingestion, and delegate specialist work when needed.</tspan></text>
+<text id="category-0" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="26" text-anchor="start"><tspan x="40" y="386.0">Discover &amp; capture</tspan></text>
+<polyline id="delegation-0" points="180.0,302.0 180.0,339.0" fill="none" stroke="#6200ee" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow6200ee)"/>
+<rect id="agent-0-0" x="40" y="417" width="280" height="155" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="agent-0-0-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="60" y="465.0">Peter Lynch</tspan></text>
+<text id="agent-0-0-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="60" y="504.0">Find / verify links</tspan><tspan x="60" y="531.5">Stage source material</tspan></text>
+<rect id="agent-0-1" x="40" y="607" width="280" height="155" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="agent-0-1-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="60" y="655.0">René</tspan></text>
+<text id="agent-0-1-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="60" y="694.0">Acquire transcript</tspan><tspan x="60" y="721.5">and source metadata</tspan></text>
+<text id="category-1" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="26" text-anchor="start"><tspan x="340" y="386.0">Ingest &amp; distill</tspan></text>
+<polyline id="delegation-1" points="480.0,302.0 480.0,339.0" fill="none" stroke="#6200ee" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow6200ee)"/>
+<rect id="agent-1-0" x="340" y="417" width="280" height="155" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="agent-1-0-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="360" y="465.0">Ingest Runner</tspan></text>
+<text id="agent-1-0-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="360" y="504.0">Run one source</tspan><tspan x="360" y="531.5">through ingestion</tspan></text>
+<rect id="agent-1-1" x="340" y="607" width="280" height="155" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="agent-1-1-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="360" y="655.0">Researcher</tspan></text>
+<text id="agent-1-1-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="360" y="694.0">Raw to Source Note</tspan><tspan x="360" y="721.5">Brief + claim table</tspan></text>
+<text id="category-2" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="26" text-anchor="start"><tspan x="640" y="386.0">Review</tspan></text>
+<polyline id="delegation-2" points="780.0,302.0 780.0,339.0" fill="none" stroke="#6200ee" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow6200ee)"/>
+<rect id="agent-2-0" x="640" y="417" width="280" height="155" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="agent-2-0-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="660" y="465.0">Feynman</tspan></text>
+<text id="agent-2-0-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="660" y="504.0">Check material facts</tspan><tspan x="660" y="531.5">Figures / quotations</tspan></text>
+<rect id="agent-2-1" x="640" y="607" width="280" height="155" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="agent-2-1-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="660" y="655.0">Reviewer</tspan></text>
+<text id="agent-2-1-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="660" y="694.0">Test reasoning</tspan><tspan x="660" y="721.5">Bear case / moat</tspan></text>
+<text id="category-3" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="26" text-anchor="start"><tspan x="940" y="386.0">Develop knowledge</tspan></text>
+<polyline id="delegation-3" points="1080.0,302.0 1080.0,339.0" fill="none" stroke="#6200ee" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow6200ee)"/>
+<rect id="agent-3-0" x="940" y="417" width="280" height="155" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="agent-3-0-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="960" y="465.0">Darwin</tspan></text>
+<text id="agent-3-0-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="960" y="504.0">Relevant Entities</tspan><tspan x="960" y="531.5">Selective Concepts</tspan></text>
+<rect id="agent-3-1" x="940" y="607" width="280" height="155" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="agent-3-1-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="960" y="655.0">Leopold</tspan></text>
+<text id="agent-3-1-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="960" y="694.0">Draft a Thesis from</tspan><tspan x="960" y="721.5">reviewed evidence</tspan></text>
+<text id="not-all" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="40" y="850.0">Roles describe available specialists; each task uses only the roles it needs.</tspan></text>
+<text id="no-stt" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="40" y="892.0">René handles available transcripts; automatic speech-to-text is not supplied by the fetcher.</tspan></text>
+</svg>

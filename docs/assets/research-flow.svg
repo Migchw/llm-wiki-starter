@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="1460" viewBox="0 0 1260 1460" role="img" aria-labelledby="svg-title svg-desc">
+<title id="svg-title">/research: find, ingest, draft</title>
+<desc id="svg-desc">Find and stage sources through Peter Lynch. Munger ingests usable sources one at a time with material fact and reasoning checks, maintaining linked knowledge. Draft only with sufficient reviewed Source Notes, an Entity and at least one Concept. Leopold drafts; Feynman and Reviewer check again. Failed review stays pending; only passing drafts become reviewed.</desc>
+<defs>
+<marker id="arrow60646c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#60646c" stroke-width="1.5"/></marker>
+<marker id="arrow6200ee" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#6200ee" stroke-width="1.5"/></marker>
+<marker id="arrow007f75" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#007f75" stroke-width="1.5"/></marker>
+<marker id="arrowb00020" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#b00020" stroke-width="1.5"/></marker>
+</defs>
+<rect x="1" y="1" width="1258" height="1458" rx="16" fill="#ffffff" stroke="#e4e5e7"/>
+<text id="headline" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="42" text-anchor="start"><tspan x="40" y="78.0">/research: find, ingest, draft</tspan></text>
+<text id="subtitle" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="40" y="122.0">Three functional groups within the research workflow.</tspan></text>
+<text id="find-lane-title" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="40" y="185.0">01  FIND &amp; STAGE  /  PETER LYNCH</tspan></text>
+<rect id="ticker" x="40" y="211" width="260" height="135" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="ticker-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="28" text-anchor="start"><tspan x="60" y="257.0">Ticker + market</tspan></text>
+<text id="ticker-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="60" y="298.0">User sources included</tspan></text>
+<rect id="find" x="340" y="211" width="260" height="135" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="find-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="28" text-anchor="start"><tspan x="360" y="257.0">Find candidates</tspan></text>
+<text id="find-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="360" y="298.0">Primary source list</tspan></text>
+<polyline id="finding-1" points="300.0,278.0 334.0,278.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<rect id="verify" x="640" y="211" width="260" height="135" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="verify-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="28" text-anchor="start"><tspan x="660" y="257.0">Open &amp; verify</tspan></text>
+<text id="verify-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="660" y="298.0">File / period / URL</tspan></text>
+<polyline id="finding-2" points="600.0,278.0 634.0,278.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<rect id="stage" x="940" y="211" width="260" height="135" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="stage-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="28" text-anchor="start"><tspan x="960" y="257.0">Stage + prioritize</tspan></text>
+<text id="stage-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="960" y="298.0">Raw/inbox + Queue</tspan></text>
+<polyline id="finding-3" points="900.0,278.0 934.0,278.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<text id="stage-note" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="40" y="400.0">Unavailable sources are recorded and skipped. Peter Lynch alone stops after staging.</tspan></text>
+<text id="ingest-title" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="40" y="484.0">02  INGEST &amp; REVIEW  /  MUNGER</tspan></text>
+<rect id="queue" x="40" y="512" width="260" height="145" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="queue-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="60" y="560.0">Next source</tspan></text>
+<text id="queue-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="60" y="599.0">Priority order</tspan></text>
+<rect id="runner" x="350" y="512" width="260" height="145" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="runner-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="28" text-anchor="start"><tspan x="370" y="558.0">Ingest Runner</tspan></text>
+<text id="runner-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="370" y="599.0">Raw to Source Note</tspan></text>
+<rect id="review" x="660" y="512" width="260" height="145" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="review-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="680" y="554.0">Feynman + Reviewer</tspan></text>
+<text id="review-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="680" y="599.0">Material facts / logic</tspan></text>
+<rect id="knowledge" x="970" y="512" width="250" height="145" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="knowledge-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="26" text-anchor="start"><tspan x="990" y="556.0">Linked knowledge</tspan></text>
+<text id="knowledge-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="990" y="599.0">Reviewed Entity</tspan><tspan x="990" y="626.5">Selective Concepts</tspan></text>
+<polyline id="q-r" points="300.0,585.0 344.0,585.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<polyline id="r-v" points="610.0,585.0 654.0,585.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<polyline id="v-k" points="920.0,585.0 964.0,585.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<polyline id="stage-queue" points="1070.0,346.0 1070.0,430.0 18.0,430.0 18.0,585.0 34.0,585.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<polyline id="next-loop" points="1095.0,657.0 1095.0,712.0 170.0,712.0 170.0,663.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" stroke-dasharray="7 7" marker-end="url(#arrow60646c)"/>
+<text id="loop-label" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="400" y="695.0">Continue with the next usable source</tspan></text>
+<text id="draft-lane-title" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="40" y="802.0">03  DRAFT &amp; REVIEW  /  LEOPOLD</tspan></text>
+<polygon id="ready" points="170.0,840 300,945.0 170.0,1050 40,945.0" fill="#ffffff" stroke="#6200ee" stroke-width="2"/>
+<text id="ready-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="27" text-anchor="middle"><tspan x="170.0" y="938.0">Enough</tspan><tspan x="170.0" y="971.75">evidence?</tspan></text>
+<rect id="draft" x="380" y="880" width="260" height="145" rx="10" fill="#f8f8f8" stroke="#007f75" stroke-width="2"/>
+<text id="draft-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="400" y="928.0">Draft Thesis</tspan></text>
+<text id="draft-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="400" y="967.0">Leopold</tspan></text>
+<rect id="final-review" x="720" y="880" width="290" height="145" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="final-review-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="740" y="928.0">Review draft</tspan></text>
+<text id="final-review-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="740" y="967.0">Feynman + Reviewer</tspan></text>
+<polyline id="evidence-to-gate" points="1220.0,585.0 1240.0,585.0 1240.0,823.0 170.0,823.0 170.0,834.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<polyline id="ready-draft" points="300.0,945.0 374.0,945.0" fill="none" stroke="#007f75" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow007f75)"/>
+<text id="enough-yes" fill="#007f75" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="319" y="928.0">yes</tspan></text>
+<polyline id="draft-review" points="640.0,945.0 714.0,945.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<rect id="insufficient" x="40" y="1140" width="370" height="135" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="insufficient-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="60" y="1188.0">Report missing evidence</tspan></text>
+<text id="insufficient-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="60" y="1227.0">No forced thesis</tspan></text>
+<polyline id="not-enough" points="170.0,1050.0 170.0,1134.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<text id="not-enough-label" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="190" y="1102.0">not yet</tspan></text>
+<rect id="revise" x="490" y="1140" width="300" height="135" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="revise-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="510" y="1188.0">Revise draft</tspan></text>
+<text id="revise-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="510" y="1227.0">Still pending</tspan></text>
+<rect id="reviewed" x="920" y="1140" width="300" height="135" rx="10" fill="#f8f8f8" stroke="#007f75" stroke-width="2"/>
+<text id="reviewed-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="940" y="1188.0">Reviewed Thesis</tspan></text>
+<text id="reviewed-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="940" y="1227.0">Only after checks pass</tspan></text>
+<polyline id="review-to-revise" points="795.0,1025.0 795.0,1090.0 640.0,1090.0 640.0,1134.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<text id="revise-label" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="650" y="1076.0">gaps</tspan></text>
+<polyline id="review-to-pass" points="965.0,1025.0 965.0,1090.0 1070.0,1090.0 1070.0,1134.0" fill="none" stroke="#007f75" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow007f75)"/>
+<text id="pass-label" fill="#007f75" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="1090" y="1102.0">pass</tspan></text>
+<text id="gate-rule" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="40" y="1362.0">Before drafting: reviewed Source Notes + Entity + at least one reviewed Concept.</tspan></text>
+<text id="review-rule" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="40" y="1416.0">These are workflow requirements; the diagram does not guarantee automatic enforcement.</tspan></text>
+</svg>

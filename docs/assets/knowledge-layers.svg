@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="880" viewBox="0 0 1260 880" role="img" aria-labelledby="svg-title svg-desc">
+<title id="svg-title">Five layers, different jobs</title>
+<desc id="svg-desc">Five conceptual layers: immutable captured Raw, readable Source Notes within Wiki, reusable linked Wiki knowledge, Schema rules, and Index/Log navigation and history. Schema and Index/Log support the process, not sequential analysis stages.</desc>
+<defs>
+<marker id="arrow60646c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#60646c" stroke-width="1.5"/></marker>
+<marker id="arrow6200ee" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#6200ee" stroke-width="1.5"/></marker>
+<marker id="arrow007f75" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#007f75" stroke-width="1.5"/></marker>
+<marker id="arrowb00020" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#b00020" stroke-width="1.5"/></marker>
+</defs>
+<rect x="1" y="1" width="1258" height="878" rx="16" fill="#ffffff" stroke="#e4e5e7"/>
+<text id="headline" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="42" text-anchor="start"><tspan x="40" y="78.0">Five layers, different jobs</tspan></text>
+<text id="subtitle" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="40" y="122.0">These are conceptual layers; Source Notes are physically part of 02-Wiki/.</tspan></text>
+<text id="layer-head" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="60" y="185.0">LAYER</tspan></text>
+<text id="job-head" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="330" y="185.0">PURPOSE</tspan></text>
+<text id="location-head" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="870" y="185.0">LOCATION / EXAMPLES</tspan></text>
+<rect id="layer-0" x="40" y="211" width="1180" height="94" rx="10" fill="#f8f8f8" stroke="#e4e5e7" stroke-width="2"/>
+<text id="name-0" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="60" y="269.0">Raw</tspan></text>
+<text id="purpose-0" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="330" y="267.0">Retain captured evidence</tspan></text>
+<text id="location-0" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="870" y="248.0">01-Raw/</tspan><tspan x="870" y="275.5">Text + original files</tspan></text>
+<rect id="layer-1" x="40" y="317" width="1180" height="94" rx="10" fill="#f8f8f8" stroke="#e4e5e7" stroke-width="2"/>
+<text id="name-1" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="60" y="375.0">Source Note</tspan></text>
+<text id="purpose-1" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="330" y="373.0">Explain one source; separate claims</tspan></text>
+<text id="location-1" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="870" y="354.0">02-Wiki/Sources/</tspan><tspan x="870" y="381.5">Brief + claim table</tspan></text>
+<rect id="layer-2" x="40" y="423" width="1180" height="94" rx="10" fill="#f8f8f8" stroke="#e4e5e7" stroke-width="2"/>
+<text id="name-2" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="60" y="481.0">Wiki</tspan></text>
+<text id="purpose-2" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="330" y="479.0">Connect reusable investment knowledge</tspan></text>
+<text id="location-2" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="870" y="460.0">02-Wiki/</tspan><tspan x="870" y="487.5">Entities / Concepts / Theses</tspan></text>
+<rect id="layer-3" x="40" y="529" width="1180" height="94" rx="10" fill="#f8f8f8" stroke="#e4e5e7" stroke-width="2"/>
+<text id="name-3" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="60" y="587.0">Schema</tspan></text>
+<text id="purpose-3" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="330" y="585.0">Define note structure and review rules</tspan></text>
+<text id="location-3" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="870" y="566.0">04-Schema/ + .agents/</tspan><tspan x="870" y="593.5">Templates / naming</tspan></text>
+<rect id="layer-4" x="40" y="635" width="1180" height="94" rx="10" fill="#f8f8f8" stroke="#e4e5e7" stroke-width="2"/>
+<text id="name-4" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="60" y="693.0">Index / Log</tspan></text>
+<text id="purpose-4" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="330" y="691.0">Find work and record what changed</tspan></text>
+<text id="location-4" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="870" y="672.0">05-Index/ + 03-Logs/</tspan><tspan x="870" y="699.5">Home / Queue / Log</tspan></text>
+<text id="support-note" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="40" y="798.0">Schema and Index / Log support the workflow; they are not consecutive analysis stages.</tspan></text>
+<text id="evidence-note" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="40" y="840.0">A thesis draws on reviewed Source Notes and linked knowledge, with links back to Raw.</tspan></text>
+</svg>

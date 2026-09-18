@@ -6,7 +6,7 @@
 
 ใช้ **Obsidian** อ่านและเชื่อมโยงโน้ต ใช้ **Claude Code** ช่วยเก็บแหล่งข้อมูล เขียน Source Note และร่าง Investment Thesis ส่วนโน้ตเก็บเป็นไฟล์ Markdown ในเครื่อง คุณจึงเปิดอ่าน แก้ไข และย้ายไปใช้กับเครื่องมืออื่นได้
 
-[เริ่มใช้งาน](#เริ่มใช้งาน) · [ดูขั้นตอน](#จากแหล่งข้อมูลถึง-thesis) · [คำสั่งที่ใช้บ่อย](#คำสั่งที่ใช้บ่อย) · [โครงสร้างไฟล์](#โครงสร้างไฟล์) · [คู่มือเพิ่มเติม](#คู่มือเพิ่มเติม)
+[เริ่มใช้งาน](#เริ่มใช้งาน) · [ดูขั้นตอน](#จากแหล่งข้อมูลถึง-thesis) · [คำสั่งที่ใช้บ่อย](#คำสั่งที่ใช้บ่อย) · [โครงสร้างไฟล์](#โครงสร้างไฟล์) · [คู่มือผังทั้ง 6](docs/workflows.md) · [คู่มือเพิ่มเติม](#คู่มือเพิ่มเติม)
 
 ## ปัญหาที่โปรเจกต์นี้ช่วยแก้
 
@@ -43,6 +43,17 @@ Wiki นี้แยก **หลักฐานที่เก็บมา** อ
 </details>
 
 [ดูผังขนาดเต็ม](docs/assets/research-workflow.svg) · [เปิดแก้ไขใน Excalidraw](https://excalidraw.com/#json=DnhuJkqM6YF_7cglT4gGo,F_F2qdu4xW-aQudwaognBw) · [ไฟล์ต้นฉบับ](docs/assets/research-workflow.excalidraw) · [ที่มาของภาพ](docs/assets/README.md)
+
+<details>
+<summary>ดู pipeline งานวิจัย: triage, review และการเชื่อมความรู้</summary>
+
+[![ผังงานวิจัยจาก Sources ผ่าน triage และการจัดลำดับ ไปยัง Raw, Source Note และการทบทวน claim ก่อนเชื่อมความรู้ พร้อมทางรอข้อมูลหรือแก้โน้ต](docs/assets/knowledge-pipeline.svg)](docs/assets/knowledge-pipeline.svg)
+
+ผังนี้ขยายเส้นทาง review ที่ใช้ในงานวิจัย ส่วน `/ingest` แหล่งเดียวมีขั้นตอนแบบตรงใน session หลักตามผังคำสั่งด้านล่าง Schema กำหนดกติกา, Index ช่วยค้นงาน และ Log บันทึกการเปลี่ยนแปลง
+
+[อ่านคำอธิบายภาษาไทย](docs/workflows.md#1-knowledge-pipeline) · [ไฟล์ Excalidraw](docs/assets/knowledge-pipeline.excalidraw) · [เปิดแก้ผัง](https://excalidraw.com/#json=US6OQb8Fe0G_MGmp2onBj,CMaM0MsZq2mEz2WmafoI5A)
+
+</details>
 
 ## เริ่มใช้งาน
 
@@ -152,6 +163,28 @@ python -m pip install youtube-transcript-api
 ตัวอย่าง `/research AAPL` ใช้เริ่มค้นคว้าบริษัท ควรระบุตลาดด้วยเมื่อ ticker อาจซ้ำกัน
 
 <details>
+<summary>ผัง /ingest: นำเข้าหนึ่งแหล่ง และเส้นทางสำหรับงานที่ซับซ้อน</summary>
+
+[![ผัง ingest แยกการทำงานโดย Munger โดยตรง ตั้งแต่ Python capture ถึง Queue และ Log ออกจากงานวิจัยที่ใช้ Ingest Runner และผู้ตรวจ](docs/assets/ingest-flow.svg)](docs/assets/ingest-flow.svg)
+
+งานหนึ่งแหล่งทั่วไปทำใน session หลักได้ ส่วนงานวิจัยใช้ผู้เชี่ยวชาญตามหน้าที่ คิว `done` หมายถึงมี Source Note แล้ว; claim ที่ยังไม่ตรวจคง `verification: pending` การสกัด Concept ขึ้นอยู่กับเนื้อหา และวิดีโอต้องมี transcript ที่นำมาใช้ได้
+
+[อ่านขั้นตอนภาษาไทยสำหรับหน้าจอเล็ก](docs/workflows.md#4-ingest) · [ไฟล์ Excalidraw](docs/assets/ingest-flow.excalidraw) · [เปิดแก้ผัง](https://excalidraw.com/#json=O5AON2gNsEI_tjyHfXcGf,WmYuuBqr_Z0Tr_tx0IHJJw)
+
+</details>
+
+<details>
+<summary>ผัง /research: หาแหล่งข้อมูล นำเข้าทีละรายการ และร่าง Thesis</summary>
+
+[![ผัง research สามกลุ่มงาน ได้แก่ Peter Lynch หาและเตรียมแหล่งข้อมูล Munger ประสานการนำเข้าและตรวจหลักฐาน และ Leopold ร่าง Thesis ซึ่งต้องตรวจอีกครั้งก่อนเป็น reviewed](docs/assets/research-flow.svg)](docs/assets/research-flow.svg)
+
+Peter Lynch ที่เรียกโดยตรงจะหยุดหลังเตรียมแหล่งข้อมูล ส่วน `/research` ทำต่อจนถึงการพิจารณาร่าง Thesis เมื่อมี Source Notes, Entity และอย่างน้อยหนึ่ง Concept ที่ผ่านการทบทวน หากหลักฐานไม่พอหรือร่างยังมีช่องว่าง ต้องระบุสิ่งที่ขาดและคงสถานะรอตรวจ
+
+[อ่านขั้นตอนภาษาไทยสำหรับหน้าจอเล็ก](docs/workflows.md#5-research) · [ไฟล์ Excalidraw](docs/assets/research-flow.excalidraw) · [เปิดแก้ผัง](https://excalidraw.com/#json=xzRAKUJj2aU9DryeaChcj,T0KB10_xNOEOR2D_haasUQ)
+
+</details>
+
+<details>
 <summary>ใช้ Python CLI เพื่อเก็บ Raw โดยตรง</summary>
 
 รันจากโฟลเดอร์ repo ใน terminal โดยแทนค่าระหว่าง `<...>` ด้วย URL หรือ path จริง:
@@ -173,6 +206,17 @@ CLI แสดง `SAVED_RAW: <path>` หลังบันทึกไฟล์ 
 
 ## โครงสร้างไฟล์
 
+<details>
+<summary>ดูชั้นข้อมูล 5 ส่วน และความสัมพันธ์กับโฟลเดอร์จริง</summary>
+
+[![ชั้นหน้าที่ห้าส่วน Raw, Source Note, Wiki, Schema และ Index กับ Log พร้อมตำแหน่งไฟล์ โดย Source Note เป็นส่วนหนึ่งของ Wiki](docs/assets/knowledge-layers.svg)](docs/assets/knowledge-layers.svg)
+
+ห้าชั้นนี้แบ่งตามหน้าที่ Source Note อยู่ภายใน `02-Wiki/Sources/` ส่วน Schema และ Index / Log สนับสนุนงานตลอดกระบวนการ
+
+[อ่านคำอธิบายภาษาไทย](docs/workflows.md#2-five-layers) · [ไฟล์ Excalidraw](docs/assets/knowledge-layers.excalidraw) · [เปิดแก้ผัง](https://excalidraw.com/#json=A8mLQwk3lKUJI0uxMD6G7,DMig4MYEdB_vH66A7dAbAQ)
+
+</details>
+
 | โฟลเดอร์ | เก็บอะไร |
 |---|---|
 | [`01-Raw/`](01-Raw/) | หลักฐานที่ capture มา แยกตาม article, filing, book, video และ dataset |
@@ -189,7 +233,11 @@ CLI แสดง `SAVED_RAW: <path>` หลังบันทึกไฟล์ 
 <details>
 <summary>หน้าที่ของแต่ละ agent</summary>
 
-**Munger** คือ session หลักที่คุยกับผู้ใช้ ทำงานนำเข้าทั่วไปโดยตรงและประสานงานวิจัยที่ซับซ้อน ส่วน subagents มีหน้าที่ตามไฟล์กำหนดดังนี้:
+**Munger** คือ session หลักที่คุยกับผู้ใช้ ทำงานนำเข้าทั่วไปโดยตรงและประสานงานวิจัยที่ซับซ้อน ส่วน subagents อีก **8 บทบาท** มีหน้าที่ตามไฟล์กำหนดดังนี้:
+
+[![Munger เป็น session หลัก ประสานผู้เชี่ยวชาญแปดบทบาทในกลุ่มค้นและเตรียมข้อมูล นำเข้าและเขียนโน้ต ตรวจสอบ และพัฒนาความรู้](docs/assets/agent-roster.svg)](docs/assets/agent-roster.svg)
+
+[อ่านบทบาทเป็นภาษาไทย](docs/workflows.md#3-agent-roles) · [ไฟล์ Excalidraw](docs/assets/agent-roster.excalidraw) · [เปิดแก้ผัง](https://excalidraw.com/#json=cyL90oMJ9osNjo-AEbyS5,m_GgSSLKsNSl0MlURql6HQ)
 
 | Agent | หน้าที่ |
 |---|---|
@@ -223,6 +271,17 @@ python scripts/wiki_tool.py --stats
 
 Linter ปัจจุบันอาจนับลิงก์ตัวอย่างในคู่มือเป็นลิงก์เสีย และยังตรวจความเชื่อมโยงของหลักฐานได้ไม่ครบ ผล `100% HEALTHY` จึงไม่ได้รับรองความถูกต้องของข้อสรุปการลงทุน
 
+<details>
+<summary>ผัง /wiki-health-check: รายงานก่อน แล้วจึงพิจารณาข้อที่อนุมัติให้แก้</summary>
+
+[![คำสั่ง health check ตรวจโครงสร้างและเนื้อหา แล้วหยุดที่รายงานใน lint_pending การแก้โน้ตต้องเป็นคำขอแยกต่างหาก โดยใช้เฉพาะรายการที่ผู้ใช้เลือก x](docs/assets/health-check-flow.svg)](docs/assets/health-check-flow.svg)
+
+คำสั่งตรวจสุขภาพสร้างรายงานพร้อมข้อเสนอ โดยยังไม่แก้โน้ต เมื่อผู้ใช้ขอให้นำข้อที่อนุมัติไปแก้จึงใช้เฉพาะรายการ `[x]` และคงรายงานที่ยังมีข้อรอตัดสินใจไว้
+
+[อ่านขั้นตอนภาษาไทยสำหรับหน้าจอเล็ก](docs/workflows.md#6-wiki-health-check) · [ไฟล์ Excalidraw](docs/assets/health-check-flow.excalidraw) · [เปิดแก้ผัง](https://excalidraw.com/#json=WsDv0jTkk6AKPyIdhavqp,-zz-e4g_Pk5IffIHXnIWtw)
+
+</details>
+
 ไฟล์ vault เก็บในเครื่อง แต่เมื่อใช้งานผ่าน AI เนื้อหาที่ agent อ่านอาจถูกส่งไปยังผู้ให้บริการโมเดลตามการตั้งค่าที่ใช้ เลือกแหล่งข้อมูลที่คุณมีสิทธิ์นำมาใช้งานในบริบทนั้น
 
 ## ร่วมพัฒนา
@@ -237,6 +296,7 @@ python -m unittest discover -s tests -v
 
 ## คู่มือเพิ่มเติม
 
+- [คู่มือผังการทำงานทั้ง 6](docs/workflows.md) — pipeline, ชั้นข้อมูล, บทบาท agent และขั้นตอนของแต่ละคำสั่ง พร้อมคำอธิบายภาษาไทย
 - [Project Blueprint](PROJECT-BLUEPRINT.md) — แนวคิดและภาพรวมของระบบ
 - [Project Workflow](PROJECT-WORKFLOW.md) — บทบาท agent และเส้นทางการทำงาน
 - [Concept Checklist](04-Schema/Concept%20Checklist.md) — เมื่อใดควรสร้าง Concept ใหม่

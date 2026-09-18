@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="1260" viewBox="0 0 1260 1260" role="img" aria-labelledby="svg-title svg-desc">
+<title id="svg-title">/wiki-health-check: report, then decide</title>
+<desc id="svg-desc">The health-check command runs deterministic lint, then Munger performs semantic review and writes a report in lint_pending. It stops without editing research notes. A separate explicit request applies only user-checked fixes. Unchecked and rejected items are skipped. Keep reports with unresolved items; fully resolved reports are summarized in Vault Health, logged and removed.</desc>
+<defs>
+<marker id="arrow60646c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#60646c" stroke-width="1.5"/></marker>
+<marker id="arrow6200ee" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#6200ee" stroke-width="1.5"/></marker>
+<marker id="arrow007f75" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#007f75" stroke-width="1.5"/></marker>
+<marker id="arrowb00020" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#b00020" stroke-width="1.5"/></marker>
+</defs>
+<rect x="1" y="1" width="1258" height="1258" rx="16" fill="#ffffff" stroke="#e4e5e7"/>
+<text id="headline" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="42" text-anchor="start"><tspan x="40" y="78.0">/wiki-health-check: report, then decide</tspan></text>
+<text id="subtitle" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="40" y="122.0">The command produces a reviewable report; applying fixes is a separate request.</tspan></text>
+<text id="report-lane" fill="#6200ee" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="40" y="184.0">COMMAND RUN  /  REPORT ONLY</tspan></text>
+<rect id="deterministic" x="40" y="220" width="270" height="140" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="deterministic-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="28" text-anchor="start"><tspan x="60" y="266.0">Deterministic lint</tspan></text>
+<text id="deterministic-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="60" y="307.0">wiki_tool.py --lint</tspan></text>
+<rect id="semantic" x="350" y="220" width="270" height="140" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="semantic-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="28" text-anchor="start"><tspan x="370" y="266.0">Semantic review</tspan></text>
+<text id="semantic-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="370" y="307.0">Munger reads notes</tspan></text>
+<rect id="report" x="660" y="220" width="270" height="140" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="report-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="28" text-anchor="start"><tspan x="680" y="266.0">Report + fixes</tspan></text>
+<text id="report-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="680" y="307.0">Evidence + action</tspan></text>
+<rect id="stop" x="970" y="220" width="250" height="140" rx="10" fill="#f8f8f8" stroke="#6200ee" stroke-width="2"/>
+<text id="stop-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="28" text-anchor="start"><tspan x="990" y="266.0">Stop for review</tspan></text>
+<text id="stop-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="990" y="307.0">lint_pending/</tspan></text>
+<polyline id="lint-semantic" points="310.0,290.0 344.0,290.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<polyline id="semantic-report" points="620.0,290.0 654.0,290.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<polyline id="report-stop" points="930.0,290.0 964.0,290.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<text id="semantics" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="23" text-anchor="start"><tspan x="40" y="423.0">Check contradictions, stale claims, missing concepts and unreferenced entities.</tspan></text>
+<text id="apply-lane" fill="#007f75" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="40" y="527.0">SEPARATE USER REQUEST  /  APPLY APPROVED FIXES</tspan></text>
+<rect id="select" x="40" y="570" width="300" height="140" rx="10" fill="#f8f8f8" stroke="#007f75" stroke-width="2"/>
+<text id="select-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="29" text-anchor="start"><tspan x="60" y="617.0">User selects [x]</tspan></text>
+<text id="select-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="60" y="657.0">Explicit approved items</tspan></text>
+<rect id="apply" x="440" y="570" width="300" height="140" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="apply-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="29" text-anchor="start"><tspan x="460" y="617.0">Apply exact fixes</tspan></text>
+<text id="apply-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="460" y="657.0">Skip [ ] and [-]</tspan></text>
+<polygon id="resolved" points="1060.0,550 1200,655.0 1060.0,760 920,655.0" fill="#ffffff" stroke="#6200ee" stroke-width="2"/>
+<text id="resolved-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="27" text-anchor="middle"><tspan x="1060.0" y="648.0">All items</tspan><tspan x="1060.0" y="681.75">resolved?</tspan></text>
+<polyline id="select-apply" points="340.0,640.0 434.0,640.0" fill="none" stroke="#007f75" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow007f75)"/>
+<polyline id="apply-resolved" points="740.0,640.0 825.0,640.0 825.0,655.0 914.0,655.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<rect id="retain" x="650" y="910" width="280" height="155" rx="10" fill="#f8f8f8" stroke="#b0b3b8" stroke-width="2"/>
+<text id="retain-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="670" y="958.0">Keep report</tspan></text>
+<text id="retain-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="670" y="997.0">[ ] items remain</tspan><tspan x="670" y="1024.5">Log applied fixes</tspan></text>
+<rect id="archive" x="970" y="910" width="250" height="155" rx="10" fill="#f8f8f8" stroke="#007f75" stroke-width="2"/>
+<text id="archive-title" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="26" text-anchor="start"><tspan x="990" y="954.0">Summarize + log</tspan></text>
+<text id="archive-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="990" y="997.0">Vault Health + Log</tspan><tspan x="990" y="1024.5">Close resolved report</tspan></text>
+<polyline id="unresolved" points="990.0,710.0 990.0,825.0 790.0,825.0 790.0,904.0" fill="none" stroke="#60646c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow60646c)"/>
+<text id="unresolved-label" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="810" y="809.0">no</tspan></text>
+<polyline id="resolved-yes" points="1060.0,760.0 1060.0,815.0 1095.0,815.0 1095.0,904.0" fill="none" stroke="#007f75" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow007f75)"/>
+<text id="resolved-label" fill="#007f75" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="1115" y="830.0">yes</tspan></text>
+<text id="approval-note" fill="#222222" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="30" text-anchor="start"><tspan x="40" y="900.0">Approval boundary</tspan></text>
+<text id="approval-detail" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="24" text-anchor="start"><tspan x="40" y="946.0">The report does not grant permission</tspan><tspan x="40" y="976.0">to change research notes. Apply only</tspan><tspan x="40" y="1006.0">items the user explicitly selected.</tspan></text>
+<text id="changed-fix" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="40" y="1167.0">If an approved fix no longer fits the file, stop on that item and report the mismatch.</tspan></text>
+<text id="lint-limit" fill="#60646c" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="22" text-anchor="start"><tspan x="40" y="1224.0">The linter checks structure; its health score does not verify investment conclusions.</tspan></text>
+</svg>
