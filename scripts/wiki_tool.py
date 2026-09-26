@@ -11,8 +11,15 @@ Audits Obsidian Markdown Vault for:
 6. Vault Health & Knowledge Graph Scorecard
 
 Usage:
-    python scripts/wiki_tool.py --lint
-    python scripts/wiki_tool.py --stats
+    py scripts/wiki_tool.py --lint
+    py scripts/wiki_tool.py --stats
+    py scripts/wiki_tool.py --sync-agents   # copy .agents/{agents,skills} -> .claude/
+
+Note: invoke with `py` (Windows Python Launcher), not `python` -- on this
+machine an unrelated tool's venv prepends its own Scripts/ dir to PATH and
+shadows `python`/`python3` with an interpreter missing this project's deps
+(pypdf, markitdown, bs4). `py` resolves via the registered installation and
+is unaffected by that PATH shadowing.
 """
 
 import os
@@ -23,6 +30,8 @@ import json
 import argparse
 from pathlib import Path
 from collections import defaultdict
+import filecmp
+import shutil
 
 # Ensure UTF-8 output on Windows
 sys.stdout.reconfigure(encoding='utf-8')
@@ -55,6 +64,63 @@ IGNORED_LINK_PATTERNS = {
     'source-x', '02-Wiki/Sources/', '02-Wiki/Concepts/...', '02-Wiki/Entities/...'
 }
 
+# .agents/ is the canonical copy (Codex reads it); Claude Code reads .claude/.
+MIRRORED_DIRS = ['agents', 'skills']
+
+
+def _mirror_pairs(root):
+    root = Path(root)
+    for d in MIRRORED_DIRS:
+        yield root / '.agents' / d, root / '.claude' / d
+
+
+def agent_mirror_drift(root):
+    """Return .claude/ paths that differ from, or are missing in, .agents/."""
+    drift = []
+    for src, dst in _mirror_pairs(root):
+        if not src.is_dir():
+            continue
+        for f in src.rglob('*'):
+            if f.is_file() and '__pycache__' not in f.parts:
+                twin = dst / f.relative_to(src)
+                if not twin.is_file() or not filecmp.cmp(f, twin, shallow=False):
+                    drift.append(twin.relative_to(root).as_posix())
+        if dst.is_dir():
+            for f in dst.rglob('*'):
+                if f.is_file() and '__pycache__' not in f.parts and not (src / f.relative_to(dst)).exists():
+                    drift.append(f.relative_to(root).as_posix() + ' (not in .agents/)')
+    return drift
+
+
+def banned_phrase_hits(root, md_files):
+    """Return 'file:line: phrase' for each banned phrase in 02-Wiki notes."""
+    agents = Path(root) / '.agents' / 'AGENTS.md'
+    if not agents.is_file():
+        return []
+    m = re.search(r'### 1\. คำ/วลีต้องห้าม[^\n]*\n([^\n]+)', agents.read_text(encoding='utf-8'))
+    phrases = re.findall(r'"([^"]+)"', m.group(1)) if m else []
+    hits = []
+    for rel, path in md_files.items():
+        if not rel.startswith('02-Wiki/') or rel.endswith('README.md'):
+            continue
+        for n, line in enumerate(path.read_text(encoding='utf-8', errors='ignore').splitlines(), 1):
+            hits += [f'{rel}:{n}: {p}' for p in phrases if p in line]
+    return hits
+
+
+def sync_agents(root):
+    """Copy .agents/{agents,skills} over .claude/ so both harnesses run the same files."""
+    for src, dst in _mirror_pairs(root):
+        if src.is_dir():
+            shutil.copytree(src, dst, dirs_exist_ok=True,
+                            ignore=shutil.ignore_patterns('__pycache__'))
+    leftover = agent_mirror_drift(root)
+    for line in leftover:
+        print(f"  ⚠️ {line} — delete it or add it to .agents/ first")
+    print(f"Synced .agents/ -> .claude/ ({len(leftover)} leftover path(s))")
+    return 1 if leftover else 0
+
+
 class VaultLinter:
     def __init__(self, root_dir):
         self.root_dir = Path(root_dir)
@@ -76,8 +142,10 @@ class VaultLinter:
 
     def scan(self):
         """Discovers all markdown files and parses metadata + wikilinks."""
-        # 1. Collect all MD files
-        for p in self.root_dir.rglob('*.md'):
+        # 1. Collect all MD files and Asset attachments
+        for p in self.root_dir.rglob('*'):
+            if p.is_dir():
+                continue
             parts = p.relative_to(self.root_dir).parts
             if any(part.startswith('.') and part not in ['.agents'] for part in parts):
                 continue
@@ -85,13 +153,14 @@ class VaultLinter:
                 continue
 
             rel_str = str(p.relative_to(self.root_dir)).replace('\\', '/')
-            self.md_files[rel_str] = p
-            
-            # Map identifiers to relative path
-            self.file_titles[p.stem] = rel_str
-            self.file_titles[rel_str] = rel_str
-            if rel_str.endswith('.md'):
+            if p.suffix == '.md':
+                self.md_files[rel_str] = p
+                self.file_titles[p.stem] = rel_str
+                self.file_titles[rel_str] = rel_str
                 self.file_titles[rel_str[:-3]] = rel_str
+            else:
+                self.file_titles[rel_str] = rel_str
+                self.file_titles[p.name] = rel_str
 
         self.stats['total_notes'] = len(self.md_files)
 
@@ -138,9 +207,16 @@ class VaultLinter:
 
         # Extract Wikilinks (ignoring code spans `...`)
         lines = content.splitlines()
+        in_fence = False
         for idx, line in enumerate(lines, 1):
-            # Remove inline code blocks `...` to avoid extracting illustrative examples
-            clean_line = re.sub(r'`[^`]*`', '', line)
+            # Skip fenced code blocks and inline code of any backtick length
+            # (`x`, `` x ``) so illustrative examples are not read as links.
+            if line.lstrip().startswith('```'):
+                in_fence = not in_fence
+                continue
+            if in_fence:
+                continue
+            clean_line = re.sub(r'(`+)(.+?)\1', '', line)
             matches = re.findall(r'\[\[([^\]\|]+)(?:\|[^\]]+)?\]\]', clean_line)
             for m in matches:
                 target_raw = m.strip()
@@ -293,8 +369,23 @@ class VaultLinter:
             for d in dead_ends:
                 print(f"     - {d}")
 
-        # 5. Overall Health Scorecard
-        total_issues = len(self.broken_links) + len(self.schema_errors)
+        # 5. Agent/skill mirror drift (.agents/ vs .claude/)
+        drift = agent_mirror_drift(self.root_dir)
+        if drift:
+            print(f"\n❌ Found {len(drift)} .claude/ file(s) out of sync with .agents/ (fix: --sync-agents):")
+            for d in drift:
+                print(f"     - {d}")
+
+        # 6. Banned phrases (list lives in .agents/AGENTS.md). Warning only:
+        # older notes may predate the rule, but new notes must show none.
+        phrase_hits = banned_phrase_hits(self.root_dir, self.md_files)
+        if phrase_hits:
+            print(f"\n⚠️ Found {len(phrase_hits)} banned phrase(s) in 02-Wiki (.agents/AGENTS.md §1) — new notes must have 0:")
+            for h in phrase_hits:
+                print(f"     - {h}")
+
+        # 7. Overall Health Scorecard
+        total_issues = len(self.broken_links) + len(self.schema_errors) + len(drift)
         print("\n" + "=" * 70)
         print("📈 VAULT SCORECARD & HEALTH SUMMARY")
         print("=" * 70)
@@ -336,12 +427,15 @@ def main():
     parser = argparse.ArgumentParser(description="LLM Wiki Integrity Linter & Graph Tool")
     parser.add_argument("--lint", action="store_true", help="Run full vault integrity lint check")
     parser.add_argument("--stats", action="store_true", help="Display knowledge graph statistics")
+    parser.add_argument("--sync-agents", action="store_true", help="Copy .agents/{agents,skills} to .claude/")
     parser.add_argument("--path", type=str, default=str(VAULT_ROOT), help="Path to vault root")
     
     args = parser.parse_args()
     linter = VaultLinter(args.path)
     
-    if args.stats:
+    if args.sync_agents:
+        sys.exit(sync_agents(args.path))
+    elif args.stats:
         linter.run_stats()
     else:
         sys.exit(linter.run_lint())

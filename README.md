@@ -4,9 +4,9 @@
 
 ![ภาพประกอบโต๊ะวิจัย มีเอกสารต้นทาง สมุดบันทึก และแว่นขยาย](docs/assets/research-desk.png)
 
-ใช้ **Obsidian** อ่านและเชื่อมโยงโน้ต ใช้ **Claude Code** ช่วยเก็บแหล่งข้อมูล เขียน Source Note และร่าง Investment Thesis ส่วนโน้ตเก็บเป็นไฟล์ Markdown ในเครื่อง คุณจึงเปิดอ่าน แก้ไข และย้ายไปใช้กับเครื่องมืออื่นได้
+ใช้ **Obsidian** อ่านและเชื่อมโยงโน้ต ใช้ **Dashboard** ในเครื่อง (`dashboard/`) ดูโน้ตคู่กับกราฟราคาและปรับหน้าตาเองได้ ใช้ **Claude Code** ช่วยเก็บแหล่งข้อมูล เขียน Source Note และร่าง Investment Thesis ส่วนโน้ตเก็บเป็นไฟล์ Markdown ในเครื่อง คุณจึงเปิดอ่าน แก้ไข และย้ายไปใช้กับเครื่องมืออื่นได้
 
-[เริ่มใช้งาน](#เริ่มใช้งาน) · [ดูขั้นตอน](#จากแหล่งข้อมูลถึง-thesis) · [คำสั่งที่ใช้บ่อย](#คำสั่งที่ใช้บ่อย) · [โครงสร้างไฟล์](#โครงสร้างไฟล์) · [คู่มือผังทั้ง 6](docs/workflows.md) · [คู่มือเพิ่มเติม](#คู่มือเพิ่มเติม)
+[เริ่มใช้งาน](#เริ่มใช้งาน) · [ดูขั้นตอน](#จากแหล่งข้อมูลถึง-thesis) · [คำสั่งที่ใช้บ่อย](#คำสั่งที่ใช้บ่อย) · [โครงสร้างไฟล์](#โครงสร้างไฟล์) · [คู่มือการใช้งาน](docs/usage-guide.md) · [คู่มือผังการทำงาน](docs/workflows.md) · [คู่มือเพิ่มเติม](#คู่มือเพิ่มเติม)
 
 ## ปัญหาที่โปรเจกต์นี้ช่วยแก้
 
@@ -26,40 +26,31 @@ Wiki นี้แยก **หลักฐานที่เก็บมา** อ
 
 ช่วงแรกเก็บหลักฐานและเขียนโน้ตที่เชื่อมกัน ส่วนการร่าง Thesis ใช้หลักฐานหลายแหล่งที่ผ่านการทบทวนแล้ว:
 
-[![ผังงานจาก Sources ผ่าน Python capture ไปยัง Raw และ Source Note เชื่อม Entity กับ Concept จากนั้นทบทวนหลักฐานก่อนตัดสินใจร่าง Thesis หรือคงงานไว้เป็น pending](docs/assets/research-workflow.svg)](docs/assets/research-workflow.svg)
+[![Python เก็บ Raw, Munger เขียน Source Note, agent ตรวจตัวเลขและร่าง thesis, script เฝ้าดูการเปลี่ยนแปลง แล้วคุณอ่านผ่าน Obsidian และ dashboard](docs/assets/flow-overview.svg)](docs/assets/flow-overview.svg)
 
-ผังนี้แสดงขั้นตอนและเงื่อนไขของ workflow การนำเข้าไม่ได้หมายความว่าทุก claim ผ่าน review แล้ว และ Draft Thesis ยังต้องผ่าน Feynman กับ Reviewer ก่อนเปลี่ยนเป็น `reviewed`
+แถวคือผู้ทำงาน คอลัมน์คือขั้นของงาน การนำเข้าไม่ได้หมายความว่าทุก claim ผ่าน review แล้ว และ Draft Thesis ยังต้องผ่าน Feynman กับ Reviewer ก่อนเปลี่ยนเป็น `reviewed`
 
 <details>
 <summary>อ่านขั้นตอนเป็นข้อความสำหรับหน้าจอเล็ก</summary>
 
 1. **Sources → Capture → Raw:** ใช้ Python ดึงหรือแปลงบทความ เอกสาร หรือ transcript เก็บเนื้อหาและข้อมูลที่มาของแหล่งข้อมูล
-2. **Raw → Source Note:** เขียนสรุป แยก fact, interpretation และ open question โดยเชื่อมกลับไปหา Raw
-3. **เชื่อมความรู้:** สร้างหรืออัปเดต Entity ที่เกี่ยวข้อง และสร้าง Concept เฉพาะเมื่อมีแนวคิดที่ใช้ซ้ำได้
-4. **Review evidence:** ทบทวนตัวเลข เหตุผล และ bear case ของ Source Notes กับความรู้ที่เชื่อมอยู่
-5. **พร้อมร่างหรือยัง:** ขั้นร่างใน `/research` ต้องมี Source Notes, Entity และอย่างน้อยหนึ่ง Concept ที่ผ่านการทบทวน หากยังไม่พอ ให้คงสถานะ pending แล้วตรวจหรือหาแหล่งข้อมูลเพิ่ม
-6. **Draft Thesis:** ร่าง base case, bear case และเงื่อนไขที่จะทำให้เปลี่ยนใจ จากนั้นส่งให้ Feynman กับ Reviewer ทบทวนก่อนใช้สถานะ `reviewed`
+2. **Raw → Source Note:** เขียนสรุป แยก fact, interpretation และ open question โดยเชื่อมกลับไปหา Raw พร้อมสร้างหรืออัปเดต Entity และ Concept เมื่อมีแนวคิดที่ใช้ซ้ำได้
+3. **Review evidence:** Feynman ตรวจตัวเลข Reviewer ตรวจเหตุผลและ bear case
+4. **Draft Thesis:** Leopold ร่าง base case, bear case และเงื่อนไขที่จะทำให้เปลี่ยนใจ เมื่อมีหลักฐานที่ผ่านการทบทวนพอ
+5. **Monitor:** `/delta-report`, `/anomaly-scan` และ `/earnings-scorecard` เฝ้าดูว่าหลักฐานใหม่เปลี่ยน thesis หรือไม่
+6. **Read:** อ่านใน Obsidian หรือ dashboard ซึ่งอ่านไฟล์ชุดเดียวกัน
 
 </details>
 
-[ดูผังขนาดเต็ม](docs/assets/research-workflow.svg) · [เปิดแก้ไขใน Excalidraw](https://excalidraw.com/#json=DnhuJkqM6YF_7cglT4gGo,F_F2qdu4xW-aQudwaognBw) · [ไฟล์ต้นฉบับ](docs/assets/research-workflow.excalidraw) · [ที่มาของภาพ](docs/assets/README.md)
-
-<details>
-<summary>ดู pipeline งานวิจัย: triage, review และการเชื่อมความรู้</summary>
-
-[![ผังงานวิจัยจาก Sources ผ่าน triage และการจัดลำดับ ไปยัง Raw, Source Note และการทบทวน claim ก่อนเชื่อมความรู้ พร้อมทางรอข้อมูลหรือแก้โน้ต](docs/assets/knowledge-pipeline.svg)](docs/assets/knowledge-pipeline.svg)
-
-ผังนี้ขยายเส้นทาง review ที่ใช้ในงานวิจัย ส่วน `/ingest` แหล่งเดียวมีขั้นตอนแบบตรงใน session หลักตามผังคำสั่งด้านล่าง Schema กำหนดกติกา, Index ช่วยค้นงาน และ Log บันทึกการเปลี่ยนแปลง
-
-[อ่านคำอธิบายภาษาไทย](docs/workflows.md#1-knowledge-pipeline) · [ไฟล์ Excalidraw](docs/assets/knowledge-pipeline.excalidraw) · [เปิดแก้ผัง](https://excalidraw.com/#json=US6OQb8Fe0G_MGmp2onBj,CMaM0MsZq2mEz2WmafoI5A)
-
-</details>
+[ผังของทุกคำสั่ง](docs/workflows.md#ผัง-swimlane-ของทุกคำสั่ง) · [ที่มาของภาพ](docs/assets/README.md)
 
 ## เริ่มใช้งาน
 
 Quickstart นี้ใช้ [Obsidian](https://obsidian.md/download), [Claude Code](https://code.claude.com/docs/en/quickstart), **Python 3.10+** และ Git ติดตั้งและลงชื่อเข้าใช้ Claude Code ตามคู่มือของผู้ให้บริการก่อนเริ่ม
 
-### 1. ดาวน์โหลด repo
+### 1. สร้าง repo ของคุณจาก template
+
+กด **Use this template → Create a new repository** บน GitHub แล้วตั้งเป็น **Private** เพราะงานวิจัยและไฟล์ที่ capture มา (filing, transcript) จะอยู่ใน repo นี้ จากนั้น clone repo ของคุณเอง หรือถ้าแค่อยากลองดูก่อน clone template ตรงๆ ได้:
 
 ```bash
 git clone https://github.com/Migchw/llm-wiki-starter.git
@@ -107,7 +98,29 @@ claude
 
 คำสั่งที่ขึ้นต้นด้วย `/` ใน README นี้ใช้ใน Claude Code โปรเจกต์มี skills อยู่ใน [`.claude/skills/`](.claude/skills/) ให้โหลดจากโฟลเดอร์นี้
 
-### 4. ลองกับแหล่งข้อมูลของคุณหนึ่งชิ้น
+### 4. เปิด Dashboard (ไม่บังคับ)
+
+ต้องมี [Node.js](https://nodejs.org/) 22.13 ขึ้นไป (ตาม `engines` ใน `dashboard/package.json`)
+
+```bash
+cd dashboard
+npm install
+npm run dev
+```
+
+เปิด <http://localhost:3000> คำสั่ง `dev` สร้าง index จากโน้ตในวอลต์ให้ก่อนทุกครั้ง ถ้ายังไม่มี Python หรือเน็ต ส่วนราคาและ earnings จะว่างแต่หน้าเว็บยังเปิดได้ หลัง ingest โน้ตใหม่ให้รัน `npm run index` แล้ว refresh
+
+ปรับแต่งเป็นของคุณเอง:
+
+| อยากเปลี่ยน | แก้ที่ |
+|---|---|
+| หุ้นที่ติดตามและกราฟราคา | `dashboard/config/watchlist.json` (`entity` ต้องตรงกับชื่อไฟล์ใน `02-Wiki/Entities/`) |
+| สี ฟอนต์ ธีมสว่าง/มืด | ตัวแปร CSS ใน `dashboard/app/globals.css` |
+| การ์ดและหน้าต่างๆ | `dashboard/components/` และ `dashboard/app/` |
+
+Dashboard อ่านวอลต์อย่างเดียว ไม่เขียนกลับเข้า `01-Raw/` หรือ `02-Wiki/` รายละเอียดอยู่ใน [dashboard/README.md](dashboard/README.md)
+
+### 5. ลองกับแหล่งข้อมูลของคุณหนึ่งชิ้น
 
 ส่งลิงก์บทความที่อ่านได้สาธารณะ โดยแทน `<URL>` ด้วยลิงก์จริง:
 
@@ -160,27 +173,28 @@ python -m pip install youtube-transcript-api
 | `/research <ticker>` | ต้องการรวบรวมงานวิจัยของบริษัท | หาและจัดลำดับแหล่งข้อมูล นำเข้า แล้วร่าง Thesis เมื่อหลักฐานเพียงพอ |
 | `/wiki-health-check` | ต้องการทบทวนคุณภาพ Wiki | รายงานปัญหาโครงสร้างและเนื้อหาใน `lint_pending/` เพื่อพิจารณาแก้ไข |
 
+คำสั่งเสริมเมื่อมี thesis และ watchlist แล้ว:
+
+| คำสั่ง | ใช้เมื่อ | ผลลัพธ์ที่คาดหวัง |
+|---|---|---|
+| `/delta-report` | ทบทวนรายสัปดาห์ | หลักฐานใหม่ทำให้ thesis แข็งขึ้น อ่อนลง หรือชน kill condition พร้อมข้อเสนอแก้เป็น checkbox |
+| `/anomaly-scan` | หุ้นใน watchlist วิ่งแปลก | รายงานราคา/volume และภาษาในเอกสารที่เปลี่ยน แล้วเพิ่มงานในคิว |
+| `/earnings-scorecard` | บริษัทเพิ่งประกาศงบ | beat/miss เทียบ consensus, guidance และการ์ดบน dashboard |
+
+ผังของทุกคำสั่งอยู่ใน [ผัง swimlane](docs/workflows.md#ผัง-swimlane-ของทุกคำสั่ง)
+
 ตัวอย่าง `/research AAPL` ใช้เริ่มค้นคว้าบริษัท ควรระบุตลาดด้วยเมื่อ ticker อาจซ้ำกัน
 
 <details>
-<summary>ผัง /ingest: นำเข้าหนึ่งแหล่ง และเส้นทางสำหรับงานที่ซับซ้อน</summary>
+<summary>ผัง /ingest และ /research</summary>
 
-[![ผัง ingest แยกการทำงานโดย Munger โดยตรง ตั้งแต่ Python capture ถึง Queue และ Log ออกจากงานวิจัยที่ใช้ Ingest Runner และผู้ตรวจ](docs/assets/ingest-flow.svg)](docs/assets/ingest-flow.svg)
+[![คุณส่งแหล่งข้อมูล fetch_source.py เก็บ Raw แล้ว Munger เขียน Source Note เชื่อม Entity และ Concept อัปเดตคิวกับ Log และรัน lint](docs/assets/flow-ingest.svg)](docs/assets/flow-ingest.svg)
 
-งานหนึ่งแหล่งทั่วไปทำใน session หลักได้ ส่วนงานวิจัยใช้ผู้เชี่ยวชาญตามหน้าที่ คิว `done` หมายถึงมี Source Note แล้ว; claim ที่ยังไม่ตรวจคง `verification: pending` การสกัด Concept ขึ้นอยู่กับเนื้อหา และวิดีโอต้องมี transcript ที่นำมาใช้ได้
+งานหนึ่งแหล่งทำใน session หลัก คิว `done` หมายถึงมี Source Note แล้ว claim ที่ยังไม่ตรวจคง `verification: pending`
 
-[อ่านขั้นตอนภาษาไทยสำหรับหน้าจอเล็ก](docs/workflows.md#4-ingest) · [ไฟล์ Excalidraw](docs/assets/ingest-flow.excalidraw) · [เปิดแก้ผัง](https://excalidraw.com/#json=O5AON2gNsEI_tjyHfXcGf,WmYuuBqr_Z0Tr_tx0IHJJw)
+[![Munger ถามหาแหล่งของผู้ใช้ Peter Lynch หาและเตรียมแหล่ง Munger นำเข้าทีละแหล่ง Darwin สกัด Concept แล้ว Leopold ร่าง thesis และ gate ตรวจ](docs/assets/flow-research.svg)](docs/assets/flow-research.svg)
 
-</details>
-
-<details>
-<summary>ผัง /research: หาแหล่งข้อมูล นำเข้าทีละรายการ และร่าง Thesis</summary>
-
-[![ผัง research สามกลุ่มงาน ได้แก่ Peter Lynch หาและเตรียมแหล่งข้อมูล Munger ประสานการนำเข้าและตรวจหลักฐาน และ Leopold ร่าง Thesis ซึ่งต้องตรวจอีกครั้งก่อนเป็น reviewed](docs/assets/research-flow.svg)](docs/assets/research-flow.svg)
-
-Peter Lynch ที่เรียกโดยตรงจะหยุดหลังเตรียมแหล่งข้อมูล ส่วน `/research` ทำต่อจนถึงการพิจารณาร่าง Thesis เมื่อมี Source Notes, Entity และอย่างน้อยหนึ่ง Concept ที่ผ่านการทบทวน หากหลักฐานไม่พอหรือร่างยังมีช่องว่าง ต้องระบุสิ่งที่ขาดและคงสถานะรอตรวจ
-
-[อ่านขั้นตอนภาษาไทยสำหรับหน้าจอเล็ก](docs/workflows.md#5-research) · [ไฟล์ Excalidraw](docs/assets/research-flow.excalidraw) · [เปิดแก้ผัง](https://excalidraw.com/#json=xzRAKUJj2aU9DryeaChcj,T0KB10_xNOEOR2D_haasUQ)
+Peter Lynch ที่เรียกโดยตรงจะหยุดหลังเตรียมแหล่งข้อมูล ส่วน `/research` ทำต่อจนถึงร่าง Thesis เมื่อหลักฐานพอ ถ้ายังไม่พอให้ระบุสิ่งที่ขาด
 
 </details>
 
@@ -206,17 +220,6 @@ CLI แสดง `SAVED_RAW: <path>` หลังบันทึกไฟล์ 
 
 ## โครงสร้างไฟล์
 
-<details>
-<summary>ดูชั้นข้อมูล 5 ส่วน และความสัมพันธ์กับโฟลเดอร์จริง</summary>
-
-[![ชั้นหน้าที่ห้าส่วน Raw, Source Note, Wiki, Schema และ Index กับ Log พร้อมตำแหน่งไฟล์ โดย Source Note เป็นส่วนหนึ่งของ Wiki](docs/assets/knowledge-layers.svg)](docs/assets/knowledge-layers.svg)
-
-ห้าชั้นนี้แบ่งตามหน้าที่ Source Note อยู่ภายใน `02-Wiki/Sources/` ส่วน Schema และ Index / Log สนับสนุนงานตลอดกระบวนการ
-
-[อ่านคำอธิบายภาษาไทย](docs/workflows.md#2-five-layers) · [ไฟล์ Excalidraw](docs/assets/knowledge-layers.excalidraw) · [เปิดแก้ผัง](https://excalidraw.com/#json=A8mLQwk3lKUJI0uxMD6G7,DMig4MYEdB_vH66A7dAbAQ)
-
-</details>
-
 | โฟลเดอร์ | เก็บอะไร |
 |---|---|
 | [`01-Raw/`](01-Raw/) | หลักฐานที่ capture มา แยกตาม article, filing, book, video และ dataset |
@@ -226,29 +229,26 @@ CLI แสดง `SAVED_RAW: <path>` หลังบันทึกไฟล์ 
 | [`05-Index/`](05-Index/) | Home, คิวงาน และบันทึกสุขภาพ vault |
 | [`06-Assets/`](06-Assets/) | รูปและไฟล์แนบที่ใช้ประกอบโน้ต |
 | [`scripts/`](scripts/) | ตัวดึงข้อมูล ตัวบันทึก raw และ linter |
+| [`dashboard/`](dashboard/) | เว็บ dashboard ในเครื่อง อ่านโน้ตจากวอลต์ |
+| [`docs/`](docs/) | ผังการทำงานและตัวสร้างผัง |
+| [`tests/`](tests/) | ชุดทดสอบการเก็บ raw |
 | [`lint_pending/`](lint_pending/) | รายงานตรวจ Wiki ที่รอพิจารณา |
 
-กติกาของโปรเจกต์อยู่ใน [`.agents/AGENTS.md`](.agents/AGENTS.md) ส่วนคำสั่งและ subagents สำหรับ Claude Code อยู่ใน [`.claude/`](.claude/) โน้ตเขียนเป็นภาษาไทยเป็นหลัก และคงศัพท์การเงิน เช่น moat, EBITDA และ DCF ตามบริบท
+กติกาของโปรเจกต์อยู่ใน [`.agents/AGENTS.md`](.agents/AGENTS.md) skills และ agents ต้นฉบับอยู่ใน [`.agents/`](.agents/) และ copy ไป [`.claude/`](.claude/) ให้ Claude Code ด้วย `python scripts/wiki_tool.py --sync-agents` (แก้ที่ `.agents/` เท่านั้น) โน้ตเขียนเป็นภาษาไทยเป็นหลัก และคงศัพท์การเงิน เช่น moat, EBITDA และ DCF ตามบริบท
 
 <details>
 <summary>หน้าที่ของแต่ละ agent</summary>
 
-**Munger** คือ session หลักที่คุยกับผู้ใช้ ทำงานนำเข้าทั่วไปโดยตรงและประสานงานวิจัยที่ซับซ้อน ส่วน subagents อีก **8 บทบาท** มีหน้าที่ตามไฟล์กำหนดดังนี้:
-
-[![Munger เป็น session หลัก ประสานผู้เชี่ยวชาญแปดบทบาทในกลุ่มค้นและเตรียมข้อมูล นำเข้าและเขียนโน้ต ตรวจสอบ และพัฒนาความรู้](docs/assets/agent-roster.svg)](docs/assets/agent-roster.svg)
-
-[อ่านบทบาทเป็นภาษาไทย](docs/workflows.md#3-agent-roles) · [ไฟล์ Excalidraw](docs/assets/agent-roster.excalidraw) · [เปิดแก้ผัง](https://excalidraw.com/#json=cyL90oMJ9osNjo-AEbyS5,m_GgSSLKsNSl0MlURql6HQ)
+**Munger** คือ session หลักที่คุยกับผู้ใช้ ทำงานนำเข้าทั่วไปโดยตรงและประสานงานวิจัยที่ซับซ้อน ส่วน subagents อีก **6 บทบาท** มีหน้าที่ตามไฟล์กำหนดดังนี้:
 
 | Agent | หน้าที่ |
 |---|---|
-| [Peter Lynch](.claude/agents/peter-lynch.md) | หา ตรวจลิงก์ และจัดลำดับแหล่งข้อมูล |
-| [Ingest Runner](.claude/agents/ingest-runner.md) | ดูแลการนำเข้าหนึ่งแหล่งข้อมูล |
-| [René](.claude/agents/rene.md) | จัดเตรียม transcript และ metadata |
-| [Researcher](.claude/agents/researcher.md) | เขียน Source Note จาก Raw |
-| [Feynman](.claude/agents/feynman.md) | ตรวจตัวเลข วันที่ และคำพูดอ้างอิง |
-| [Reviewer](.claude/agents/reviewer.md) | ทบทวนเหตุผล bear case และช่องว่างของหลักฐาน |
-| [Darwin](.claude/agents/darwin.md) | สกัดแนวคิดที่ใช้ซ้ำได้และเชื่อม Entity |
-| [Leopold](.claude/agents/leopold.md) | ร่าง Thesis จากหลักฐานที่ผ่านการทบทวน |
+| [Peter Lynch](.agents/agents/peter-lynch.md) | หา ตรวจลิงก์ และจัดลำดับแหล่งข้อมูล |
+| [Ingest Runner](.agents/agents/ingest-runner.md) | ดูแลการนำเข้าหนึ่งแหล่งข้อมูลเมื่อ `/research` มีหลายแหล่ง |
+| [Feynman](.agents/agents/feynman.md) | ตรวจตัวเลข วันที่ และคำพูดอ้างอิง |
+| [Reviewer](.agents/agents/reviewer.md) | ทบทวนเหตุผล bear case และช่องว่างของหลักฐาน |
+| [Darwin](.agents/agents/darwin.md) | สกัดแนวคิดที่ใช้ซ้ำได้และเชื่อม Entity |
+| [Leopold](.agents/agents/leopold.md) | ร่าง Thesis จากหลักฐานที่ผ่านการทบทวน |
 
 ดูขั้นตอนและจุดส่งต่องานใน [Project Workflow](PROJECT-WORKFLOW.md)
 
@@ -274,11 +274,9 @@ Linter ปัจจุบันอาจนับลิงก์ตัวอย�
 <details>
 <summary>ผัง /wiki-health-check: รายงานก่อน แล้วจึงพิจารณาข้อที่อนุมัติให้แก้</summary>
 
-[![คำสั่ง health check ตรวจโครงสร้างและเนื้อหา แล้วหยุดที่รายงานใน lint_pending การแก้โน้ตต้องเป็นคำขอแยกต่างหาก โดยใช้เฉพาะรายการที่ผู้ใช้เลือก x](docs/assets/health-check-flow.svg)](docs/assets/health-check-flow.svg)
+[![wiki_tool.py ตรวจลิงก์ schema และความตรงกันของ .claude กับ .agents แล้ว Munger ตรวจเนื้อหา เขียนรายงาน คุณติ๊ก x แล้วจึงแก้เฉพาะข้อที่ติ๊ก](docs/assets/flow-health-check.svg)](docs/assets/flow-health-check.svg)
 
 คำสั่งตรวจสุขภาพสร้างรายงานพร้อมข้อเสนอ โดยยังไม่แก้โน้ต เมื่อผู้ใช้ขอให้นำข้อที่อนุมัติไปแก้จึงใช้เฉพาะรายการ `[x]` และคงรายงานที่ยังมีข้อรอตัดสินใจไว้
-
-[อ่านขั้นตอนภาษาไทยสำหรับหน้าจอเล็ก](docs/workflows.md#6-wiki-health-check) · [ไฟล์ Excalidraw](docs/assets/health-check-flow.excalidraw) · [เปิดแก้ผัง](https://excalidraw.com/#json=WsDv0jTkk6AKPyIdhavqp,-zz-e4g_Pk5IffIHXnIWtw)
 
 </details>
 
@@ -296,7 +294,8 @@ python -m unittest discover -s tests -v
 
 ## คู่มือเพิ่มเติม
 
-- [คู่มือผังการทำงานทั้ง 6](docs/workflows.md) — pipeline, ชั้นข้อมูล, บทบาท agent และขั้นตอนของแต่ละคำสั่ง พร้อมคำอธิบายภาษาไทย
+- [คู่มือการใช้งาน](docs/usage-guide.md) — ใช้คำสั่งไหนเมื่อไร หน้าที่ของ agent การปรับแต่ง dashboard และสิ่งที่เปลี่ยนจาก template เดิม
+- [คู่มือผังการทำงาน](docs/workflows.md) — pipeline, ชั้นข้อมูล, บทบาท agent และผัง swimlane ของทุกคำสั่ง พร้อมคำอธิบายภาษาไทย
 - [Project Blueprint](PROJECT-BLUEPRINT.md) — แนวคิดและภาพรวมของระบบ
 - [Project Workflow](PROJECT-WORKFLOW.md) — บทบาท agent และเส้นทางการทำงาน
 - [Concept Checklist](04-Schema/Concept%20Checklist.md) — เมื่อใดควรสร้าง Concept ใหม่

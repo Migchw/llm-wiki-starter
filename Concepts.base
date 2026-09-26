@@ -9,3 +9,6 @@ views:
       - author
       - file.tags
       - file.folder
+    columnSize:
+      file.name: 385
+      note.author: 103

@@ -7,6 +7,8 @@ status: draft
 created: 2026-08-17
 updated: 2026-08-17
 sources: []
+images: 0
+img_dir: ""
 confidence: medium
 verification: pending
 review_date: 2026-08-17
@@ -21,6 +23,12 @@ tags: []
 
 <!-- สมมติฐานหลักที่ทำให้ thesis นี้เป็นจริง อิงกับ Concept + Entity ที่ลิงก์ไว้ -->
 -
+
+## Key Exhibits & Visual Evidence
+
+<!-- สไลด์สำคัญ, แผนภาพสถาปัตยกรรม/CONOPS, หรือกราฟผลประกอบการจาก 06-Assets/<slug>/ พร้อมคำบรรยายและที่มา -->
+![[06-Assets/<slug>/img_01.png]]
+<!-- Caption: คำบรรยายภาพ, นัยสำคัญต่อนักลงทุน, และหน้าที่อ้างอิง -->
 
 ## Contrary Case (Bear Case)
 

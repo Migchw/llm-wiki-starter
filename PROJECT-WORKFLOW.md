@@ -9,8 +9,6 @@ How this vault actually runs: who commands whom, what gets delegated, what skill
 | **Munger** | Orchestrating session (the main session chatting with the user) | Direct Single-Pass Ingest for standard sources, plans, delegates complex research, posts running checklist | `.agents/AGENTS.md` routing table | `03-Logs/Log.md`, `05-Index/Ingest Queue.md` status |
 | `peter-lynch` | sub-agent | Finds & verifies primary sources for a ticker, stages them, triages priority | `skills/research/SKILL.md` | `01-Raw/inbox/`, `05-Index/Ingest Queue.md` |
 | `ingest-runner` | sub-agent | Executes the fast and lean ingest pipeline for exactly one source | `skills/ingest/SKILL.md` | `01-Raw/`, `02-Wiki/` |
-| `rene` | sub-agent | Cleans a YouTube/podcast transcript into a Raw note | — | `01-Raw/video/` |
-| `researcher` | sub-agent | Distills a Raw source into a readable Source Note with a claim table | `04-Schema/Templates/Source Note.md` | `02-Wiki/Sources/` |
 | `feynman` | sub-agent | Audits figures/dates/quotes against primary sources | — | returns a verdict table |
 | `reviewer` | sub-agent | Critiques logic, bear case, moat/competitors; flags gaps instead of inventing | — | returns findings |
 | `darwin` | sub-agent | Extracts durable, reusable investment concepts and entities | `04-Schema/Concept Checklist.md` | `02-Wiki/Concepts/`, `02-Wiki/Entities/` |
@@ -91,8 +89,8 @@ flowchart TD
 
 | Folder | What goes there | Written by |
 |---|---|---|
-| `01-Raw/` | Immutable captured evidence (never edited after creation) | `scripts/fetch_source.py`, `rene` |
-| `02-Wiki/Sources/` | Readable Source Notes + claim tables | Ingest Pass / `researcher` |
+| `01-Raw/` | Immutable captured evidence (never edited after creation) | `scripts/fetch_source.py` |
+| `02-Wiki/Sources/` | Readable Source Notes + claim tables | Ingest Pass |
 | `02-Wiki/Concepts/` | Durable, reusable mental models (Selective) | Ingest Pass / `darwin` |
 | `02-Wiki/Entities/` | Company/institution reference notes (Always) | Ingest Pass / `darwin` |
 | `02-Wiki/Theses/` | Actionable Investment theses | `leopold` |

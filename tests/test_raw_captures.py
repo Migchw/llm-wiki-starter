@@ -30,7 +30,6 @@ def load_fetcher(relative):
 
 FETCHERS = [
     load_fetcher("scripts/fetch_source.py"),
-    load_fetcher(".agents/scripts/fetch_source.py"),
 ]
 
 

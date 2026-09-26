@@ -12,7 +12,7 @@ Two phases: deterministic (script, exact) then semantic (you, reads the actual n
 Run:
 
 ```
-python scripts/wiki_tool.py --lint
+py scripts/wiki_tool.py --lint
 ```
 
 Catches: broken `[[wikilinks]]`, orphaned pages (0 inbound links), dead-end pages (0 outbound links), missing/invalid frontmatter per `04-Schema/Templates/`, and empty sections (a required header like `## Claim Table` or `## Investor Implication` exists but has no content before the next header). Carry its findings into the report verbatim — do not re-verify by hand.

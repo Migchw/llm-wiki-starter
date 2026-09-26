@@ -45,12 +45,23 @@ try:
 except ImportError:
     YouTubeTranscriptApi = None
 
+try:
+    import yt_dlp
+except ImportError:
+    yt_dlp = None
+
+import subprocess
+import shutil
+
+FFMPEG_PATH = shutil.which('ffmpeg')
+
 
 def clean_slug(text: str) -> str:
-    text = text.lower()
-    text = re.sub(r'[^a-z0-9]+', '-', text)
-    text = text.strip('-')
-    return text[:60] if len(text) > 60 else text
+    cleaned = re.sub(r'[^a-z0-9]+', '-', text.lower()).strip('-')
+    if not cleaned:
+        # For non-Latin scripts (e.g. Thai), keep unicode words/letters
+        cleaned = re.sub(r'[^\w\d]+', '-', text, flags=re.UNICODE).strip('-')
+    return cleaned[:60] if len(cleaned) > 60 else (cleaned or "source")
 
 
 def extract_youtube_video_id(url: str) -> str:
@@ -58,7 +69,54 @@ def extract_youtube_video_id(url: str) -> str:
     return m.group(1) if m else None
 
 
-def fetch_youtube_video(url: str, output_dir: Path = None) -> Path:
+def extract_youtube_keyframes(url: str, slug: str, vault_root: Path, timestamps: list = None) -> tuple:
+    """Extracts key exhibits from YouTube video using yt-dlp and FFmpeg."""
+    if not yt_dlp or not FFMPEG_PATH:
+        return 0, ""
+
+    assets_dir = vault_root / "06-Assets" / slug
+    assets_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Default interval timestamps if none provided (e.g. 20%, 40%, 60% of video)
+    if not timestamps:
+        timestamps = [
+            ("img_01_key_slide.png", 600, 610, "00:00:03"),
+            ("img_02_key_slide.png", 1800, 1810, "00:00:03"),
+            ("img_03_key_slide.png", 2400, 2410, "00:00:03")
+        ]
+
+    count = 0
+    for filename, start_s, end_s, offset in timestamps:
+        out_img = assets_dir / filename
+        temp_clip = assets_dir / f"temp_{start_s}.mp4"
+        try:
+            ydl_opts = {
+                'format': 'bestvideo[height<=720]/best[height<=720]',
+                'outtmpl': str(temp_clip),
+                'extractor_args': {'youtube': {'player_client': ['android', 'ios', 'web']}},
+                'download_ranges': yt_dlp.utils.download_range_func(None, [(start_s, end_s)]),
+                'overwrites': True,
+                'quiet': True,
+            }
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                ydl.download([url])
+
+            if temp_clip.exists():
+                cmd = [FFMPEG_PATH, '-y', '-ss', offset, '-i', str(temp_clip), '-frames:v', '1', '-q:v', '2', str(out_img)]
+                subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                temp_clip.unlink(missing_ok=True)
+                if out_img.exists() and out_img.stat().st_size > 0:
+                    count += 1
+        except Exception as e:
+            print(f"Warning extracting video frame {filename}: {e}")
+            if temp_clip.exists():
+                temp_clip.unlink(missing_ok=True)
+
+    rel_dir = f"06-Assets/{slug}" if count > 0 else ""
+    return count, rel_dir
+
+
+def fetch_youtube_video(url: str, output_dir: Path = None, extract_frames: bool = True, timestamps: list = None) -> Path:
     video_id = extract_youtube_video_id(url)
     if not video_id:
         raise ValueError(f"Could not parse YouTube video ID from URL: {url}")
@@ -121,9 +179,15 @@ def fetch_youtube_video(url: str, output_dir: Path = None) -> Path:
 
     date_prefix = published.replace('-', '')
     slug = f"{date_prefix}_{clean_slug(title)}"
+    vault_root = Path(__file__).resolve().parent.parent
     
+    # 3. Extract Exhibits / Frames if requested
+    img_count, img_dir = 0, ""
+    if extract_frames and yt_dlp and FFMPEG_PATH:
+        print(f"Extracting key exhibits via yt-dlp & FFmpeg for {slug}...")
+        img_count, img_dir = extract_youtube_keyframes(url, slug, vault_root, timestamps=timestamps)
+
     if output_dir is None:
-        vault_root = Path(__file__).resolve().parent.parent
         output_dir = vault_root / "01-Raw" / "video"
         
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -139,8 +203,8 @@ published: {published}
 captured: {datetime.date.today().isoformat()}
 conversion_method: youtube-transcript
 status: raw
-images: 0
-img_dir: ""
+images: {img_count}
+img_dir: "{img_dir}"
 tags: []
 ---
 
@@ -358,10 +422,10 @@ tags: []
     return write_capture(output_dir, slug, url, (content.strip() + "\n").encode("utf-8"))
 
 
-def fetch_url(url: str, output_dir: Path = None, media_type: str = "article", force_playwright: bool = False) -> Path:
+def fetch_url(url: str, output_dir: Path = None, media_type: str = "article", force_playwright: bool = False, timestamps: list = None) -> Path:
     # Check if YouTube URL
     if "youtube.com" in url or "youtu.be" in url:
-        return fetch_youtube_video(url, output_dir=output_dir)
+        return fetch_youtube_video(url, output_dir=output_dir, timestamps=timestamps)
 
     # Check if Direct Document URL (PDF, DOCX, PPTX, XLSX)
     url_clean = url.lower().split('?')[0]
@@ -478,15 +542,39 @@ tags: []
     return write_capture(output_dir, slug, src.as_uri(), (content.strip() + "\n").encode("utf-8"))
 
 
+def parse_custom_timestamps(ts_str: str) -> list:
+    """Parses comma-separated timestamps (e.g. '60,300,1200' or '01:00,05:00,20:00') into list of tuples."""
+    results = []
+    items = [t.strip() for t in ts_str.split(',') if t.strip()]
+    for idx, item in enumerate(items, 1):
+        seconds = 0
+        if ':' in item:
+            parts = item.split(':')
+            if len(parts) == 2:
+                seconds = int(parts[0]) * 60 + int(parts[1])
+            elif len(parts) == 3:
+                seconds = int(parts[0]) * 3600 + int(parts[1]) * 60 + int(parts[2])
+        else:
+            seconds = int(item)
+        
+        start_s = max(0, seconds - 2)
+        end_s = seconds + 8
+        results.append((f"img_{idx:02d}_key_slide.png", start_s, end_s, "00:00:02"))
+    return results
+
+
 def main():
     parser = argparse.ArgumentParser(description="Fast & Resilient Fetcher for LLM Wiki")
     parser.add_argument("source", help="URL or local file path")
     parser.add_argument("--type", default="article", choices=["article", "filing", "book", "video", "dataset"])
     parser.add_argument("--playwright", action="store_true", help="Force Playwright headless rendering for SPAs")
+    parser.add_argument("--timestamps", default=None, help="Comma-separated timestamps for video keyframe extraction (e.g. '120,600,1800,2400')")
     args = parser.parse_args()
     
+    custom_ts = parse_custom_timestamps(args.timestamps) if args.timestamps else None
+    
     if args.source.startswith("http://") or args.source.startswith("https://"):
-        saved = fetch_url(args.source, media_type=args.type, force_playwright=args.playwright)
+        saved = fetch_url(args.source, media_type=args.type, force_playwright=args.playwright, timestamps=custom_ts)
     else:
         saved = convert_local_file(args.source, media_type=args.type)
         

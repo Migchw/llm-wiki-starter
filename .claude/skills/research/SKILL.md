@@ -1,6 +1,6 @@
 ---
 name: research
-description: Full pipeline for a new or existing stock ticker (US or Thai-listed) — find and verify primary sources (SEC EDGAR filings, IR material, earnings call transcripts for US; SET company snapshot/oppday, MD&A, financial statements for Thai), stage them, ingest each one in priority order (Raw → Source Note → quality gate → Concepts), then draft an Investment Thesis once enough evidence exists. Use when the user asks to research a ticker end-to-end, or via /research <ticker>. For staging sources only without continuing to thesis, use peter-lynch directly.
+description: Full pipeline for a new or existing stock ticker (US or Thai-listed) — find and verify primary sources (SEC EDGAR filings, IR material, earnings call transcripts for US; SET company snapshot/oppday, MD&A, financial statements for Thai), stage them, ingest each one in priority order (Raw → Source Note → Concepts → evidence gate), then draft an Investment Thesis once enough evidence exists. Use when the user asks to research a ticker end-to-end, or via /research <ticker>. For staging sources only without continuing to thesis, use peter-lynch directly.
 ---
 
 # Research Skill (Full Pipeline: Discovery → Ingest → Thesis)
@@ -17,8 +17,9 @@ flowchart LR
   end
   subgraph Phase2["Phase 2 — Munger continues, one item at a time"]
     Q --> IG["agents/ingest-runner.md per item, in priority order"]
-    IG --> QG["Feynman (numbers) + Reviewer (bear case)"]
-    QG --> TH["agents/leopold.md drafts Thesis, then Feynman + Reviewer gate again"]
+    IG --> DW["Darwin: Concepts where warranted"]
+    DW --> QG["Evidence gate: Feynman on the claims the thesis will use"]
+    QG --> TH["agents/leopold.md drafts Thesis, then Feynman + Reviewer gate the draft"]
   end
 ```
 
@@ -27,8 +28,8 @@ flowchart LR
 `/research <ticker>` runs **both phases** — this is the one command that goes all the way from "nothing in the vault about this ticker" to a draft Thesis. Within it:
 
 - **Phase 1** is delegated to the `peter-lynch` sub-agent (`.claude/agents/peter-lynch.md`) exactly as scoped there: find, verify, stage, triage. Peter Lynch itself never writes a source note, concept, or thesis — if invoked directly (not via `/research`), it stops after staging.
-- **Phase 2** is Munger (the orchestrating session) working through `05-Index/Ingest Queue.md` rows Phase 1 just added, one at a time, in the recommended order — delegating each row to `agents/ingest-runner.md`, same as a standalone `/ingest` call, with the same quality gate (Feynman, Reviewer). Nothing here skips those checks for speed.
-- Phase 2 only reaches Thesis creation once there is at least one reviewed Concept and Entity note to ground it in — if the sources don't add up to an actionable call yet, stop at Concepts and say so, rather than forcing a thin Thesis.
+- **Phase 2** is Munger (the orchestrating session) working through `05-Index/Ingest Queue.md` rows Phase 1 just added, one at a time, in the recommended order — delegating each row to `agents/ingest-runner.md`, same as a standalone `/ingest` call. The independent checks run twice per ticker, not per source: once on the evidence the thesis will rely on, once on the draft (Steps 8a and 8b).
+- Phase 2 only reaches Thesis creation once there is an Entity note and at least one Concept whose supporting claims passed the Step 8a gate to ground it in — if the sources don't add up to an actionable call yet, stop at Concepts and say so, rather than forcing a thin Thesis.
 
 ## Step 0: Ask whether the user already has source(s)
 
@@ -120,11 +121,13 @@ Determine the sequence, generally:
 
 ## Step 7: Delegate to `agents/ingest-runner.md` per item, in that order
 
-One source at a time, not batched. Each pass produces a Raw file, a Source Note (Researcher), a quality-gate pass (Feynman on numbers, Reviewer on logic/bear-case for anything materially thesis-relevant), and Concept/Entity extraction (Darwin) where warranted. A broken/paywalled/not-found source from Phase 1 is skipped here, not guessed around.
+One source at a time, not batched. Each pass produces a Raw file, a Source Note with every claim at `verification: pending`, Entity updates, and Concept extraction (Darwin) where warranted. No Feynman/Reviewer pass per source: most claims in a filing never reach the thesis, so checking them all spends two sub-agents per source for claims nobody uses. A broken/paywalled/not-found source from Phase 1 is skipped here, not guessed around.
 
-## Step 8: Delegate the Thesis draft to `agents/leopold.md`
+## Step 8: Evidence gate, then the Thesis draft (`agents/leopold.md`)
 
-Once at least one Concept and the Entity note exist and have passed review, delegate to `agents/leopold.md` to draft `02-Wiki/Theses/<slug>.md` from `04-Schema/Templates/Thesis.md` — every claim linked back to the Concepts/Entities/Source notes just created, contrary case and Competitive Position included, `review_date` set. Leopold's draft then goes back through Feynman (numbers) and Reviewer (bear case, moat/competitors) before it's marked reviewed. If the ingested material doesn't yet support an actionable call, Leopold stops at Concepts/Entities and says why, instead of forcing a thin Thesis just to complete the pipeline.
+**8a. Evidence gate (before drafting).** List the Source Note claims the thesis will stand on: numbers in the base case, guidance, management quotes, anything in a kill condition. Spawn Feynman on that list only. `ingest-runner` and Feynman cannot edit notes for this, so Munger applies Feynman's Verification table to the Source Notes. A claim that fails or stays `pending` cannot carry the base case; say so in the thesis instead of leaning on it.
+
+**8b. Draft and thesis gate.** Delegate to `agents/leopold.md` to draft `02-Wiki/Theses/<slug>.md` from `04-Schema/Templates/Thesis.md`, every claim linked back to the Concepts/Entities/Source notes just created, contrary case and Competitive Position included, `review_date` set. The draft then goes through Feynman (numbers) and Reviewer (bear case, moat/competitors) before it's marked reviewed; both are read-only, so Leopold or Munger applies their changes. If the ingested material doesn't yet support an actionable call, Leopold stops at Concepts/Entities and says why, instead of forcing a thin Thesis just to complete the pipeline.
 
 ## Output format — full pipeline (`/research <ticker>`)
 
@@ -132,7 +135,7 @@ Report to the user:
 - Sources found and their link status (verified-open / broken / paywalled / not-found).
 - Files staged in `01-Raw/inbox/`, then their final location after Phase 2 classification.
 - Source Notes created, with verification status per claim.
-- Concepts/Entities created or updated, and by whom (Darwin, after Feynman/Reviewer passed).
+- Concepts/Entities created or updated (Darwin), and which claims passed the Step 8a evidence gate.
 - The Thesis file, if created — or, if not, exactly what's missing to write one.
 - Anything you could not find — so the user can supply it manually instead of you guessing.
 
