@@ -12,3 +12,5 @@ __pycache__/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Dashboard lives in dashboard/ (its own .gitignore covers node_modules and generated data).

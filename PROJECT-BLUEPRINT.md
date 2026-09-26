@@ -77,8 +77,6 @@ llm-wiki-investing-course/
 │   ├── agents/                  # 9 sub-agents — Munger (orchestrator) + 8 specialists
 │   │   ├── peter-lynch.md       # find & verify primary sources
 │   │   ├── ingest-runner.md     # execute the ingest pipeline for one source
-│   │   ├── rene.md              # video/transcript ingestion
-│   │   ├── researcher.md        # source note + claim table
 │   │   ├── feynman.md           # fact and number audit
 │   │   ├── reviewer.md          # logic, thesis, bear-case, moat/competitor review
 │   │   ├── darwin.md            # durable concept extraction
@@ -289,8 +287,6 @@ Full command-by-command diagrams (ใครส่งงานให้ใคร,
 | Munger (orchestrator) | route work, delegate, verify each step ก่อนไปต่อ, โพสต์ checklist ความคืบหน้า | ไม่ทำงานเฉพาะทางของ sub-agent เอง |
 | Peter Lynch | หา + verify primary source ของ ticker, stage เข้า inbox | ไม่เขียน source note/concept/thesis |
 | Ingest Runner | รัน ingest pipeline ให้ครบ 1 source ต่อครั้ง | ไม่ทำงานของ delegate เอง แค่เรียงลำดับ |
-| René | transcript/metadata เข้า Raw | ไม่สรุป thesis |
-| Researcher | distill source note + claim table | ไม่ตรวจตัวเลข/ตัดสิน logic |
 | Feynman | fact, number, period, quote audit; เปิดลิงก์ตรวจซ้ำเอง | ไม่ตัดสิน narrative ดี/ไม่ดี |
 | Reviewer | logic, causal chain, bear case, moat/คู่แข่ง | ไม่ตรวจเลขแทน Feynman |
 | Darwin | concepts จาก reviewed source notes | ไม่สร้าง concept จาก raw ตรง ๆ |
@@ -369,7 +365,7 @@ Prompt ที่ดีไม่ใช่แค่คำถามดี แต่
 ```mermaid
 flowchart LR
     W1[Week 1<br/>folders + templates<br/>5 source notes manually]
-    W2[Week 2<br/>Ingest Queue<br/>René/Feynman as needed]
+    W2[Week 2<br/>Ingest Queue<br/>Feynman as needed]
     W3[Week 3–4<br/>Reviewer + lint/catalog]
     W4[15–20 sources<br/>Darwin + topic indexes]
     W5[Advanced<br/>MCP connector / paper portfolio]
@@ -377,7 +373,7 @@ flowchart LR
 ```
 
 1. **Week 1:** ใช้ raw, source note, links และ Log ให้คล่องก่อน. ไม่ต้องมี automation.
-2. **Week 2:** เปิด Ingest Queue; เพิ่ม René เมื่อ video เยอะ และ Feynman เมื่อมีตัวเลขที่กระทบ thesis.
+2. **Week 2:** เปิด Ingest Queue; เพิ่ม Feynman เมื่อมีตัวเลขที่กระทบ thesis.
 3. **Week 3–4:** เพิ่ม Reviewer; เริ่ม lint/catalog เมื่อ links เริ่มมาก.
 4. **หลังมี 15–20 source notes:** เปิด Darwin เพื่อสร้าง Concepts อย่างมีฐาน evidence.
 5. **Advanced:** เชื่อม MCP data tools หรือ paper portfolio แยกจากเงินจริงเมื่อ workflow หลักเสถียรแล้ว.

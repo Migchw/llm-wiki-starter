@@ -2,6 +2,8 @@
 
 > Canonical project-agent configuration lives in [`.agents/AGENTS.md`](.agents/AGENTS.md).
 
+0. **Preflight ก่อนเริ่มงานทุกครั้ง:** `git fetch origin` → `git status -sb` → `git log --oneline -10 @{u}` → `git pull --rebase`. วอลต์นี้ใช้สลับหลายเครื่อง ต้องอ่าน commit ล่าสุดและ pull ก่อนเสมอ; รายละเอียดอยู่ใน [`.agents/AGENTS.md`](.agents/AGENTS.md).
+
 1. ห้ามแก้เนื้อหาใน `01-Raw/`; หากแปลงใหม่ให้สร้างไฟล์ derived ใหม่.
 2. ห้ามสร้างตัวเลข, quote, วันที่ หรือ fact ลงทุนโดยไม่มี source ตรวจย้อนกลับได้.
 3. ทุก source note link ไป raw อย่างน้อยหนึ่งไฟล์; ทุก concept/thesis link ไป source notes.
@@ -11,7 +13,8 @@
 ## Core Lean Ingestion Principles (Fast, Token-Efficient & No Over-Engineering)
 
 1. **Python-First & Tiered Raw Extraction:**
-   - ใช้ `python scripts/fetch_source.py "<URL หรือ Path>" --type <type>` (ขับเคลื่อนด้วย `bs4`, `playwright`, และ `markitdown`) ดึงและแปลงข้อมูลลง `01-Raw/` เสมอ
+   - ใช้ `py scripts/fetch_source.py "<URL หรือ Path>" --type <type>` (ขับเคลื่อนด้วย `bs4`, `playwright`, `markitdown`, และ `yt-dlp`+`FFmpeg`) ดึงและแปลงข้อมูลลง `01-Raw/` เสมอ
+   - หากเป็นวิดีโอหรือเอกสารที่มีแผนภูมิ/กราฟ/สไลด์สำคัญ ให้ดึงภาพลง `06-Assets/<slug>/` และฝังใน `## Key Exhibits & Slides` ของ Source Note
 2. **Direct Single-Pass Ingestion for Standard Sources:**
    - บทความ ข่าว หรือเอกสารเดี่ยว (ขนาด S/M) ให้รันแบบ Direct Single-Pass จบใน Session เดียว (<30-45 วินาที) ไม่ต้อง Spawn Sub-agents ซ้ำซ้อน
 3. **Selective & Concise Concepts:**
@@ -19,3 +22,8 @@
    - **Concept (`02-Wiki/Concepts/`):** สกัดเฉพาะเมื่อมี **Durable Mental Model** หรือ **Structural Shift** ที่น่าสนใจและนำไปใช้ซ้ำได้จริง โดยเฉพาะการตัดสินใจเชิงโครงสร้าง เช่น **การจัดสรรเงินทุน (Capital Allocation), การตัดขายธุรกิจผลตอบแทนต่ำเพื่อมุ่งเน้นธุรกิจหลัก (Strategic Divestment / Portfolio Rationalization), การขยายตัวของมาร์จิ้นเชิงโครงสร้าง, หรือการเปลี่ยนแปลงของ Capital Cycle / Moat** และเขียน Concept ให้กระชับ ตรงประเด็น ไม่มีน้ำ
 4. **Concise Activity Logging:**
    - บันทึกใน `03-Logs/Log.md` สั้นกระชับ 1–2 ประโยค ระบุแหล่งที่มา สาระสำคัญ และไฟล์ที่สร้าง/แก้ไข
+5. **Visual Exhibits & Slide Capture:**
+   - สำหรับเอกสารที่มีสไลด์นำเสนอ, กราฟผลประกอบการ, แผนภาพสถาปัตยกรรม (Earnings decks, Investor Day, Technical Specs, Video slides) ให้สกัดหรือจัดเก็บภาพแผนภูมิลง `06-Assets/<slug>/` เสมอ
+   - ฝังภาพลงใน Source Note ใต้ `## Key Exhibits & Slides` และฝังลงใน Investment Thesis ใต้ `## Key Exhibits & Visual Evidence` พร้อมระบุที่มา คำอธิบาย และนัยสำคัญต่อนักลงทุน
+   - เปิดตรวจและคัดเฉพาะภาพที่ช่วยตรวจ claim หรืออธิบายกลไก พร้อม timestamp/page; ตัดภาพผู้พูด ภาพตกแต่ง ภาพเบลอ และภาพซ้ำออก
+   - Entity เพิ่ม `## Visual identity` ได้เมื่อมีภาพจากแหล่งที่ตรวจย้อนกลับได้ พร้อมคำบรรยายที่มา และห้ามใช้ภาพแทนหลักฐานของ claim
