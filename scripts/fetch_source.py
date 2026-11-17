@@ -8,7 +8,7 @@ Supports:
 2. YouTube Videos:
    - Automated transcript extraction with timestamps via youtube-transcript-api / yt-dlp
 3. Local Documents:
-   - Tier 3: MarkItDown for Documents (PDF, DOCX, PPTX, XLSX)
+   - Tier 3: OpenThai OCR for PDFs and large images, MarkItDown for Office documents
 """
 
 import sys
@@ -16,11 +16,15 @@ import os
 import re
 import datetime
 import urllib.request
+from urllib.parse import urlsplit
 import argparse
 from pathlib import Path
 import tempfile
 
 from raw_capture import write_capture
+from openthai_ocr import IMAGE_SUFFIXES, MODEL as OCR_MODEL, needs_ocr, ocr_markdown
+
+DOCUMENT_SUFFIXES = IMAGE_SUFFIXES | {".pdf", ".docx", ".pptx", ".xlsx"}
 
 # Ensure UTF-8 output on Windows
 sys.stdout.reconfigure(encoding='utf-8')
@@ -324,37 +328,44 @@ def fetch_document_url(url: str, output_dir: Path = None, media_type: str = "fil
         output_dir = vault_root / "01-Raw" / media_type
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    url_clean = url.split('?')[0]
-    filename = url_clean.split('/')[-1] if '/' in url_clean else "document.pdf"
-    if not any(filename.endswith(ext) for ext in ['.pdf', '.docx', '.pptx', '.xlsx']):
+    filename = Path(urlsplit(url).path).name or "document.pdf"
+    if Path(filename).suffix.lower() not in DOCUMENT_SUFFIXES:
         filename += ".pdf"
 
     # Conversion must not stage downloads over files already in 01-Raw.
     with tempfile.TemporaryDirectory(prefix="wiki-document-") as temporary:
-        temp_doc_path = Path(temporary) / filename
+        temp_doc_path = Path(temporary) / ("document" + Path(filename).suffix)
         temp_doc_path.write_bytes(data)
-
-        body_text = ""
-        if MarkItDown:
-            try:
-                md = MarkItDown()
-                res = md.convert(str(temp_doc_path))
-                body_text = res.text_content
-            except Exception as e:
-                print(f"MarkItDown failed ({e}), falling back...")
-
-        if not body_text:
-            try:
-                import pypdf
-                reader = pypdf.PdfReader(str(temp_doc_path))
-                body_text = "\n\n".join([p.extract_text() for p in reader.pages if p.extract_text()])
-            except Exception as e:
-                print(f"PyPDF failed ({e})")
+        if needs_ocr(temp_doc_path):
+            body_text, method = ocr_markdown(temp_doc_path), OCR_MODEL
+        elif temp_doc_path.suffix.lower() in IMAGE_SUFFIXES:
+            if not MarkItDown:
+                raise RuntimeError("Install MarkItDown to convert this small image.")
+            body_text = MarkItDown().convert(str(temp_doc_path)).text_content
+            method = "markitdown"
+        else:
+            body_text, method = "", "unconverted"
+            if MarkItDown:
+                try:
+                    body_text = MarkItDown().convert(str(temp_doc_path)).text_content
+                    method = "markitdown"
+                except Exception as error:
+                    print(f"MarkItDown failed ({error}), falling back...")
+            if not body_text:
+                try:
+                    import pypdf
+                    reader = pypdf.PdfReader(str(temp_doc_path))
+                    body_text = "\n\n".join(filter(None, (page.extract_text() for page in reader.pages)))
+                    method = "pypdf"
+                except Exception as error:
+                    print(f"PyPDF failed ({error})")
 
     title = filename.rsplit('.', 1)[0]
     published = datetime.date.today().isoformat()
     publisher = "SET" if "set.or.th" in url else "Company Filing"
     author = "Management"
+    if Path(filename).suffix.lower() in IMAGE_SUFFIXES:
+        publisher, author = urlsplit(url).hostname or "Web", "Unknown"
 
     lines = [l.strip() for l in body_text.splitlines() if l.strip()]
     if lines:
@@ -402,7 +413,7 @@ publisher: "{publisher}"
 author: "{author}"
 published: {published}
 captured: {datetime.date.today().isoformat()}
-conversion_method: markitdown
+conversion_method: {method}
 status: raw
 raw_file: "{raw_document.as_posix()}"
 images: 0
@@ -427,9 +438,9 @@ def fetch_url(url: str, output_dir: Path = None, media_type: str = "article", fo
     if "youtube.com" in url or "youtu.be" in url:
         return fetch_youtube_video(url, output_dir=output_dir, timestamps=timestamps)
 
-    # Check if Direct Document URL (PDF, DOCX, PPTX, XLSX)
-    url_clean = url.lower().split('?')[0]
-    if url_clean.endswith(('.pdf', '.docx', '.pptx', '.xlsx')) or (media_type in ['filing', 'book'] and '.pdf' in url_clean):
+    # Direct document and raster image URLs can include a query or fragment.
+    url_clean = urlsplit(url).path.lower()
+    if Path(url_clean).suffix in DOCUMENT_SUFFIXES or (media_type in ['filing', 'book'] and '.pdf' in url_clean):
         return fetch_document_url(url, output_dir=output_dir, media_type=media_type)
 
     html = ""
@@ -509,12 +520,17 @@ def convert_local_file(file_path: str, media_type: str = "book") -> Path:
     date_prefix = datetime.date.today().strftime('%Y%m%d')
     slug = f"{date_prefix}_{clean_slug(src.stem)}"
     
-    body_text = ""
-    if MarkItDown:
+    if needs_ocr(src):
+        body_text, method = ocr_markdown(src), OCR_MODEL
+    elif MarkItDown:
+        method = "markitdown"
         md = MarkItDown()
         res = md.convert(str(src))
         body_text = res.text_content
+    elif src.suffix.lower() in IMAGE_SUFFIXES:
+        raise RuntimeError("Install MarkItDown to convert this small image.")
     else:
+        method = "plain-text"
         with open(src, 'r', encoding='utf-8', errors='ignore') as f:
             body_text = f.read()
 
@@ -527,7 +543,7 @@ publisher: "Local File"
 author: "Unknown"
 published: {datetime.date.today().isoformat()}
 captured: {datetime.date.today().isoformat()}
-conversion_method: markitdown
+conversion_method: {method}
 status: raw
 raw_file: "{src.as_posix()}"
 tags: []

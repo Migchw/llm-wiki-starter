@@ -74,7 +74,7 @@ git pull --rebase
    - ใช้ `py scripts/fetch_source.py "<URL หรือ Path>" --type <type>` (ขับเคลื่อนด้วย `bs4`, `playwright`, `markitdown`, และ `yt-dlp`+`FFmpeg`) ดึงและแปลงข้อมูลลง `01-Raw/` เสมอ
    - **Tier 1 (Fast HTTP):** ดึงผ่าน BS4 ภายใน <0.5 วินาที
    - **Tier 2 (Playwright Fallback):** หากเจอเว็บที่เป็น Dynamic/SPA (React, Vue, SET) สลับไปใช้ Headless Chromium อัตโนมัติ
-   - **Tier 3 (MarkItDown):** สำหรับแปลง PDF, PPTX, DOCX, XLSX ในเครื่อง
+   - **Tier 3 (Documents):** OpenThai OCR สำหรับ PDF และภาพขนาดใหญ่, MarkItDown สำหรับ PPTX, DOCX, XLSX
    - **Tier 4 (Video & Keyframe Capture):** สำหรับ YouTube / วิดีโอ ดึง transcript พร้อมสกัดภาพแผนภูมิ/สไลด์/วัตถุจัดแสดงสำคัญลง `06-Assets/<slug>/` ผ่าน `yt-dlp` + `FFmpeg`
    - ห้ามใช้ LLM scrape เว็บดิบเข้า context โดยตรง เพื่อประหยัด Token และตัดขยะ CSS/JS
 2. **Direct Single-Pass Ingestion for Standard Sources:**

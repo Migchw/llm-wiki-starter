@@ -146,10 +146,20 @@ python -m playwright install chromium
 
 Fetcher จะลอง HTTP ก่อน และใช้ Playwright เป็น fallback เมื่อมีการติดตั้งไว้ การ render หน้าเว็บไม่ได้รับประกันว่าจะผ่านเว็บที่ต้อง login หรือบล็อก bot
 
-**PDF ที่มีข้อความ และไฟล์ DOCX / PPTX / XLSX**
+**PDF และภาพสแกนภาษาไทยหรืออังกฤษ**
 
 ```bash
-python -m pip install "markitdown[pdf,docx,pptx,xlsx]" pypdf
+python -m pip install -r scripts/requirements-ocr.txt
+```
+
+ทุก PDF จะถูกเรนเดอร์ทีละหน้าแล้วอ่านด้วย [OpenThai2.0-OCR-Text](https://huggingface.co/iapp/OpenThai2.0-OCR-Text) บน CPU ในเครื่อง ครั้งแรกต้องใช้อินเทอร์เน็ตเพื่อดาวน์โหลดโมเดล หลังจากนั้นใช้แคชเดิมได้ เอกสารที่นำเข้าอยู่ในเครื่องตลอดการทำ OCR
+
+สำหรับ PNG, JPEG, WebP, TIFF และ BMP ตัว fetcher ใช้ OCR เมื่อภาพมีอย่างน้อย 2 ล้านพิกเซล ไฟล์มีขนาดตั้งแต่ 2 MiB หรือมีหลายเฟรม ภาพขนาดเล็กใช้ MarkItDown ตามเดิม ไฟล์ Markdown ใน `01-Raw/<type>/` มีหัวข้อ `## Page 1` ตามลำดับหน้าและเก็บบรรทัดข้อความตามที่อ่านได้ ควรเทียบตัวเลขและคอลัมน์กับต้นฉบับ เพราะโมเดลอ่านตารางออกมาเป็นบรรทัดข้อความ
+
+**ไฟล์ DOCX / PPTX / XLSX และภาพขนาดเล็ก**
+
+```bash
+python -m pip install "markitdown[docx,pptx,xlsx]"
 ```
 
 **YouTube ที่มี transcript ให้เข้าถึงได้**
@@ -158,7 +168,7 @@ python -m pip install "markitdown[pdf,docx,pptx,xlsx]" pypdf
 python -m pip install youtube-transcript-api
 ```
 
-ตัว fetcher ปัจจุบันยังไม่ได้ทำ OCR ให้ PDF สแกน หรือถอดเสียงวิดีโอที่ไม่มี transcript โดยอัตโนมัติ หากเนื้อหาที่ได้ว่างหรือขาดช่วง ให้หาแหล่งข้อมูลที่อ่านได้ก่อนนำไปสรุป
+ตัว fetcher ปัจจุบันยังไม่ได้ถอดเสียงวิดีโอที่ไม่มี transcript โดยอัตโนมัติ หากเนื้อหาที่ได้ว่างหรือขาดช่วง ให้หาแหล่งข้อมูลที่อ่านได้ก่อนนำไปสรุป
 
 </details>
 
@@ -207,10 +217,11 @@ Peter Lynch ที่เรียกโดยตรงจะหยุดหล�
 python scripts/fetch_source.py "<ARTICLE_URL>" --type article
 python scripts/fetch_source.py "<DOCUMENT_URL>" --type filing
 python scripts/fetch_source.py "<LOCAL_PDF_PATH>" --type filing
+python scripts/fetch_source.py "<SCAN_IMAGE_PATH>" --type book
 python scripts/fetch_source.py "<YOUTUBE_URL>" --type video
 ```
 
-ใช้ URL ที่ลงท้ายด้วย `.pdf`, `.docx`, `.pptx` หรือ `.xlsx` สำหรับเอกสารโดยตรง เพิ่ม `--playwright` เมื่อต้องการบังคับ render เว็บด้วย Chromium
+สำหรับลิงก์ดาวน์โหลดโดยตรง ให้ใช้ URL ที่ path ลงท้ายด้วยนามสกุลเอกสารหรือภาพที่รองรับ เพิ่ม `--playwright` เมื่อต้องการบังคับ render เว็บด้วย Chromium
 
 CLI แสดง `SAVED_RAW: <path>` หลังบันทึกไฟล์ ทำเฉพาะขั้น Raw capture ส่วน Source Note และ Thesis เป็นงานของ agent ตรวจเนื้อหาในไฟล์ทุกครั้ง เพราะการบันทึกสำเร็จไม่ได้แปลว่าดึงเนื้อหาได้ครบ
 
