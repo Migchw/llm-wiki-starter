@@ -1,0 +1,7 @@
+huggingface-hub>=0.30
+numpy
+onnxruntime
+opencv-python-headless
+Pillow>=11
+pyclipper
+pypdfium2>=4.30

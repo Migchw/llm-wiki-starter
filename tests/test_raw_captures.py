@@ -131,7 +131,9 @@ class CaptureTests(unittest.TestCase):
         module = FETCHERS[0]
         converter = SimpleNamespace(convert=lambda path: SimpleNamespace(text_content="Document evidence"))
         with patch.object(module.urllib.request, "urlopen", return_value=io.BytesIO(data)):
-            with patch.object(module, "MarkItDown", return_value=converter):
+            with patch.object(module, "MarkItDown", return_value=converter), patch.object(
+                module, "ocr_markdown", return_value="Document evidence"
+            ):
                 note = module.fetch_document_url(url, output_dir=output)
         raw = Path(re.search(r'^raw_file: "(.*)"$', note.read_text(), re.M).group(1))
         return note, raw

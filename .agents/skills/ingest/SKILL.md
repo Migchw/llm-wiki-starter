@@ -41,12 +41,12 @@ flowchart TD
    - **Tier 1:** Fast HTTP + BeautifulSoup (<0.5s)
    - **Tier 2 (Playwright Fallback):** หากเจอเว็บที่เป็น Dynamic/SPA หรือ JS-rendered จะสลับไปใช้ Playwright Headless Chromium อัตโนมัติ (หรือใช้ `--playwright` เพื่อบังคับใช้)
 
-2. **For Local Documents (PDF, DOCX, PPTX, XLSX) (Tier 3):**
+2. **For Documents and Scanned Images (local paths or direct URLs) (Tier 3):**
    Run:
    ```bash
    py scripts/fetch_source.py "<path/to/file>" --type <filing|book|dataset>
    ```
-   แปลงเนื้อหาอย่างรวดเร็วและสะอาดผ่าน `markitdown`.
+   The fetcher uses OpenThai OCR for PDFs and large images and writes Markdown with page headings. Install `scripts/requirements-ocr.txt` for this route. Office files use MarkItDown.
 
 3. **For YouTube / Videos:**
    - ใช้ `scripts/fetch_source.py "<URL>" --type video` ดึง timestamped transcript ลง `01-Raw/video/` (ใช้ `--timestamps` ระบุวินาทีที่จะแคปภาพ)
